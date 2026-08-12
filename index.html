@@ -1,1 +1,127 @@
-//
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#2F2927">
+    <title>UMBRA</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <main id="app">
+
+        <!-- VISTA INICIO -->
+        <section id="vista-inicio" class="vista activa">
+
+            <header class="hero">
+                <p class="marca">UMBRA</p>
+
+                <h1>
+                    Café de verdad,<br>
+                    en casa.
+                </h1>
+
+                <p class="hero-texto">
+                    Elige tu método y te acompañamos paso a paso.
+                </p>
+            </header>
+
+            <section class="contenido">
+                <div class="encabezado-seccion">
+                    <span class="numero-seccion">01</span>
+
+                    <div>
+                        <p class="eyebrow">PREPARACIÓN</p>
+                        <h2>¿Qué vas a preparar hoy?</h2>
+                    </div>
+                </div>
+
+                <div id="lista-metodos" class="lista-metodos">
+                    <!-- JS inserta métodos aquí -->
+                </div>
+            </section>
+
+        </section>
+
+        <!-- VISTA MÉTODO -->
+        <section id="vista-preparacion" class="vista">
+
+            <header class="barra-superior">
+                <button class="boton-icono" id="btn-volver" type="button" aria-label="Volver">
+                    ←
+                </button>
+
+                <span class="marca-pequena">UMBRA</span>
+            </header>
+
+            <section class="preparacion">
+                <p id="metodo-categoria" class="eyebrow">MÉTODO</p>
+
+                <h1 id="metodo-nombre">Prensa Francesa</h1>
+
+                <p id="metodo-descripcion" class="descripcion"></p>
+
+                <div class="datos-metodo">
+                    <article class="dato">
+                        <span class="dato-etiqueta">TEMPERATURA</span>
+                        <strong id="metodo-temperatura">—</strong>
+                    </article>
+
+                    <article class="dato">
+                        <span class="dato-etiqueta">MOLIENDA</span>
+                        <strong id="metodo-molienda">—</strong>
+                    </article>
+                </div>
+
+                <section class="calculadora">
+                    <p class="eyebrow">TU RECETA</p>
+
+                    <div class="control-cafe">
+                        <div>
+                            <span class="dato-etiqueta">CAFÉ</span>
+
+                            <div class="cantidad">
+                                <button id="btn-menos" type="button" aria-label="Disminuir café">−</button>
+
+                                <strong>
+                                    <span id="cantidad-cafe">20</span>
+                                    <small>g</small>
+                                </strong>
+
+                                <button id="btn-mas" type="button" aria-label="Aumentar café">+</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="selector-intensidad">
+                        <span class="dato-etiqueta">INTENSIDAD</span>
+
+                        <div id="opciones-intensidad" class="opciones-intensidad">
+                            <!-- JS inserta ratios -->
+                        </div>
+                    </div>
+
+                    <div class="resultado-receta">
+                        <span>AGUA</span>
+                        <strong>
+                            <span id="cantidad-agua">320</span>
+                            ml
+                        </strong>
+                    </div>
+
+                    <button id="btn-preparar" class="boton-principal" type="button">
+                        INICIAR PREPARACIÓN
+                    </button>
+                </section>
+            </section>
+
+        </section>
+
+    </main>
+
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
