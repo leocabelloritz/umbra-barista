@@ -8,6 +8,7 @@
     --white: #FFFFFF;
 }
 
+
 /* =========================
    BASE
 ========================= */
@@ -22,10 +23,19 @@ html {
 
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
     background: var(--bg);
+
     color: var(--dark);
-    -webkit-font-smoothing: antialiased;
+
+    -webkit-font-smoothing:
+        antialiased;
 }
 
 button {
@@ -36,6 +46,7 @@ button {
     width: 100%;
     min-height: 100vh;
 }
+
 
 /* =========================
    VISTAS
@@ -50,110 +61,167 @@ button {
     display: block;
 }
 
+
 /* =========================
    HERO
 ========================= */
 
 .hero {
     min-height: 55vh;
+
     padding:
         max(32px, env(safe-area-inset-top))
         24px
         48px;
+
     display: flex;
+
     flex-direction: column;
+
     justify-content: flex-end;
 }
 
 .marca {
     margin: 0 0 auto;
+
     font-size: 0.85rem;
+
     font-weight: 700;
+
     letter-spacing: 0.35em;
 }
 
 .hero h1 {
     margin: 0;
+
     max-width: 340px;
-    font-size: clamp(3rem, 14vw, 5rem);
+
+    font-size:
+        clamp(3rem, 14vw, 5rem);
+
     line-height: 0.95;
+
     letter-spacing: -0.06em;
+
     font-weight: 500;
 }
 
 .hero-texto {
     max-width: 300px;
+
     margin: 24px 0 0;
+
     color: var(--muted);
+
     font-size: 1rem;
+
     line-height: 1.6;
 }
+
 
 /* =========================
    CONTENIDO
 ========================= */
 
 .contenido {
-    background: var(--surface-soft);
-    border-radius: 32px 32px 0 0;
-    padding: 36px 20px 48px;
+    background:
+        var(--surface-soft);
+
+    border-radius:
+        32px 32px 0 0;
+
+    padding:
+        36px 20px 48px;
+
     min-height: 50vh;
 }
 
 .encabezado-seccion {
     display: flex;
+
     gap: 18px;
+
     align-items: flex-start;
+
     margin-bottom: 28px;
 }
 
 .numero-seccion {
     font-size: 0.75rem;
+
     font-weight: 700;
+
     color: var(--muted);
+
     padding-top: 3px;
 }
 
 .eyebrow {
     margin: 0 0 8px;
+
     font-size: 0.72rem;
+
     font-weight: 700;
+
     letter-spacing: 0.18em;
+
     color: var(--muted);
 }
 
 .encabezado-seccion h2 {
     margin: 0;
+
     max-width: 280px;
+
     font-size: 1.8rem;
+
     line-height: 1.1;
+
     font-weight: 500;
+
     letter-spacing: -0.03em;
 }
 
+
 /* =========================
-   TARJETAS DE MÉTODO
+   TARJETAS
 ========================= */
 
 .lista-metodos {
     display: flex;
+
     flex-direction: column;
+
     gap: 12px;
 }
 
 .tarjeta-metodo {
     width: 100%;
+
     min-height: 110px;
-    border: 1px solid var(--line);
+
+    border:
+        1px solid var(--line);
+
     border-radius: 22px;
+
     background: transparent;
+
     color: var(--dark);
+
     padding: 20px;
+
     display: flex;
-    justify-content: space-between;
+
+    justify-content:
+        space-between;
+
     align-items: center;
+
     text-align: left;
+
     cursor: pointer;
+
     transition:
         transform 0.15s ease,
         background 0.15s ease;
@@ -161,32 +229,47 @@ button {
 
 .tarjeta-metodo:active {
     transform: scale(0.98);
-    background: var(--surface);
+
+    background:
+        var(--surface);
 }
 
 .tarjeta-metodo div {
     display: flex;
+
     flex-direction: column;
+
     gap: 8px;
 }
 
 .metodo-tipo {
     font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-    color: var(--muted);
+
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        0.16em;
+
+    color:
+        var(--muted);
 }
 
 .tarjeta-metodo strong {
     font-size: 1.45rem;
+
     font-weight: 500;
-    letter-spacing: -0.03em;
+
+    letter-spacing:
+        -0.03em;
 }
 
 .flecha {
     font-size: 1.6rem;
+
     font-weight: 300;
 }
+
 
 /* =========================
    BARRA SUPERIOR
@@ -194,55 +277,87 @@ button {
 
 .barra-superior {
     min-height: 90px;
+
     padding:
         max(18px, env(safe-area-inset-top))
         20px
         16px;
+
     display: flex;
+
     align-items: center;
-    justify-content: space-between;
+
+    justify-content:
+        space-between;
 }
 
 .boton-icono {
     width: 46px;
+
     height: 46px;
+
     border: none;
+
     border-radius: 50%;
-    background: var(--surface-soft);
-    color: var(--dark);
+
+    background:
+        var(--surface-soft);
+
+    color:
+        var(--dark);
+
     font-size: 1.4rem;
+
     cursor: pointer;
 }
 
 .marca-pequena {
     font-size: 0.75rem;
+
     font-weight: 700;
-    letter-spacing: 0.25em;
+
+    letter-spacing:
+        0.25em;
 }
+
 
 /* =========================
    PANTALLA MÉTODO
 ========================= */
 
 .preparacion {
-    padding: 24px 20px 48px;
+    padding:
+        24px 20px 48px;
 }
 
 .preparacion > h1 {
     margin: 0;
-    font-size: clamp(2.8rem, 12vw, 4.5rem);
+
+    font-size:
+        clamp(2.8rem, 12vw, 4.5rem);
+
     font-weight: 500;
+
     line-height: 0.95;
-    letter-spacing: -0.06em;
+
+    letter-spacing:
+        -0.06em;
 }
 
 .descripcion {
-    margin: 20px 0 32px;
+    margin:
+        20px 0 32px;
+
     max-width: 360px;
-    color: var(--muted);
+
+    color:
+        var(--muted);
+
     font-size: 1rem;
+
     line-height: 1.6;
 }
+
 
 /* =========================
    DATOS DEL MÉTODO
@@ -250,41 +365,64 @@ button {
 
 .datos-metodo {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+
+    grid-template-columns:
+        1fr 1fr;
+
     gap: 12px;
+
     margin-bottom: 28px;
 }
 
 .dato {
     min-height: 120px;
+
     padding: 18px;
+
     border-radius: 20px;
-    background: var(--surface);
+
+    background:
+        var(--surface);
+
     display: flex;
+
     flex-direction: column;
-    justify-content: space-between;
+
+    justify-content:
+        space-between;
 }
 
 .dato-etiqueta {
     font-size: 0.68rem;
+
     font-weight: 700;
-    letter-spacing: 0.15em;
-    color: var(--muted);
+
+    letter-spacing:
+        0.15em;
+
+    color:
+        var(--muted);
 }
 
 .dato strong {
     font-size: 1.35rem;
+
     font-weight: 500;
 }
+
 
 /* =========================
    CALCULADORA
 ========================= */
 
 .calculadora {
-    background: var(--surface-soft);
+    background:
+        var(--surface-soft);
+
     border-radius: 28px;
-    padding: 24px 18px;
+
+    padding:
+        24px 18px;
 }
 
 .control-cafe {
@@ -293,37 +431,59 @@ button {
 
 .cantidad {
     display: flex;
-    justify-content: space-between;
+
+    justify-content:
+        space-between;
+
     align-items: center;
+
     margin-top: 18px;
 }
 
 .cantidad button {
     width: 52px;
+
     height: 52px;
+
     border-radius: 50%;
-    border: 1px solid var(--line);
-    background: transparent;
-    color: var(--dark);
+
+    border:
+        1px solid var(--line);
+
+    background:
+        transparent;
+
+    color:
+        var(--dark);
+
     font-size: 1.6rem;
+
     cursor: pointer;
 }
 
 .cantidad button:active {
-    background: var(--surface);
+    background:
+        var(--surface);
 }
 
 .cantidad strong {
     font-size: 3.3rem;
+
     font-weight: 500;
-    letter-spacing: -0.05em;
+
+    letter-spacing:
+        -0.05em;
 }
 
 .cantidad small {
     font-size: 1.1rem;
-    color: var(--muted);
+
+    color:
+        var(--muted);
+
     font-weight: 500;
 }
+
 
 /* =========================
    INTENSIDAD
@@ -335,9 +495,13 @@ button {
 
 .opciones-intensidad {
     display: flex;
+
     gap: 8px;
+
     margin-top: 12px;
+
     overflow-x: auto;
+
     scrollbar-width: none;
 }
 
@@ -347,21 +511,40 @@ button {
 
 .boton-ratio {
     flex: 1;
+
     min-width: max-content;
-    border: 1px solid var(--line);
+
+    border:
+        1px solid var(--line);
+
     border-radius: 999px;
-    padding: 12px 16px;
-    background: transparent;
-    color: var(--dark);
-    font-size: 0.85rem;
+
+    padding:
+        12px 16px;
+
+    background:
+        transparent;
+
+    color:
+        var(--dark);
+
+    font-size:
+        0.85rem;
+
     cursor: pointer;
 }
 
 .boton-ratio.activo {
-    background: var(--dark);
-    border-color: var(--dark);
-    color: var(--white);
+    background:
+        var(--dark);
+
+    border-color:
+        var(--dark);
+
+    color:
+        var(--white);
 }
+
 
 /* =========================
    RESULTADO
@@ -369,47 +552,363 @@ button {
 
 .resultado-receta {
     margin-top: 32px;
+
     padding: 22px 0;
-    border-top: 1px solid var(--line);
+
+    border-top:
+        1px solid var(--line);
+
     display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        flex-end;
 }
 
 .resultado-receta > span {
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    color: var(--muted);
+    font-size:
+        0.7rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.15em;
+
+    color:
+        var(--muted);
 }
 
 .resultado-receta strong {
-    font-size: 2.2rem;
-    font-weight: 500;
-    letter-spacing: -0.04em;
+    font-size:
+        2.2rem;
+
+    font-weight:
+        500;
+
+    letter-spacing:
+        -0.04em;
 }
 
+
 /* =========================
-   BOTÓN PRINCIPAL
+   BOTONES
 ========================= */
 
 .boton-principal {
     width: 100%;
+
     border: none;
+
     border-radius: 18px;
-    background: var(--dark);
-    color: var(--white);
+
+    background:
+        var(--dark);
+
+    color:
+        var(--white);
+
     padding: 20px;
+
     margin-top: 12px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
+
+    font-size:
+        0.8rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.14em;
+
     cursor: pointer;
 }
 
 .boton-principal:active {
-    transform: scale(0.99);
+    transform:
+        scale(0.99);
 }
+
+.boton-secundario {
+    width: 100%;
+
+    border:
+        1px solid var(--dark);
+
+    border-radius:
+        18px;
+
+    background:
+        transparent;
+
+    color:
+        var(--dark);
+
+    padding:
+        20px;
+
+    margin-top:
+        12px;
+
+    font-size:
+        0.8rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.14em;
+
+    cursor:
+        pointer;
+}
+
+
+/* =========================
+   PREPARACIÓN GUIADA
+========================= */
+
+.guiada {
+    min-height:
+        calc(100vh - 90px);
+
+    padding:
+        18px 20px 32px;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.progreso-superior {
+    display: flex;
+
+    justify-content:
+        space-between;
+
+    gap: 16px;
+
+    font-size:
+        0.67rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.12em;
+
+    color:
+        var(--muted);
+}
+
+.barra-progreso {
+    width: 100%;
+
+    height: 3px;
+
+    margin-top: 14px;
+
+    background:
+        var(--line);
+
+    overflow:
+        hidden;
+}
+
+#barra-progreso-activa {
+    height: 100%;
+
+    width: 0;
+
+    background:
+        var(--dark);
+
+    transition:
+        width 0.4s ease;
+}
+
+.contenido-paso {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content:
+        center;
+
+    padding:
+        48px 0;
+}
+
+.contenido-paso h1 {
+    margin: 0;
+
+    font-size:
+        clamp(3.4rem, 16vw, 5.5rem);
+
+    line-height:
+        0.95;
+
+    letter-spacing:
+        -0.06em;
+
+    font-weight:
+        500;
+}
+
+.paso-instruccion {
+    max-width:
+        340px;
+
+    margin:
+        24px 0 0;
+
+    color:
+        var(--muted);
+
+    font-size:
+        1.1rem;
+
+    line-height:
+        1.6;
+}
+
+.timer-guiado {
+    margin-top:
+        42px;
+
+    font-size:
+        clamp(5rem, 24vw, 8rem);
+
+    font-weight:
+        400;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        -0.08em;
+
+    font-variant-numeric:
+        tabular-nums;
+}
+
+.acciones-guiadas {
+    padding-bottom:
+        max(
+            10px,
+            env(safe-area-inset-bottom)
+        );
+}
+
+
+/* =========================
+   FINAL
+========================= */
+
+.final-preparacion {
+    min-height:
+        calc(100vh - 90px);
+
+    padding:
+        32px 20px 48px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+}
+
+.final-preparacion h1 {
+    margin: 0;
+
+    max-width:
+        350px;
+
+    font-size:
+        clamp(3.6rem, 16vw, 5.5rem);
+
+    line-height:
+        0.95;
+
+    letter-spacing:
+        -0.06em;
+
+    font-weight:
+        500;
+}
+
+.descripcion-final {
+    margin:
+        24px 0 44px;
+
+    max-width:
+        320px;
+
+    color:
+        var(--muted);
+
+    line-height:
+        1.6;
+}
+
+.resumen-final {
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    border-top:
+        1px solid var(--line);
+
+    margin-bottom:
+        auto;
+}
+
+.resumen-final div {
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    padding:
+        18px 0;
+
+    border-bottom:
+        1px solid var(--line);
+}
+
+.resumen-final span {
+    font-size:
+        0.7rem;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        0.14em;
+
+    color:
+        var(--muted);
+}
+
+.resumen-final strong {
+    font-size:
+        1.1rem;
+
+    font-weight:
+        500;
+}
+
 
 /* =========================
    PANTALLAS GRANDES
@@ -419,15 +918,23 @@ button {
 
     #app {
         max-width: 520px;
-        margin: 0 auto;
+
+        margin:
+            0 auto;
     }
 
     body {
-        background: #D8CDC7;
+        background:
+            #D8CDC7;
     }
 
     .vista {
-        background: var(--bg);
-        box-shadow: 0 0 60px rgba(0,0,0,0.08);
+        background:
+            var(--bg);
+
+        box-shadow:
+            0 0 60px
+            rgba(0, 0, 0, 0.08);
     }
+
 }
