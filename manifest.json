@@ -1,9 +1,9 @@
 {
-  "name": "UMBRA",
-  "short_name": "UMBRA",
-  "start_url": "./index.html",
-  "display": "standalone",
-  "background_color": "#F4EEE9",
-  "theme_color": "#2F2927",
-  "icons": []
+    "name": "UMBRA",
+    "short_name": "UMBRA",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#F3EDE8",
+    "theme_color": "#2F2927",
+    "icons": []
 }
