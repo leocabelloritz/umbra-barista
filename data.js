@@ -33,22 +33,24 @@ const METODOS = {
             }
         ],
 
+        parametros: {
+            bloomMultiplicador: 3
+        },
+
         pasos: [
 
             {
                 nombre: "Bloom",
                 tipo: "timer",
                 tiempo: 30,
-                instruccion:
-                    "Agrega una pequeña cantidad de agua y humedece todo el café."
+                agua: "bloom"
             },
 
             {
                 nombre: "Vertido",
                 tipo: "accion",
                 tiempo: 0,
-                instruccion:
-                    "Agrega lentamente el resto del agua."
+                agua: "restante"
             },
 
             {
@@ -105,22 +107,24 @@ const METODOS = {
             }
         ],
 
+        parametros: {
+            bloomMultiplicador: 3
+        },
+
         pasos: [
 
             {
                 nombre: "Bloom",
                 tipo: "timer",
                 tiempo: 30,
-                instruccion:
-                    "Humedece todo el café y espera."
+                agua: "bloom"
             },
 
             {
                 nombre: "Vertido",
                 tipo: "timer",
                 tiempo: 150,
-                instruccion:
-                    "Agrega el agua lentamente en movimientos circulares."
+                agua: "restante"
             }
 
         ]
@@ -161,6 +165,8 @@ const METODOS = {
             }
         ],
 
+        parametros: {},
+
         pasos: [
 
             {
@@ -168,7 +174,7 @@ const METODOS = {
                 tipo: "timer",
                 tiempo: 90,
                 instruccion:
-                    "Agrega el agua, mezcla suavemente y espera."
+                    "Agrega toda el agua y mezcla suavemente."
             },
 
             {
@@ -206,6 +212,8 @@ const METODOS = {
                 ratio: 10
             }
         ],
+
+        parametros: {},
 
         pasos: []
 
