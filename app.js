@@ -1,15 +1,12 @@
 let metodoActual = null;
 
 let gramosCafe = 20;
-
 let ratioActual = 16;
 
 let pasoActual = 0;
 
 let temporizador = null;
-
 let temporizadorCorriendo = false;
-
 let segundosRestantes = 0;
 
 let wakeLock = null;
@@ -104,21 +101,14 @@ function mostrarVista(vista) {
     document
         .querySelectorAll(".vista")
         .forEach(elemento => {
-
             elemento.classList.remove("activa");
-
         });
-
 
     vista.classList.add("activa");
 
-
     window.scrollTo({
-
         top: 0,
-
         behavior: "smooth"
-
     });
 
 }
@@ -132,21 +122,16 @@ function cargarMetodos() {
 
     listaMetodos.innerHTML = "";
 
-
     Object.values(METODOS).forEach(metodo => {
 
         const boton =
             document.createElement("button");
 
-
         boton.className =
             "tarjeta-metodo";
 
-
         boton.innerHTML = `
-
             <div>
-
                 <span class="metodo-tipo">
                     ${metodo.subtitulo}
                 </span>
@@ -154,24 +139,17 @@ function cargarMetodos() {
                 <strong>
                     ${metodo.nombre}
                 </strong>
-
             </div>
 
             <span class="flecha">
                 →
             </span>
-
         `;
 
-
         boton.addEventListener(
-
             "click",
-
             () => abrirMetodo(metodo.id)
-
         );
-
 
         listaMetodos.appendChild(boton);
 
@@ -189,38 +167,29 @@ function abrirMetodo(idMetodo) {
     metodoActual =
         METODOS[idMetodo];
 
-
     gramosCafe =
         metodoActual.cafeDefault;
-
 
     ratioActual =
         metodoActual.ratioDefault;
 
-
     metodoNombre.textContent =
         metodoActual.nombre;
-
 
     metodoCategoria.textContent =
         metodoActual.subtitulo.toUpperCase();
 
-
     metodoDescripcion.textContent =
         metodoActual.descripcion;
-
 
     metodoTemperatura.textContent =
         metodoActual.temperatura;
 
-
     metodoMolienda.textContent =
         metodoActual.molienda;
 
-
     cantidadCafe.textContent =
         gramosCafe;
-
 
     cargarRatios();
 
@@ -239,59 +208,42 @@ function cargarRatios() {
 
     opcionesIntensidad.innerHTML = "";
 
-
     metodoActual.ratios.forEach(opcion => {
 
         const boton =
             document.createElement("button");
 
-
         boton.className =
             "boton-ratio";
 
-
         boton.textContent =
             opcion.nombre;
-
 
         if (
             opcion.ratio ===
             metodoActual.ratioDefault
         ) {
-
             boton.classList.add("activo");
-
         }
 
-
         boton.addEventListener(
-
             "click",
-
             () => {
 
                 ratioActual =
                     opcion.ratio;
 
-
                 document
                     .querySelectorAll(".boton-ratio")
                     .forEach(btn => {
-
                         btn.classList.remove("activo");
-
                     });
-
 
                 boton.classList.add("activo");
 
-
                 calcularAgua();
-
             }
-
         );
-
 
         opcionesIntensidad.appendChild(
             boton
@@ -310,38 +262,105 @@ function cambiarCafe(cantidad) {
 
     gramosCafe += cantidad;
 
-
     if (gramosCafe < 5) {
-
         gramosCafe = 5;
-
     }
-
 
     if (gramosCafe > 100) {
-
         gramosCafe = 100;
-
     }
-
 
     cantidadCafe.textContent =
         gramosCafe;
-
 
     calcularAgua();
 
 }
 
 
+function obtenerAguaTotal() {
+
+    return Math.round(
+        gramosCafe * ratioActual
+    );
+
+}
+
+
+function obtenerAguaBloom() {
+
+    const multiplicador =
+        metodoActual?.parametros?.bloomMultiplicador || 3;
+
+    const bloom =
+        gramosCafe * multiplicador;
+
+    const aguaTotal =
+        obtenerAguaTotal();
+
+    return Math.min(
+        Math.round(bloom),
+        aguaTotal
+    );
+
+}
+
+
+function obtenerAguaRestante() {
+
+    return Math.max(
+        obtenerAguaTotal() - obtenerAguaBloom(),
+        0
+    );
+
+}
+
+
 function calcularAgua() {
 
-    const agua =
-        gramosCafe * ratioActual;
-
-
     cantidadAgua.textContent =
-        agua;
+        obtenerAguaTotal();
+
+}
+
+
+// ================================
+// INSTRUCCIONES DINÁMICAS
+// ================================
+
+function obtenerInstruccionPaso(paso) {
+
+    if (paso.agua === "bloom") {
+
+        const aguaBloom =
+            obtenerAguaBloom();
+
+        return `Agrega ${aguaBloom} ml de agua y humedece uniformemente todo el café.`;
+
+    }
+
+
+    if (paso.agua === "restante") {
+
+        const aguaRestante =
+            obtenerAguaRestante();
+
+        return `Agrega lentamente los ${aguaRestante} ml de agua restantes.`;
+
+    }
+
+
+    if (paso.agua === "total") {
+
+        const aguaTotal =
+            obtenerAguaTotal();
+
+        return `Agrega ${aguaTotal} ml de agua.`;
+
+    }
+
+
+    return paso.instruccion || "";
 
 }
 
@@ -367,9 +386,7 @@ async function solicitarWakeLock() {
 
         }
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.log(
             "Wake Lock no disponible:",
@@ -393,9 +410,7 @@ async function liberarWakeLock() {
 
         }
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.log(error);
 
@@ -411,11 +426,8 @@ async function liberarWakeLock() {
 function iniciarPreparacion() {
 
     if (!metodoActual) {
-
         return;
-
     }
-
 
     if (
         !metodoActual.pasos ||
@@ -427,22 +439,16 @@ function iniciarPreparacion() {
         );
 
         return;
-
     }
 
-
     pasoActual = 0;
-
 
     metodoGuiado.textContent =
         metodoActual.nombre.toUpperCase();
 
-
     solicitarWakeLock();
 
-
     cargarPaso();
-
 
     mostrarVista(vistaGuiada);
 
@@ -457,33 +463,26 @@ function cargarPaso() {
 
     detenerTemporizador();
 
-
     const pasos =
         metodoActual.pasos;
-
 
     const paso =
         pasos[pasoActual];
 
-
     pasoIndicador.textContent =
         `PASO ${pasoActual + 1} DE ${pasos.length}`;
-
 
     const porcentaje =
         ((pasoActual + 1) / pasos.length) * 100;
 
-
     barraProgresoActiva.style.width =
         `${porcentaje}%`;
-
 
     pasoNombre.textContent =
         paso.nombre;
 
-
     pasoInstruccion.textContent =
-        paso.instruccion;
+        obtenerInstruccionPaso(paso);
 
 
     if (paso.tipo === "timer") {
@@ -491,47 +490,34 @@ function cargarPaso() {
         segundosRestantes =
             paso.tiempo;
 
-
         timerGuiado.style.display =
             "block";
-
 
         btnControlTimer.style.display =
             "block";
 
-
         btnSiguientePaso.style.display =
             "none";
-
 
         btnControlTimer.textContent =
             "INICIAR PASO";
 
-
         actualizarDisplayTimer();
 
-    }
-
-    else {
+    } else {
 
         timerGuiado.style.display =
             "none";
 
-
         btnControlTimer.style.display =
             "none";
-
 
         btnSiguientePaso.style.display =
             "block";
 
-
         btnSiguientePaso.textContent =
-
             pasoActual === pasos.length - 1
-
                 ? "TERMINAR PREPARACIÓN"
-
                 : "CONTINUAR";
 
     }
@@ -553,22 +539,17 @@ function iniciarTimerPaso() {
 
     }
 
-
     temporizadorCorriendo = true;
-
 
     btnControlTimer.textContent =
         "PAUSAR";
-
 
     temporizador =
         setInterval(() => {
 
             segundosRestantes--;
 
-
             actualizarDisplayTimer();
-
 
             if (segundosRestantes <= 0) {
 
@@ -593,10 +574,8 @@ function pausarTemporizador() {
 
     }
 
-
     temporizadorCorriendo =
         false;
-
 
     btnControlTimer.textContent =
         "REANUDAR";
@@ -613,7 +592,6 @@ function detenerTemporizador() {
         temporizador = null;
 
     }
-
 
     temporizadorCorriendo =
         false;
@@ -632,13 +610,10 @@ function actualizarDisplayTimer() {
             segundosRestantes / 60
         );
 
-
     const segundos =
         segundosRestantes % 60;
 
-
     timerGuiado.textContent =
-
         `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
 
 }
@@ -660,25 +635,18 @@ function finalizarPasoTimer() {
 
     }
 
-
     timerGuiado.textContent =
         "00:00";
-
 
     btnControlTimer.style.display =
         "none";
 
-
     btnSiguientePaso.style.display =
         "block";
 
-
     btnSiguientePaso.textContent =
-
         pasoActual === metodoActual.pasos.length - 1
-
             ? "TERMINAR PREPARACIÓN"
-
             : "CONTINUAR";
 
 }
@@ -699,9 +667,7 @@ function avanzarPaso() {
 
         cargarPaso();
 
-    }
-
-    else {
+    } else {
 
         finalizarPreparacion();
 
@@ -720,18 +686,14 @@ function finalizarPreparacion() {
 
     liberarWakeLock();
 
-
     resumenMetodo.textContent =
         metodoActual.nombre;
-
 
     resumenCafe.textContent =
         `${gramosCafe} g`;
 
-
     resumenAgua.textContent =
-        `${gramosCafe * ratioActual} ml`;
-
+        `${obtenerAguaTotal()} ml`;
 
     mostrarVista(vistaFinal);
 
@@ -760,82 +722,59 @@ function salirPreparacion() {
 document
     .getElementById("btn-volver")
     .addEventListener(
-
         "click",
-
         () => mostrarVista(vistaInicio)
-
     );
 
 
 document
     .getElementById("btn-menos")
     .addEventListener(
-
         "click",
-
         () => cambiarCafe(-1)
-
     );
 
 
 document
     .getElementById("btn-mas")
     .addEventListener(
-
         "click",
-
         () => cambiarCafe(1)
-
     );
 
 
 document
     .getElementById("btn-preparar")
     .addEventListener(
-
         "click",
-
         iniciarPreparacion
-
     );
 
 
 btnControlTimer.addEventListener(
-
     "click",
-
     iniciarTimerPaso
-
 );
 
 
 btnSiguientePaso.addEventListener(
-
     "click",
-
     avanzarPaso
-
 );
 
 
 document
     .getElementById("btn-salir-guiada")
     .addEventListener(
-
         "click",
-
         salirPreparacion
-
     );
 
 
 document
     .getElementById("btn-volver-inicio")
     .addEventListener(
-
         "click",
-
         () => {
 
             metodoActual = null;
@@ -843,7 +782,6 @@ document
             mostrarVista(vistaInicio);
 
         }
-
     );
 
 
@@ -852,9 +790,7 @@ document
 // ================================
 
 document.addEventListener(
-
     "visibilitychange",
-
     async () => {
 
         if (
@@ -867,7 +803,6 @@ document.addEventListener(
         }
 
     }
-
 );
 
 
