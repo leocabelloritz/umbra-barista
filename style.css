@@ -1004,3 +1004,53 @@ document.addEventListener(
 // ================================
 
 cargarMetodos();
+/* =========================
+   OBJETIVO DEL PASO V2
+========================= */
+
+.objetivo-paso {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+
+    width: 100%;
+
+    margin-top: 28px;
+    padding: 20px 0 22px;
+
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+}
+
+
+.objetivo-paso strong {
+    display: block;
+
+    font-size:
+        clamp(3.4rem, 15vw, 5.5rem);
+
+    font-weight: 500;
+
+    line-height: 0.95;
+
+    letter-spacing: -0.07em;
+
+    font-variant-numeric: tabular-nums;
+}
+
+
+.objetivo-paso span {
+    display: block;
+
+    margin-top: 12px;
+
+    font-size: 0.82rem;
+
+    font-weight: 500;
+
+    letter-spacing: 0.02em;
+
+    color: var(--muted);
+
+    text-transform: none;
+}
