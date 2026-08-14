@@ -3,68 +3,112 @@ const METODOS = {
     francesa: {
 
         id: "francesa",
+
         nombre: "Prensa Francesa",
+
         subtitulo: "Inmersión",
 
         descripcion:
-            "Una preparación simple, envolvente y con mucho cuerpo.",
+            "Cuerpo completo, textura envolvente y una preparación simple de repetir.",
 
-        temperatura: "92–94 °C",
-        molienda: "Gruesa",
+        temperatura:
+            "92–94 °C",
 
-        cafeDefault: 20,
-        ratioDefault: 16,
+        molienda:
+            "Gruesa",
+
+        cafeDefault:
+            20,
+
+        ratioDefault:
+            16,
 
         ratios: [
+
             {
                 id: "suave",
                 nombre: "Suave",
                 ratio: 17
             },
+
             {
                 id: "equilibrado",
                 nombre: "Equilibrado",
                 ratio: 16
             },
+
             {
                 id: "intenso",
                 nombre: "Intenso",
                 ratio: 14
             }
+
         ],
 
         parametros: {
+
             bloomMultiplicador: 3
+
         },
 
         pasos: [
 
             {
-                nombre: "Bloom",
-                tipo: "timer",
-                tiempo: 30,
-                agua: "bloom"
+
+                nombre:
+                    "Bloom",
+
+                tipo:
+                    "timer",
+
+                tiempo:
+                    30,
+
+                agua:
+                    "bloom"
+
             },
 
             {
-                nombre: "Vertido",
-                tipo: "accion",
-                agua: "restante"
+
+                nombre:
+                    "Vertido",
+
+                tipo:
+                    "accion",
+
+                agua:
+                    "restante"
+
             },
 
             {
-                nombre: "Infusión",
-                tipo: "timer",
-                tiempo: 240,
+
+                nombre:
+                    "Infusión",
+
+                tipo:
+                    "timer",
+
+                tiempo:
+                    240,
+
                 instruccion:
                     "Deja reposar el café sin moverlo."
+
             },
 
             {
-                nombre: "Prensado",
-                tipo: "accion",
+
+                nombre:
+                    "Prensado",
+
+                tipo:
+                    "accion",
+
                 instruccion:
                     "Baja el émbolo lentamente y de forma constante."
+
             }
 
         ]
@@ -74,76 +118,135 @@ const METODOS = {
 
     v60: {
 
-        id: "v60",
-        nombre: "V60",
-        subtitulo: "Filtrado",
+        id:
+            "v60",
+
+        nombre:
+            "V60",
+
+        subtitulo:
+            "Filtrado",
 
         descripcion:
-            "Una taza limpia, aromática y definida que resalta los matices del café.",
+            "Limpio, brillante y balanceado. Ideal para descubrir los matices del café.",
 
-        temperatura: "90–93 °C",
-        molienda: "Media",
+        temperatura:
+            "90–93 °C",
 
-        cafeDefault: 20,
-        ratioDefault: 16,
+        molienda:
+            "Media",
+
+        cafeDefault:
+            20,
+
+        ratioDefault:
+            16,
 
         ratios: [
+
             {
                 id: "suave",
                 nombre: "Suave",
                 ratio: 17
             },
+
             {
                 id: "equilibrado",
                 nombre: "Equilibrado",
                 ratio: 16
             },
+
             {
                 id: "intenso",
                 nombre: "Intenso",
                 ratio: 15
             }
+
         ],
 
         parametros: {
+
             bloomMultiplicador: 3
+
         },
 
         pasos: [
 
             {
-                nombre: "Bloom",
-                tipo: "timer",
-                tiempo: 45,
-                agua: "bloom"
+
+                nombre:
+                    "Bloom",
+
+                tipo:
+                    "timer",
+
+                tiempo:
+                    45,
+
+                agua:
+                    "bloom"
+
             },
 
             {
-                nombre: "Primer vertido",
-                tipo: "accion",
-                agua: "acumulado",
-                porcentaje: 0.50
+
+                nombre:
+                    "Primer vertido",
+
+                tipo:
+                    "accion",
+
+                agua:
+                    "acumulado",
+
+                porcentaje:
+                    0.50
+
             },
 
             {
-                nombre: "Segundo vertido",
-                tipo: "accion",
-                agua: "acumulado",
-                porcentaje: 0.75
+
+                nombre:
+                    "Segundo vertido",
+
+                tipo:
+                    "accion",
+
+                agua:
+                    "acumulado",
+
+                porcentaje:
+                    0.75
+
             },
 
             {
-                nombre: "Vertido final",
-                tipo: "accion",
-                agua: "acumulado",
-                porcentaje: 1
+
+                nombre:
+                    "Vertido final",
+
+                tipo:
+                    "accion",
+
+                agua:
+                    "acumulado",
+
+                porcentaje:
+                    1
+
             },
 
             {
-                nombre: "Drenado",
-                tipo: "accion",
+
+                nombre:
+                    "Drenado",
+
+                tipo:
+                    "accion",
+
                 instruccion:
                     "Deja que el agua termine de atravesar el café. Retira el V60 cuando el goteo sea muy lento."
+
             }
 
         ]
@@ -153,35 +256,50 @@ const METODOS = {
 
     aeropress: {
 
-        id: "aeropress",
-        nombre: "AeroPress",
-        subtitulo: "Presión",
+        id:
+            "aeropress",
+
+        nombre:
+            "AeroPress",
+
+        subtitulo:
+            "Presión",
 
         descripcion:
-            "Rápida, versátil y perfecta para experimentar.",
+            "Versátil, rápida e intensa. Una base perfecta para experimentar.",
 
-        temperatura: "85–90 °C",
-        molienda: "Media fina",
+        temperatura:
+            "85–90 °C",
 
-        cafeDefault: 18,
-        ratioDefault: 15,
+        molienda:
+            "Media fina",
+
+        cafeDefault:
+            18,
+
+        ratioDefault:
+            15,
 
         ratios: [
+
             {
                 id: "suave",
                 nombre: "Suave",
                 ratio: 16
             },
+
             {
                 id: "equilibrado",
                 nombre: "Equilibrado",
                 ratio: 15
             },
+
             {
                 id: "intenso",
                 nombre: "Intenso",
                 ratio: 13
             }
+
         ],
 
         parametros: {},
@@ -189,19 +307,61 @@ const METODOS = {
         pasos: [
 
             {
-                nombre: "Infusión",
-                tipo: "timer",
-                tiempo: 90,
-                instruccion:
-                    "Agrega toda el agua y mezcla suavemente."
+
+                nombre:
+                    "Agua",
+
+                tipo:
+                    "accion",
+
+                agua:
+                    "total"
+
             },
 
             {
-                nombre: "Prensado",
-                tipo: "timer",
-                tiempo: 30,
+
+                nombre:
+                    "Mezcla",
+
+                tipo:
+                    "accion",
+
                 instruccion:
-                    "Presiona de forma lenta y constante."
+                    "Mezcla suavemente durante unos segundos."
+
+            },
+
+            {
+
+                nombre:
+                    "Infusión",
+
+                tipo:
+                    "timer",
+
+                tiempo:
+                    90,
+
+                instruccion:
+                    "Deja infusionar el café."
+
+            },
+
+            {
+
+                nombre:
+                    "Prensado",
+
+                tipo:
+                    "timer",
+
+                tiempo:
+                    30,
+
+                instruccion:
+                    "Presiona lentamente y de forma constante."
+
             }
 
         ]
@@ -211,25 +371,38 @@ const METODOS = {
 
     moka: {
 
-        id: "moka",
-        nombre: "Moka",
-        subtitulo: "Presión",
+        id:
+            "moka",
+
+        nombre:
+            "Moka",
+
+        subtitulo:
+            "Presión",
 
         descripcion:
-            "Café concentrado, intenso y clásico.",
+            "Concentrado, intenso y clásico. Preparación guiada próximamente.",
 
-        temperatura: "80–90 °C",
-        molienda: "Media fina",
+        temperatura:
+            "80–90 °C",
 
-        cafeDefault: 18,
-        ratioDefault: 10,
+        molienda:
+            "Media fina",
+
+        cafeDefault:
+            18,
+
+        ratioDefault:
+            10,
 
         ratios: [
+
             {
                 id: "equilibrado",
                 nombre: "Equilibrado",
                 ratio: 10
             }
+
         ],
 
         parametros: {},
