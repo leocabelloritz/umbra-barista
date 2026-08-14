@@ -1,67 +1,93 @@
 let metodoActual = null;
 
 let gramosCafe = 20;
+
 let ratioActual = 16;
 
 let pasoActual = 0;
 
 let temporizador = null;
+
 let temporizadorCorriendo = false;
+
 let segundosRestantes = 0;
 
 let wakeLock = null;
 
 
 // ================================
-// ELEMENTOS
+// VISTAS
 // ================================
 
-const vistaInicio =
-    document.getElementById("vista-inicio");
+const vistaMetodos =
+    document.getElementById("vista-metodos");
 
-const vistaPreparacion =
-    document.getElementById("vista-preparacion");
+const vistaDetalle =
+    document.getElementById("vista-detalle");
 
-const vistaGuiada =
-    document.getElementById("vista-guiada");
+const vistaGuia =
+    document.getElementById("vista-guia");
 
 const vistaFinal =
     document.getElementById("vista-final");
 
+const vistaJournal =
+    document.getElementById("vista-journal");
+
+
+// ================================
+// ELEMENTOS
+// ================================
 
 const listaMetodos =
     document.getElementById("lista-metodos");
 
-const metodoNombre =
-    document.getElementById("metodo-nombre");
 
-const metodoCategoria =
-    document.getElementById("metodo-categoria");
+const detalleTipo =
+    document.getElementById("detalle-tipo");
 
-const metodoDescripcion =
-    document.getElementById("metodo-descripcion");
+const detalleNombre =
+    document.getElementById("detalle-nombre");
 
-const metodoTemperatura =
-    document.getElementById("metodo-temperatura");
+const detalleDescripcion =
+    document.getElementById("detalle-descripcion");
 
-const metodoMolienda =
-    document.getElementById("metodo-molienda");
+const detalleCafe =
+    document.getElementById("detalle-cafe");
+
+const detalleAgua =
+    document.getElementById("detalle-agua");
+
+const detalleRatio =
+    document.getElementById("detalle-ratio");
+
+const detalleTemperatura =
+    document.getElementById("detalle-temperatura");
+
+const detalleMolienda =
+    document.getElementById("detalle-molienda");
+
 
 const cantidadCafe =
     document.getElementById("cantidad-cafe");
 
-const cantidadAgua =
-    document.getElementById("cantidad-agua");
-
 const opcionesIntensidad =
     document.getElementById("opciones-intensidad");
 
+const listaPasosPreview =
+    document.getElementById("lista-pasos-preview");
+
+
+// GUÍA
+
+const guiaMetodo =
+    document.getElementById("guia-metodo");
 
 const pasoIndicador =
     document.getElementById("paso-indicador");
 
-const metodoGuiado =
-    document.getElementById("metodo-guiado");
+const pasoPorcentaje =
+    document.getElementById("paso-porcentaje");
 
 const barraProgresoActiva =
     document.getElementById("barra-progreso-activa");
@@ -71,6 +97,15 @@ const pasoNombre =
 
 const pasoInstruccion =
     document.getElementById("paso-instruccion");
+
+const objetivoPaso =
+    document.getElementById("objetivo-paso");
+
+const objetivoPasoValor =
+    document.getElementById("objetivo-paso-valor");
+
+const objetivoPasoEtiqueta =
+    document.getElementById("objetivo-paso-etiqueta");
 
 const timerGuiado =
     document.getElementById("timer-guiado");
@@ -82,15 +117,7 @@ const btnSiguientePaso =
     document.getElementById("btn-siguiente-paso");
 
 
-const objetivoPaso =
-    document.getElementById("objetivo-paso");
-
-const objetivoPasoValor =
-    document.getElementById("objetivo-paso-valor");
-
-const objetivoPasoEtiqueta =
-    document.getElementById("objetivo-paso-etiqueta");
-
+// FINAL
 
 const resumenMetodo =
     document.getElementById("resumen-metodo");
@@ -100,6 +127,21 @@ const resumenCafe =
 
 const resumenAgua =
     document.getElementById("resumen-agua");
+
+const resumenRatio =
+    document.getElementById("resumen-ratio");
+
+
+// NAV
+
+const navMetodos =
+    document.getElementById("nav-metodos");
+
+const navGuia =
+    document.getElementById("nav-guia");
+
+const navJournal =
+    document.getElementById("nav-journal");
 
 
 // ================================
@@ -111,65 +153,152 @@ function mostrarVista(vista) {
     document
         .querySelectorAll(".vista")
         .forEach(elemento => {
+
             elemento.classList.remove("activa");
+
         });
+
 
     vista.classList.add("activa");
 
+
     window.scrollTo({
+
         top: 0,
+
         behavior: "smooth"
+
     });
 
 }
 
 
+function actualizarNav(nombre) {
+
+    document
+        .querySelectorAll(".nav-item")
+        .forEach(item => {
+
+            item.classList.remove("activo");
+
+        });
+
+
+    if (nombre === "metodos") {
+
+        navMetodos.classList.add("activo");
+
+    }
+
+
+    if (nombre === "guia") {
+
+        navGuia.classList.add("activo");
+
+    }
+
+
+    if (nombre === "journal") {
+
+        navJournal.classList.add("activo");
+
+    }
+
+}
+
+
 // ================================
-// HOME
+// HOME / MÉTODOS
 // ================================
 
 function cargarMetodos() {
 
     listaMetodos.innerHTML = "";
 
-    Object.values(METODOS).forEach(metodo => {
 
-        const boton =
-            document.createElement("button");
+    Object.values(METODOS).forEach(
+        metodo => {
 
-        boton.className =
-            "tarjeta-metodo";
+            const agua =
+                Math.round(
+                    metodo.cafeDefault *
+                    metodo.ratioDefault
+                );
 
-        boton.innerHTML = `
-            <div>
-                <span class="metodo-tipo">
-                    ${metodo.subtitulo}
+
+            const boton =
+                document.createElement(
+                    "button"
+                );
+
+
+            boton.className =
+                "tarjeta-metodo";
+
+
+            boton.innerHTML = `
+
+                <div class="metodo-grafico">
+                    <span>${metodo.id === "v60" ? "▽" :
+                            metodo.id === "francesa" ? "▥" :
+                            metodo.id === "aeropress" ? "┃" :
+                            "◉"}</span>
+                </div>
+
+                <div class="metodo-info">
+
+                    <span class="metodo-meta">
+                        ${metodo.subtitulo} /
+                    </span>
+
+                    <strong>
+                        ${metodo.nombre}
+                    </strong>
+
+                    <p>
+                        ${metodo.descripcion}
+                    </p>
+
+                    <small>
+                        1:${metodo.ratioDefault}
+                        /
+                        ${metodo.cafeDefault} g
+                        /
+                        ${agua} ml
+                    </small>
+
+                </div>
+
+                <span class="metodo-flecha">
+                    →
                 </span>
 
-                <strong>
-                    ${metodo.nombre}
-                </strong>
-            </div>
+            `;
 
-            <span class="flecha">
-                →
-            </span>
-        `;
 
-        boton.addEventListener(
-            "click",
-            () => abrirMetodo(metodo.id)
-        );
+            boton.addEventListener(
 
-        listaMetodos.appendChild(boton);
+                "click",
 
-    });
+                () => abrirMetodo(
+                    metodo.id
+                )
+
+            );
+
+
+            listaMetodos.appendChild(
+                boton
+            );
+
+        }
+    );
 
 }
 
 
 // ================================
-// MÉTODO
+// ABRIR MÉTODO
 // ================================
 
 function abrirMetodo(idMetodo) {
@@ -177,35 +306,79 @@ function abrirMetodo(idMetodo) {
     metodoActual =
         METODOS[idMetodo];
 
+
     gramosCafe =
         metodoActual.cafeDefault;
+
 
     ratioActual =
         metodoActual.ratioDefault;
 
-    metodoNombre.textContent =
-        metodoActual.nombre;
 
-    metodoCategoria.textContent =
-        metodoActual.subtitulo.toUpperCase();
-
-    metodoDescripcion.textContent =
-        metodoActual.descripcion;
-
-    metodoTemperatura.textContent =
-        metodoActual.temperatura;
-
-    metodoMolienda.textContent =
-        metodoActual.molienda;
-
-    cantidadCafe.textContent =
-        gramosCafe;
+    actualizarDetalle();
 
     cargarRatios();
 
-    calcularAgua();
+    cargarPreviewPasos();
 
-    mostrarVista(vistaPreparacion);
+
+    mostrarVista(
+        vistaDetalle
+    );
+
+
+    actualizarNav(
+        "metodos"
+    );
+
+}
+
+
+// ================================
+// DETALLE
+// ================================
+
+function actualizarDetalle() {
+
+    if (!metodoActual) {
+        return;
+    }
+
+
+    detalleTipo.textContent =
+        `${metodoActual.subtitulo.toUpperCase()} / MÉTODO`;
+
+
+    detalleNombre.textContent =
+        metodoActual.nombre;
+
+
+    detalleDescripcion.textContent =
+        metodoActual.descripcion;
+
+
+    detalleCafe.textContent =
+        `${gramosCafe} g`;
+
+
+    detalleAgua.textContent =
+        `${obtenerAguaTotal()} ml`;
+
+
+    detalleRatio.textContent =
+        `1:${ratioActual}`;
+
+
+    detalleTemperatura.textContent =
+        metodoActual.temperatura;
+
+
+    detalleMolienda.textContent =
+        metodoActual.molienda;
+
+
+    cantidadCafe.textContent =
+        gramosCafe;
 
 }
 
@@ -216,82 +389,134 @@ function abrirMetodo(idMetodo) {
 
 function cargarRatios() {
 
-    opcionesIntensidad.innerHTML = "";
+    opcionesIntensidad.innerHTML =
+        "";
 
-    metodoActual.ratios.forEach(opcion => {
 
-        const boton =
-            document.createElement("button");
+    metodoActual.ratios.forEach(
+        opcion => {
 
-        boton.className =
-            "boton-ratio";
+            const boton =
+                document.createElement(
+                    "button"
+                );
 
-        boton.textContent =
-            opcion.nombre;
 
-        if (
-            opcion.ratio ===
-            metodoActual.ratioDefault
-        ) {
-            boton.classList.add("activo");
-        }
+            boton.className =
+                "boton-ratio";
 
-        boton.addEventListener(
-            "click",
-            () => {
 
-                ratioActual =
-                    opcion.ratio;
+            boton.innerHTML = `
 
-                document
-                    .querySelectorAll(".boton-ratio")
-                    .forEach(btn => {
-                        btn.classList.remove("activo");
-                    });
+                <strong>
+                    ${opcion.nombre}
+                </strong>
 
-                boton.classList.add("activo");
+                <span>
+                    1:${opcion.ratio}
+                </span>
 
-                calcularAgua();
+            `;
+
+
+            if (
+                opcion.ratio ===
+                ratioActual
+            ) {
+
+                boton.classList.add(
+                    "activo"
+                );
+
             }
-        );
 
-        opcionesIntensidad.appendChild(
-            boton
-        );
 
-    });
+            boton.addEventListener(
+
+                "click",
+
+                () => {
+
+                    ratioActual =
+                        opcion.ratio;
+
+
+                    document
+                        .querySelectorAll(
+                            ".boton-ratio"
+                        )
+                        .forEach(btn => {
+
+                            btn.classList.remove(
+                                "activo"
+                            );
+
+                        });
+
+
+                    boton.classList.add(
+                        "activo"
+                    );
+
+
+                    actualizarDetalle();
+
+                    cargarPreviewPasos();
+
+                }
+
+            );
+
+
+            opcionesIntensidad.appendChild(
+                boton
+            );
+
+        }
+    );
 
 }
 
 
 // ================================
-// CAFÉ / AGUA
+// CANTIDAD DE CAFÉ
 // ================================
 
 function cambiarCafe(cantidad) {
 
     gramosCafe += cantidad;
 
+
     if (gramosCafe < 5) {
+
         gramosCafe = 5;
+
     }
+
 
     if (gramosCafe > 100) {
+
         gramosCafe = 100;
+
     }
 
-    cantidadCafe.textContent =
-        gramosCafe;
 
-    calcularAgua();
+    actualizarDetalle();
+
+    cargarPreviewPasos();
 
 }
 
 
+// ================================
+// CÁLCULOS
+// ================================
+
 function obtenerAguaTotal() {
 
     return Math.round(
-        gramosCafe * ratioActual
+        gramosCafe *
+        ratioActual
     );
 
 }
@@ -300,43 +525,44 @@ function obtenerAguaTotal() {
 function obtenerAguaBloom() {
 
     const multiplicador =
-        metodoActual?.parametros?.bloomMultiplicador ?? 3;
+        metodoActual
+            ?.parametros
+            ?.bloomMultiplicador
+        ?? 3;
 
-    const bloom =
-        gramosCafe * multiplicador;
 
     return Math.min(
-        Math.round(bloom),
+
+        Math.round(
+            gramosCafe *
+            multiplicador
+        ),
+
         obtenerAguaTotal()
+
     );
 
 }
 
 
-function obtenerObjetivoAcumulado(porcentaje) {
+function obtenerObjetivoAcumulado(
+    porcentaje
+) {
 
     return Math.round(
-        obtenerAguaTotal() * porcentaje
+        obtenerAguaTotal() *
+        porcentaje
     );
 
 }
 
 
-function calcularAgua() {
-
-    cantidadAgua.textContent =
-        obtenerAguaTotal();
-
-}
-
-
-// ================================
-// AGUA USADA ANTES DEL PASO
-// ================================
-
-function obtenerAguaAnterior(indicePaso) {
+function obtenerAguaAnterior(
+    indicePaso
+) {
 
     let aguaAnterior = 0;
+
 
     for (
         let i = 0;
@@ -348,7 +574,10 @@ function obtenerAguaAnterior(indicePaso) {
             metodoActual.pasos[i];
 
 
-        if (paso.agua === "bloom") {
+        if (
+            paso.agua ===
+            "bloom"
+        ) {
 
             aguaAnterior =
                 obtenerAguaBloom();
@@ -356,7 +585,10 @@ function obtenerAguaAnterior(indicePaso) {
         }
 
 
-        if (paso.agua === "acumulado") {
+        if (
+            paso.agua ===
+            "acumulado"
+        ) {
 
             aguaAnterior =
                 obtenerObjetivoAcumulado(
@@ -378,211 +610,292 @@ function obtenerAguaAnterior(indicePaso) {
 
     }
 
+
     return aguaAnterior;
 
 }
 
 
 // ================================
-// DATOS DEL PASO
+// DATOS DE CADA PASO
 // ================================
 
-function obtenerDatosAguaPaso(
+function obtenerDatosPaso(
     paso,
-    indicePaso
+    indice
 ) {
 
-    if (paso.agua === "bloom") {
+    if (
+        paso.agua ===
+        "bloom"
+    ) {
 
         const cantidad =
             obtenerAguaBloom();
 
+
         return {
-            valor: cantidad,
-            etiqueta: "Agua para este paso",
+
+            valor:
+                `${cantidad} ml`,
+
+            etiqueta:
+                "Agua para este paso",
+
             instruccion:
-                `Agrega ${cantidad} ml de agua, humedece todo el café y espera.`
+                `Agrega ${cantidad} ml de agua y humedece todo el café de forma uniforme.`
+
         };
 
     }
 
 
-    if (paso.agua === "restante") {
+    if (
+        paso.agua ===
+        "restante"
+    ) {
 
         const anterior =
             obtenerAguaAnterior(
-                indicePaso
+                indice
             );
+
 
         const cantidad =
             Math.max(
-                obtenerAguaTotal() - anterior,
+                obtenerAguaTotal() -
+                anterior,
                 0
             );
 
+
         return {
-            valor: cantidad,
-            etiqueta: "Agua restante",
+
+            valor:
+                `${cantidad} ml`,
+
+            etiqueta:
+                "Agua restante",
+
             instruccion:
                 `Agrega lentamente los ${cantidad} ml restantes.`
+
         };
 
     }
 
 
-    if (paso.agua === "acumulado") {
+    if (
+        paso.agua ===
+        "acumulado"
+    ) {
 
         const objetivo =
             obtenerObjetivoAcumulado(
                 paso.porcentaje
             );
 
+
         const anterior =
             obtenerAguaAnterior(
-                indicePaso
+                indice
             );
+
 
         const cantidad =
             Math.max(
-                objetivo - anterior,
+                objetivo -
+                anterior,
                 0
             );
 
+
         return {
-            valor: objetivo,
-            etiqueta: "Objetivo en balanza",
+
+            valor:
+                `${objetivo} ml`,
+
+            etiqueta:
+                "Objetivo en balanza",
+
             instruccion:
                 `Agrega ${cantidad} ml lentamente hasta llegar a ${objetivo} ml.`
+
         };
 
     }
 
 
-    if (paso.agua === "total") {
+    if (
+        paso.agua ===
+        "total"
+    ) {
 
         const total =
             obtenerAguaTotal();
 
+
         return {
-            valor: total,
-            etiqueta: "Agua total",
+
+            valor:
+                `${total} ml`,
+
+            etiqueta:
+                "Agua total",
+
             instruccion:
                 `Agrega ${total} ml de agua.`
+
         };
 
     }
 
 
-    return null;
+    return {
+
+        valor:
+            null,
+
+        etiqueta:
+            null,
+
+        instruccion:
+            paso.instruccion || ""
+
+    };
 
 }
 
 
 // ================================
-// OBJETIVO VISUAL
+// PREVIEW DE PASOS
 // ================================
 
-function actualizarObjetivoPaso(
-    paso,
-    indicePaso
-) {
+function cargarPreviewPasos() {
 
-    const datos =
-        obtenerDatosAguaPaso(
-            paso,
-            indicePaso
-        );
+    listaPasosPreview.innerHTML =
+        "";
 
 
-    if (!datos) {
+    if (
+        !metodoActual.pasos ||
+        metodoActual.pasos.length === 0
+    ) {
 
-        objetivoPaso.style.display =
-            "none";
+        listaPasosPreview.innerHTML = `
 
-        pasoInstruccion.textContent =
-            paso.instruccion || "";
+            <div class="sin-guia">
+
+                GUÍA /
+                PRÓXIMAMENTE
+
+            </div>
+
+        `;
 
         return;
 
     }
 
 
-    objetivoPaso.style.display =
-        "flex";
+    metodoActual.pasos.forEach(
+        (paso, indice) => {
 
-
-    objetivoPasoValor.textContent =
-        `${datos.valor} ml`;
-
-
-    objetivoPasoEtiqueta.textContent =
-        datos.etiqueta;
-
-
-    pasoInstruccion.textContent =
-        datos.instruccion;
-
-}
-
-
-// ================================
-// WAKE LOCK
-// ================================
-
-async function solicitarWakeLock() {
-
-    try {
-
-        if (
-            "wakeLock" in navigator &&
-            !wakeLock
-        ) {
-
-            wakeLock =
-                await navigator.wakeLock.request(
-                    "screen"
+            const datos =
+                obtenerDatosPaso(
+                    paso,
+                    indice
                 );
 
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+
+            item.className =
+                "paso-preview";
+
+
+            const numero =
+                String(
+                    indice + 1
+                ).padStart(
+                    2,
+                    "0"
+                );
+
+
+            let meta =
+                "";
+
+
+            if (
+                paso.tipo ===
+                "timer"
+            ) {
+
+                meta =
+                    formatearTiempo(
+                        paso.tiempo
+                    );
+
+            }
+
+
+            if (
+                datos.valor
+            ) {
+
+                meta +=
+                    meta
+                        ? ` / ${datos.valor}`
+                        : datos.valor;
+
+            }
+
+
+            item.innerHTML = `
+
+                <span class="paso-numero">
+                    ${numero}
+                </span>
+
+                <div>
+
+                    <strong>
+                        ${paso.nombre}
+                    </strong>
+
+                    <p>
+                        ${datos.instruccion}
+                    </p>
+
+                    <small>
+                        ${meta}
+                    </small>
+
+                </div>
+
+            `;
+
+
+            listaPasosPreview.appendChild(
+                item
+            );
+
         }
-
-    } catch (error) {
-
-        console.log(
-            "Wake Lock no disponible:",
-            error
-        );
-
-    }
-
-}
-
-
-async function liberarWakeLock() {
-
-    try {
-
-        if (wakeLock) {
-
-            await wakeLock.release();
-
-            wakeLock = null;
-
-        }
-
-    } catch (error) {
-
-        console.log(error);
-
-    }
+    );
 
 }
 
 
 // ================================
-// PREPARACIÓN GUIADA
+// GUÍA
 // ================================
 
-function iniciarPreparacion() {
+function iniciarGuia() {
 
     if (!metodoActual) {
         return;
@@ -595,7 +908,7 @@ function iniciarPreparacion() {
     ) {
 
         alert(
-            "La preparación guiada de este método estará disponible próximamente."
+            "La guía de este método estará disponible próximamente."
         );
 
         return;
@@ -606,8 +919,8 @@ function iniciarPreparacion() {
     pasoActual = 0;
 
 
-    metodoGuiado.textContent =
-        metodoActual.nombre.toUpperCase();
+    guiaMetodo.textContent =
+        `${metodoActual.nombre.toUpperCase()} / ${metodoActual.subtitulo.toUpperCase()}`;
 
 
     solicitarWakeLock();
@@ -616,7 +929,14 @@ function iniciarPreparacion() {
     cargarPaso();
 
 
-    mostrarVista(vistaGuiada);
+    mostrarVista(
+        vistaGuia
+    );
+
+
+    actualizarNav(
+        "guia"
+    );
 
 }
 
@@ -638,12 +958,40 @@ function cargarPaso() {
         pasos[pasoActual];
 
 
+    const numero =
+        String(
+            pasoActual + 1
+        ).padStart(
+            2,
+            "0"
+        );
+
+
+    const total =
+        String(
+            pasos.length
+        ).padStart(
+            2,
+            "0"
+        );
+
+
     pasoIndicador.textContent =
-        `PASO ${pasoActual + 1} DE ${pasos.length}`;
+        `PASO ${numero} / ${total}`;
 
 
     const porcentaje =
-        ((pasoActual + 1) / pasos.length) * 100;
+        Math.round(
+            (
+                (pasoActual + 1) /
+                pasos.length
+            ) *
+            100
+        );
+
+
+    pasoPorcentaje.textContent =
+        `${porcentaje}%`;
 
 
     barraProgresoActiva.style.width =
@@ -654,46 +1002,93 @@ function cargarPaso() {
         paso.nombre;
 
 
-    actualizarObjetivoPaso(
-        paso,
-        pasoActual
-    );
+    const datos =
+        obtenerDatosPaso(
+            paso,
+            pasoActual
+        );
 
 
-    if (paso.tipo === "timer") {
+    pasoInstruccion.textContent =
+        datos.instruccion;
+
+
+    if (
+        datos.valor
+    ) {
+
+        objetivoPaso.style.display =
+            "flex";
+
+
+        objetivoPasoValor.textContent =
+            datos.valor;
+
+
+        objetivoPasoEtiqueta.textContent =
+            datos.etiqueta;
+
+    }
+
+    else {
+
+        objetivoPaso.style.display =
+            "none";
+
+    }
+
+
+    if (
+        paso.tipo ===
+        "timer"
+    ) {
 
         segundosRestantes =
             paso.tiempo;
 
+
         timerGuiado.style.display =
             "block";
 
+
         btnControlTimer.style.display =
-            "block";
+            "flex";
+
 
         btnSiguientePaso.style.display =
             "none";
 
-        btnControlTimer.textContent =
-            "INICIAR PASO";
+
+        btnControlTimer.innerHTML =
+            `INICIAR / <span>▶</span>`;
+
 
         actualizarDisplayTimer();
 
-    } else {
+    }
+
+    else {
 
         timerGuiado.style.display =
             "none";
 
+
         btnControlTimer.style.display =
             "none";
 
-        btnSiguientePaso.style.display =
-            "block";
 
-        btnSiguientePaso.textContent =
-            pasoActual === pasos.length - 1
-                ? "TERMINAR PREPARACIÓN"
-                : "CONTINUAR";
+        btnSiguientePaso.style.display =
+            "flex";
+
+
+        btnSiguientePaso.innerHTML =
+
+            pasoActual ===
+            pasos.length - 1
+
+                ? `TERMINAR / <span>→</span>`
+
+                : `CONTINUAR / <span>→</span>`;
 
     }
 
@@ -706,7 +1101,9 @@ function cargarPaso() {
 
 function iniciarTimerPaso() {
 
-    if (temporizadorCorriendo) {
+    if (
+        temporizadorCorriendo
+    ) {
 
         pausarTemporizador();
 
@@ -719,30 +1116,34 @@ function iniciarTimerPaso() {
         true;
 
 
-    btnControlTimer.textContent =
-        "PAUSAR";
+    btnControlTimer.innerHTML =
+        `PAUSAR / <span>Ⅱ</span>`;
 
 
     temporizador =
-        setInterval(() => {
+        setInterval(
+            () => {
 
-            segundosRestantes--;
-
-
-            actualizarDisplayTimer();
+                segundosRestantes--;
 
 
-            if (
-                segundosRestantes <= 0
-            ) {
+                actualizarDisplayTimer();
 
-                detenerTemporizador();
 
-                finalizarPasoTimer();
+                if (
+                    segundosRestantes <= 0
+                ) {
 
-            }
+                    detenerTemporizador();
 
-        }, 1000);
+                    finalizarPasoTimer();
+
+                }
+
+            },
+
+            1000
+        );
 
 }
 
@@ -755,6 +1156,7 @@ function pausarTemporizador() {
             temporizador
         );
 
+
         temporizador = null;
 
     }
@@ -764,8 +1166,8 @@ function pausarTemporizador() {
         false;
 
 
-    btnControlTimer.textContent =
-        "REANUDAR";
+    btnControlTimer.innerHTML =
+        `REANUDAR / <span>▶</span>`;
 
 }
 
@@ -777,6 +1179,7 @@ function detenerTemporizador() {
         clearInterval(
             temporizador
         );
+
 
         temporizador = null;
 
@@ -791,31 +1194,46 @@ function detenerTemporizador() {
 
 function actualizarDisplayTimer() {
 
+    timerGuiado.textContent =
+        formatearTiempo(
+            segundosRestantes
+        );
+
+}
+
+
+function formatearTiempo(
+    totalSegundos
+) {
+
     const minutos =
         Math.floor(
-            segundosRestantes / 60
+            totalSegundos /
+            60
         );
 
 
     const segundos =
-        segundosRestantes % 60;
+        totalSegundos %
+        60;
 
 
-    timerGuiado.textContent =
-        `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
+    return (
+        `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`
+    );
 
 }
 
 
 function finalizarPasoTimer() {
 
-    if ("vibrate" in navigator) {
+    if (
+        "vibrate" in navigator
+    ) {
 
-        navigator.vibrate([
-            300,
-            150,
-            300
-        ]);
+        navigator.vibrate(
+            [300, 150, 300]
+        );
 
     }
 
@@ -829,19 +1247,23 @@ function finalizarPasoTimer() {
 
 
     btnSiguientePaso.style.display =
-        "block";
+        "flex";
 
 
-    btnSiguientePaso.textContent =
-        pasoActual === metodoActual.pasos.length - 1
-            ? "TERMINAR PREPARACIÓN"
-            : "CONTINUAR";
+    btnSiguientePaso.innerHTML =
+
+        pasoActual ===
+        metodoActual.pasos.length - 1
+
+            ? `TERMINAR / <span>→</span>`
+
+            : `CONTINUAR / <span>→</span>`;
 
 }
 
 
 // ================================
-// AVANZAR
+// AVANZAR PASO
 // ================================
 
 function avanzarPaso() {
@@ -855,7 +1277,9 @@ function avanzarPaso() {
 
         cargarPaso();
 
-    } else {
+    }
+
+    else {
 
         finalizarPreparacion();
 
@@ -887,24 +1311,77 @@ function finalizarPreparacion() {
         `${obtenerAguaTotal()} ml`;
 
 
-    mostrarVista(vistaFinal);
+    resumenRatio.textContent =
+        `1:${ratioActual}`;
+
+
+    mostrarVista(
+        vistaFinal
+    );
+
+
+    actualizarNav(
+        "guia"
+    );
 
 }
 
 
 // ================================
-// SALIR
+// WAKE LOCK
 // ================================
 
-function salirPreparacion() {
+async function solicitarWakeLock() {
 
-    detenerTemporizador();
+    try {
 
-    liberarWakeLock();
+        if (
+            "wakeLock" in navigator &&
+            !wakeLock
+        ) {
 
-    mostrarVista(
-        vistaPreparacion
-    );
+            wakeLock =
+                await navigator
+                    .wakeLock
+                    .request(
+                        "screen"
+                    );
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.log(
+            "Wake Lock no disponible:",
+            error
+        );
+
+    }
+
+}
+
+
+async function liberarWakeLock() {
+
+    try {
+
+        if (wakeLock) {
+
+            await wakeLock.release();
+
+            wakeLock = null;
+
+        }
+
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+    }
 
 }
 
@@ -914,78 +1391,233 @@ function salirPreparacion() {
 // ================================
 
 document
-    .getElementById("btn-volver")
+    .getElementById(
+        "btn-volver-metodos"
+    )
     .addEventListener(
+
         "click",
-        () => mostrarVista(vistaInicio)
-    );
 
-
-document
-    .getElementById("btn-menos")
-    .addEventListener(
-        "click",
-        () => cambiarCafe(-1)
-    );
-
-
-document
-    .getElementById("btn-mas")
-    .addEventListener(
-        "click",
-        () => cambiarCafe(1)
-    );
-
-
-document
-    .getElementById("btn-preparar")
-    .addEventListener(
-        "click",
-        iniciarPreparacion
-    );
-
-
-btnControlTimer.addEventListener(
-    "click",
-    iniciarTimerPaso
-);
-
-
-btnSiguientePaso.addEventListener(
-    "click",
-    avanzarPaso
-);
-
-
-document
-    .getElementById("btn-salir-guiada")
-    .addEventListener(
-        "click",
-        salirPreparacion
-    );
-
-
-document
-    .getElementById("btn-volver-inicio")
-    .addEventListener(
-        "click",
         () => {
 
-            metodoActual = null;
+            mostrarVista(
+                vistaMetodos
+            );
 
-            mostrarVista(vistaInicio);
+            actualizarNav(
+                "metodos"
+            );
 
         }
+
     );
 
 
+document
+    .getElementById(
+        "btn-menos"
+    )
+    .addEventListener(
+
+        "click",
+
+        () => cambiarCafe(-1)
+
+    );
+
+
+document
+    .getElementById(
+        "btn-mas"
+    )
+    .addEventListener(
+
+        "click",
+
+        () => cambiarCafe(1)
+
+    );
+
+
+document
+    .getElementById(
+        "btn-iniciar-guia"
+    )
+    .addEventListener(
+
+        "click",
+
+        iniciarGuia
+
+    );
+
+
+document
+    .getElementById(
+        "btn-salir-guia"
+    )
+    .addEventListener(
+
+        "click",
+
+        () => {
+
+            detenerTemporizador();
+
+            liberarWakeLock();
+
+            mostrarVista(
+                vistaDetalle
+            );
+
+            actualizarNav(
+                "metodos"
+            );
+
+        }
+
+    );
+
+
+btnControlTimer
+    .addEventListener(
+
+        "click",
+
+        iniciarTimerPaso
+
+    );
+
+
+btnSiguientePaso
+    .addEventListener(
+
+        "click",
+
+        avanzarPaso
+
+    );
+
+
+document
+    .getElementById(
+        "btn-volver-inicio"
+    )
+    .addEventListener(
+
+        "click",
+
+        () => {
+
+            mostrarVista(
+                vistaMetodos
+            );
+
+            actualizarNav(
+                "metodos"
+            );
+
+        }
+
+    );
+
+
+// NAV
+
+navMetodos.addEventListener(
+
+    "click",
+
+    () => {
+
+        mostrarVista(
+            vistaMetodos
+        );
+
+        actualizarNav(
+            "metodos"
+        );
+
+    }
+
+);
+
+
+navGuia.addEventListener(
+
+    "click",
+
+    () => {
+
+        if (
+            metodoActual
+        ) {
+
+            mostrarVista(
+                vistaDetalle
+            );
+
+            actualizarNav(
+                "guia"
+            );
+
+        }
+
+        else {
+
+            mostrarVista(
+                vistaMetodos
+            );
+
+            actualizarNav(
+                "metodos"
+            );
+
+        }
+
+    }
+
+);
+
+
+navJournal.addEventListener(
+
+    "click",
+
+    () => {
+
+        mostrarVista(
+            vistaJournal
+        );
+
+        actualizarNav(
+            "journal"
+        );
+
+    }
+
+);
+
+
+// ================================
+// VISIBILIDAD
+// ================================
+
 document.addEventListener(
+
     "visibilitychange",
+
     async () => {
 
         if (
-            document.visibilityState === "visible" &&
-            vistaGuiada.classList.contains("activa")
+            document.visibilityState ===
+            "visible" &&
+
+            vistaGuia
+                .classList
+                .contains(
+                    "activa"
+                )
         ) {
 
             await solicitarWakeLock();
@@ -993,6 +1625,7 @@ document.addEventListener(
         }
 
     }
+
 );
 
 
@@ -1001,3 +1634,7 @@ document.addEventListener(
 // ================================
 
 cargarMetodos();
+
+actualizarNav(
+    "metodos"
+);
