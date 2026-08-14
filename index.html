@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -10,424 +12,664 @@
 
     <meta
         name="theme-color"
-        content="#2F2927"
+        content="#0D0E0F"
     >
 
-    <title>UMBRA</title>
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
 
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css">
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <title>UMBRA / Barista</title>
+
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
-<main id="app">
+<div id="app-shell">
 
     <!-- =========================
-         INICIO
+         HEADER GLOBAL
     ========================== -->
 
-    <section id="vista-inicio" class="vista activa">
+    <header class="app-header">
 
-        <header class="hero">
+        <div class="marca-global">
 
-            <p class="marca">
-                UMBRA
-            </p>
+            <div class="marca-simbolo"></div>
 
-            <h1>
-                Café de verdad,<br>
-                en casa.
-            </h1>
+            <div>
+                <strong>UMBRA</strong>
+                <span>/ BARISTA</span>
+            </div>
 
-            <p class="hero-texto">
-                Elige tu método y te acompañamos paso a paso.
-            </p>
+        </div>
 
-        </header>
+        <button
+            id="btn-menu"
+            class="btn-header"
+            type="button"
+            aria-label="Menú"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+    </header>
 
 
-        <section class="contenido">
+    <!-- =========================
+         CONTENIDO
+    ========================== -->
 
-            <div class="encabezado-seccion">
+    <main id="app">
 
-                <span class="numero-seccion">
-                    01
-                </span>
 
-                <div>
+        <!-- =========================
+             MÉTODOS
+        ========================== -->
 
-                    <p class="eyebrow">
-                        PREPARACIÓN
+        <section
+            id="vista-metodos"
+            class="vista activa"
+        >
+
+            <div class="pagina">
+
+                <div class="intro">
+
+                    <p class="kicker">
+                        01 / RITUAL
                     </p>
 
-                    <h2>
-                        ¿Qué vas a preparar hoy?
-                    </h2>
+                    <h1>
+                        Métodos
+                    </h1>
+
+                    <p class="intro-texto">
+                        Elige cómo preparar tu café.
+                        Nosotros te guiamos en el resto.
+                    </p>
 
                 </div>
 
+
+                <div
+                    id="lista-metodos"
+                    class="lista-metodos"
+                ></div>
+
             </div>
-
-
-            <div
-                id="lista-metodos"
-                class="lista-metodos"
-            ></div>
 
         </section>
 
-    </section>
+
+        <!-- =========================
+             DETALLE
+        ========================== -->
+
+        <section
+            id="vista-detalle"
+            class="vista"
+        >
+
+            <div class="pagina">
+
+                <button
+                    id="btn-volver-metodos"
+                    class="volver"
+                    type="button"
+                >
+                    ← / MÉTODOS
+                </button>
 
 
-    <!-- =========================
-         CONFIGURACIÓN
-    ========================== -->
+                <div class="detalle-cabecera">
 
-    <section id="vista-preparacion" class="vista">
+                    <p
+                        id="detalle-tipo"
+                        class="kicker"
+                    >
+                        FILTRADO / MÉTODO
+                    </p>
 
-        <header class="barra-superior">
+                    <h1 id="detalle-nombre">
+                        V60
+                    </h1>
 
-            <button
-                class="boton-icono"
-                id="btn-volver"
-                type="button"
-                aria-label="Volver"
-            >
-                ←
-            </button>
+                    <p
+                        id="detalle-descripcion"
+                        class="intro-texto"
+                    ></p>
 
-            <span class="marca-pequena">
-                UMBRA
-            </span>
-
-        </header>
+                </div>
 
 
-        <section class="preparacion">
+                <!-- STATS -->
 
-            <p
-                id="metodo-categoria"
-                class="eyebrow"
-            >
-                MÉTODO
-            </p>
+                <section class="stats">
 
-            <h1 id="metodo-nombre">
-                Prensa Francesa
-            </h1>
+                    <div class="stat">
 
-            <p
-                id="metodo-descripcion"
-                class="descripcion"
-            ></p>
+                        <strong id="detalle-cafe">
+                            20 g
+                        </strong>
+
+                        <span>
+                            CAFÉ
+                        </span>
+
+                    </div>
 
 
-            <div class="datos-metodo">
+                    <div class="stat">
 
-                <article class="dato">
+                        <strong id="detalle-agua">
+                            320 ml
+                        </strong>
 
-                    <span class="dato-etiqueta">
-                        TEMPERATURA
-                    </span>
+                        <span>
+                            AGUA
+                        </span>
 
-                    <strong id="metodo-temperatura">
-                        —
-                    </strong>
-
-                </article>
+                    </div>
 
 
-                <article class="dato">
+                    <div class="stat">
 
-                    <span class="dato-etiqueta">
-                        MOLIENDA
-                    </span>
+                        <strong id="detalle-ratio">
+                            1:16
+                        </strong>
 
-                    <strong id="metodo-molienda">
-                        —
-                    </strong>
+                        <span>
+                            RATIO
+                        </span>
 
-                </article>
+                    </div>
+
+                </section>
+
+
+                <!-- DATOS TÉCNICOS -->
+
+                <section class="ficha-tecnica">
+
+                    <div>
+
+                        <span>
+                            TEMPERATURA /
+                        </span>
+
+                        <strong id="detalle-temperatura">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            MOLIENDA /
+                        </span>
+
+                        <strong id="detalle-molienda">
+                            —
+                        </strong>
+
+                    </div>
+
+                </section>
+
+
+                <!-- RECETA -->
+
+                <section class="configuracion">
+
+                    <div class="seccion-titulo">
+
+                        <span>
+                            02 /
+                        </span>
+
+                        <h2>
+                            Receta
+                        </h2>
+
+                    </div>
+
+
+                    <div class="control-cafe">
+
+                        <span class="label-control">
+                            CAFÉ /
+                        </span>
+
+                        <div class="cantidad">
+
+                            <button
+                                id="btn-menos"
+                                type="button"
+                            >
+                                −
+                            </button>
+
+                            <strong>
+                                <span id="cantidad-cafe">
+                                    20
+                                </span>
+
+                                <small>
+                                    g
+                                </small>
+                            </strong>
+
+                            <button
+                                id="btn-mas"
+                                type="button"
+                            >
+                                +
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="control-ratio">
+
+                        <span class="label-control">
+                            INTENSIDAD /
+                        </span>
+
+                        <div
+                            id="opciones-intensidad"
+                            class="opciones-intensidad"
+                        ></div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- PASOS -->
+
+                <section class="pasos-preview">
+
+                    <div class="seccion-titulo">
+
+                        <span>
+                            03 /
+                        </span>
+
+                        <h2>
+                            Pasos
+                        </h2>
+
+                    </div>
+
+
+                    <div
+                        id="lista-pasos-preview"
+                        class="lista-pasos-preview"
+                    ></div>
+
+                </section>
+
+
+                <button
+                    id="btn-iniciar-guia"
+                    class="btn-principal"
+                    type="button"
+                >
+                    EMPEZAR GUÍA /
+                    <span>→</span>
+                </button>
 
             </div>
 
-
-            <section class="calculadora">
-
-                <p class="eyebrow">
-                    TU RECETA
-                </p>
+        </section>
 
 
-                <div class="control-cafe">
+        <!-- =========================
+             GUÍA
+        ========================== -->
 
-                    <span class="dato-etiqueta">
-                        CAFÉ
+        <section
+            id="vista-guia"
+            class="vista"
+        >
+
+            <div class="pagina guia">
+
+                <div class="guia-top">
+
+                    <button
+                        id="btn-salir-guia"
+                        class="volver"
+                        type="button"
+                    >
+                        × / SALIR
+                    </button>
+
+
+                    <span id="guia-metodo">
+                        V60 / FILTRADO
                     </span>
 
-                    <div class="cantidad">
+                </div>
 
-                        <button
-                            id="btn-menos"
-                            type="button"
-                            aria-label="Disminuir café"
-                        >
-                            −
-                        </button>
 
-                        <strong>
-                            <span id="cantidad-cafe">
-                                20
-                            </span>
+                <div class="guia-progreso">
 
-                            <small>
-                                g
-                            </small>
-                        </strong>
+                    <div class="guia-progreso-meta">
 
-                        <button
-                            id="btn-mas"
-                            type="button"
-                            aria-label="Aumentar café"
-                        >
-                            +
-                        </button>
+                        <span id="paso-indicador">
+                            PASO 01 / 05
+                        </span>
+
+                        <span id="paso-porcentaje">
+                            20%
+                        </span>
+
+                    </div>
+
+
+                    <div class="barra-progreso">
+
+                        <div
+                            id="barra-progreso-activa"
+                        ></div>
 
                     </div>
 
                 </div>
 
 
-                <div class="selector-intensidad">
+                <section class="paso-activo">
 
-                    <span class="dato-etiqueta">
-                        INTENSIDAD
-                    </span>
+                    <p class="kicker">
+                        AHORA /
+                    </p>
+
+                    <h1 id="paso-nombre">
+                        Bloom
+                    </h1>
+
 
                     <div
-                        id="opciones-intensidad"
-                        class="opciones-intensidad"
-                    ></div>
+                        id="objetivo-paso"
+                        class="objetivo-paso"
+                    >
 
-                </div>
+                        <strong id="objetivo-paso-valor">
+                            60 ml
+                        </strong>
 
-
-                <div class="resultado-receta">
-
-                    <span>
-                        AGUA
-                    </span>
-
-                    <strong>
-                        <span id="cantidad-agua">
-                            320
+                        <span id="objetivo-paso-etiqueta">
+                            Agua para este paso
                         </span>
-                        ml
-                    </strong>
+
+                    </div>
+
+
+                    <p
+                        id="paso-instruccion"
+                        class="paso-instruccion"
+                    ></p>
+
+
+                    <div
+                        id="timer-guiado"
+                        class="timer-guiado"
+                    >
+                        00:45
+                    </div>
+
+                </section>
+
+
+                <div class="acciones-guia">
+
+                    <button
+                        id="btn-control-timer"
+                        class="btn-principal"
+                        type="button"
+                    >
+                        INICIAR /
+                    </button>
+
+
+                    <button
+                        id="btn-siguiente-paso"
+                        class="btn-secundario"
+                        type="button"
+                    >
+                        CONTINUAR /
+                    </button>
 
                 </div>
 
-
-                <button
-                    id="btn-preparar"
-                    class="boton-principal"
-                    type="button"
-                >
-                    INICIAR PREPARACIÓN
-                </button>
-
-            </section>
+            </div>
 
         </section>
 
-    </section>
 
+        <!-- =========================
+             FINAL
+        ========================== -->
 
-    <!-- =========================
-         PREPARACIÓN GUIADA
-    ========================== -->
+        <section
+            id="vista-final"
+            class="vista"
+        >
 
-    <section id="vista-guiada" class="vista">
+            <div class="pagina final">
 
-        <header class="barra-superior">
-
-            <button
-                class="boton-icono"
-                id="btn-salir-guiada"
-                type="button"
-                aria-label="Salir de la preparación"
-            >
-                ×
-            </button>
-
-            <span class="marca-pequena">
-                UMBRA
-            </span>
-
-        </header>
-
-
-        <section class="guiada">
-
-            <div class="progreso-superior">
-
-                <span id="paso-indicador">
-                    PASO 1 DE 4
-                </span>
-
-                <span id="metodo-guiado">
-                    PRENSA FRANCESA
-                </span>
-
-            </div>
-
-
-            <div class="barra-progreso">
-                <div id="barra-progreso-activa"></div>
-            </div>
-
-
-            <div class="contenido-paso">
-
-                <p class="eyebrow">
-                    AHORA
+                <p class="kicker">
+                    RITUAL / COMPLETADO
                 </p>
 
-                <h1 id="paso-nombre">
-                    Bloom
+                <h1>
+                    Café listo.
                 </h1>
 
+                <p class="intro-texto">
+                    Prueba la taza antes de cambiar nada.
+                    Fíjate en cuerpo, aroma y balance.
+                </p>
 
-                <div
-                    id="objetivo-paso"
-                    class="objetivo-paso"
+
+                <section class="resumen-final">
+
+                    <div>
+
+                        <span>
+                            MÉTODO /
+                        </span>
+
+                        <strong id="resumen-metodo">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            CAFÉ /
+                        </span>
+
+                        <strong id="resumen-cafe">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            AGUA /
+                        </span>
+
+                        <strong id="resumen-agua">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            RATIO /
+                        </span>
+
+                        <strong id="resumen-ratio">
+                            —
+                        </strong>
+
+                    </div>
+
+                </section>
+
+
+                <button
+                    id="btn-volver-inicio"
+                    class="btn-principal"
+                    type="button"
                 >
+                    VOLVER A MÉTODOS /
+                </button>
 
-                    <strong id="objetivo-paso-valor">
-                        60 ml
-                    </strong>
+            </div>
 
-                    <span id="objetivo-paso-etiqueta">
-                        Agua para este paso
+        </section>
+
+
+        <!-- =========================
+             JOURNAL PLACEHOLDER
+        ========================== -->
+
+        <section
+            id="vista-journal"
+            class="vista"
+        >
+
+            <div class="pagina">
+
+                <p class="kicker">
+                    02 / JOURNAL
+                </p>
+
+                <h1 class="titulo-placeholder">
+                    Bitácora
+                </h1>
+
+                <p class="intro-texto">
+                    Aquí podrás guardar preparaciones,
+                    cambios de receta y cafés favoritos.
+                </p>
+
+                <div class="placeholder">
+
+                    <span>
+                        JOURNAL / PRÓXIMAMENTE
                     </span>
 
                 </div>
 
-
-                <p
-                    id="paso-instruccion"
-                    class="paso-instruccion"
-                >
-                    Humedece uniformemente el café.
-                </p>
-
-
-                <div
-                    id="timer-guiado"
-                    class="timer-guiado"
-                >
-                    00:30
-                </div>
-
-            </div>
-
-
-            <div class="acciones-guiadas">
-
-                <button
-                    id="btn-control-timer"
-                    class="boton-principal"
-                    type="button"
-                >
-                    INICIAR PASO
-                </button>
-
-
-                <button
-                    id="btn-siguiente-paso"
-                    class="boton-secundario"
-                    type="button"
-                >
-                    CONTINUAR
-                </button>
-
             </div>
 
         </section>
 
-    </section>
+
+    </main>
 
 
     <!-- =========================
-         FINAL
+         NAVEGACIÓN INFERIOR
     ========================== -->
 
-    <section id="vista-final" class="vista">
+    <nav class="bottom-nav">
 
-        <header class="barra-superior">
+        <button
+            id="nav-metodos"
+            class="nav-item activo"
+            type="button"
+        >
 
-            <span></span>
-
-            <span class="marca-pequena">
-                UMBRA
+            <span class="nav-icon">
+                ◇
             </span>
 
-        </header>
+            <span>
+                MÉTODOS
+            </span>
+
+        </button>
 
 
-        <section class="final-preparacion">
+        <button
+            id="nav-guia"
+            class="nav-item"
+            type="button"
+        >
 
-            <p class="eyebrow">
-                PREPARACIÓN TERMINADA
-            </p>
+            <span class="nav-icon">
+                ◷
+            </span>
 
-            <h1>
-                Café listo.
-            </h1>
+            <span>
+                GUÍA
+            </span>
 
-            <p class="descripcion-final">
-                Disfruta la taza y fíjate en qué sabores aparecen.
-            </p>
-
-
-            <div class="resumen-final">
-
-                <div>
-                    <span>MÉTODO</span>
-                    <strong id="resumen-metodo">—</strong>
-                </div>
-
-                <div>
-                    <span>CAFÉ</span>
-                    <strong id="resumen-cafe">—</strong>
-                </div>
-
-                <div>
-                    <span>AGUA</span>
-                    <strong id="resumen-agua">—</strong>
-                </div>
-
-            </div>
+        </button>
 
 
-            <button
-                id="btn-volver-inicio"
-                class="boton-principal"
-                type="button"
-            >
-                VOLVER AL INICIO
-            </button>
+        <button
+            id="nav-journal"
+            class="nav-item"
+            type="button"
+        >
 
-        </section>
+            <span class="nav-icon">
+                □
+            </span>
 
-    </section>
+            <span>
+                JOURNAL
+            </span>
 
-</main>
+        </button>
+
+    </nav>
+
+</div>
 
 
 <script src="data.js"></script>
 <script src="app.js"></script>
 
 </body>
+
 </html>
