@@ -1,9 +1,9 @@
 {
-    "name": "UMBRA",
+    "name": "UMBRA / Barista",
     "short_name": "UMBRA",
     "start_url": "./index.html",
     "display": "standalone",
-    "background_color": "#F3EDE8",
-    "theme_color": "#2F2927",
+    "background_color": "#0C0D0E",
+    "theme_color": "#0C0D0E",
     "icons": []
 }
