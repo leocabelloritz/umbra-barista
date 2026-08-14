@@ -1,16 +1,32 @@
 :root {
-    --bg: #080909;
-    --surface: #0d0e0f;
-    --surface-raised: #111214;
 
-    --text: #e8e5df;
-    --muted: #8c8984;
-    --dim: #55534f;
+    --bg:
+        #080909;
 
-    --line: rgba(232, 229, 223, 0.11);
-    --line-strong: rgba(232, 229, 223, 0.22);
+    --surface:
+        #0d0e0f;
 
-    --max-width: 440px;
+    --text:
+        #e8e5df;
+
+    --muted:
+        #8c8984;
+
+    --dim:
+        #55534f;
+
+    --line:
+        rgba(232, 229, 223, 0.11);
+
+    --line-strong:
+        rgba(232, 229, 223, 0.22);
+
+    --max-width:
+        440px;
+
+    --bottom-nav-height:
+        66px;
+
 }
 
 
@@ -19,16 +35,26 @@
 ========================================= */
 
 * {
-    box-sizing: border-box;
+    box-sizing:
+        border-box;
 }
+
 
 html {
-    background: var(--bg);
-    scroll-behavior: smooth;
+
+    background:
+        var(--bg);
+
+    scroll-behavior:
+        smooth;
+
 }
 
+
 body {
-    margin: 0;
+
+    margin:
+        0;
 
     background:
         radial-gradient(
@@ -38,7 +64,8 @@ body {
         ),
         var(--bg);
 
-    color: var(--text);
+    color:
+        var(--text);
 
     font-family:
         -apple-system,
@@ -48,183 +75,334 @@ body {
         Arial,
         sans-serif;
 
-    -webkit-font-smoothing: antialiased;
+    -webkit-font-smoothing:
+        antialiased;
+
 }
+
 
 button {
-    font: inherit;
-    color: inherit;
 
-    -webkit-tap-highlight-color: transparent;
+    font:
+        inherit;
+
+    color:
+        inherit;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
 }
 
+
 button:focus {
-    outline: none;
+
+    outline:
+        none;
+
 }
 
 
 /* =========================================
-   APP SHELL
+   SHELL
 ========================================= */
 
 #app-shell {
-    width: 100%;
-    min-height: 100vh;
 
-    background: var(--bg);
+    width:
+        100%;
+
+    min-height:
+        100vh;
+
+    background:
+        var(--bg);
+
 }
+
 
 #app {
+
     padding-bottom:
-        calc(72px + env(safe-area-inset-bottom));
+        calc(
+            var(--bottom-nav-height) +
+            env(safe-area-inset-bottom)
+        );
+
 }
+
 
 .vista {
-    display: none;
+
+    display:
+        none;
+
 }
+
 
 .vista.activa {
-    display: block;
+
+    display:
+        block;
+
 }
 
-.page {
-    width: 100%;
-    max-width: var(--max-width);
 
-    margin: 0 auto;
+.page {
+
+    width:
+        100%;
+
+    max-width:
+        var(--max-width);
+
+    margin:
+        0 auto;
 
     padding:
         24px
         22px
         42px;
+
 }
 
 
 /* =========================================
-   GLOBAL HEADER
+   MODO GUÍA
+========================================= */
+
+body.modo-guia #app {
+
+    padding-bottom:
+        0;
+
+}
+
+
+body.modo-guia .bottom-nav {
+
+    display:
+        none;
+
+}
+
+
+/* =========================================
+   HEADER
 ========================================= */
 
 .app-header {
-    width: 100%;
-    max-width: var(--max-width);
 
-    height: 116px;
+    width:
+        100%;
 
-    margin: 0 auto;
+    max-width:
+        var(--max-width);
+
+    height:
+        116px;
+
+    margin:
+        0 auto;
 
     padding:
-        max(20px, env(safe-area-inset-top))
+        max(
+            20px,
+            env(safe-area-inset-top)
+        )
         22px
         14px;
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
-    justify-content: center;
+    align-items:
+        center;
 
-    position: sticky;
-    top: 0;
+    justify-content:
+        center;
 
-    z-index: 50;
+    position:
+        sticky;
+
+    top:
+        0;
+
+    z-index:
+        50;
 
     background:
-        linear-gradient(
-            rgba(8,9,9,0.96),
-            rgba(8,9,9,0.92)
+        rgba(
+            8,
+            9,
+            9,
+            0.96
         );
 
-    backdrop-filter: blur(18px);
+    backdrop-filter:
+        blur(18px);
+
 }
 
 
 .umbra-logo {
-    display: flex;
-    flex-direction: column;
 
-    align-items: center;
+    display:
+        flex;
 
-    gap: 7px;
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
 }
 
 
 .umbra-logo strong {
-    font-size: 0.66rem;
-    font-weight: 500;
 
-    letter-spacing: 0.31em;
+    font-size:
+        0.66rem;
+
+    font-weight:
+        500;
+
+    letter-spacing:
+        0.31em;
+
 }
 
 
 .umbra-mark {
-    width: 31px;
-    height: 31px;
+
+    width:
+        31px;
+
+    height:
+        31px;
 
     border:
         1.3px solid
-        rgba(232,229,223,0.9);
+        rgba(
+            232,
+            229,
+            223,
+            0.9
+        );
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
-    position: relative;
+    position:
+        relative;
 
-    overflow: hidden;
+    overflow:
+        hidden;
+
 }
 
 
 .umbra-mark span {
-    display: block;
 
-    position: absolute;
+    display:
+        block;
 
-    left: -2px;
-    bottom: -1px;
+    position:
+        absolute;
 
-    width: 35px;
-    height: 15px;
+    left:
+        -2px;
 
-    background: var(--bg);
+    bottom:
+        -1px;
+
+    width:
+        35px;
+
+    height:
+        15px;
+
+    background:
+        var(--bg);
+
 }
 
 
 .header-menu {
-    position: absolute;
 
-    right: 22px;
-    bottom: 29px;
+    position:
+        absolute;
 
-    width: 28px;
-    height: 28px;
+    right:
+        22px;
 
-    border: 0;
-    padding: 0;
+    bottom:
+        29px;
 
-    background: transparent;
+    width:
+        28px;
 
-    display: flex;
-    flex-direction: column;
+    height:
+        28px;
 
-    justify-content: center;
-    align-items: flex-end;
+    border:
+        0;
 
-    gap: 5px;
+    padding:
+        0;
+
+    background:
+        transparent;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    justify-content:
+        center;
+
+    align-items:
+        flex-end;
+
+    gap:
+        5px;
+
 }
 
 
 .header-menu span {
-    display: block;
 
-    height: 1px;
+    display:
+        block;
 
-    background: var(--muted);
+    height:
+        1px;
+
+    background:
+        var(--muted);
+
 }
+
 
 .header-menu span:nth-child(1),
 .header-menu span:nth-child(3) {
-    width: 20px;
+
+    width:
+        20px;
+
 }
 
+
 .header-menu span:nth-child(2) {
-    width: 13px;
+
+    width:
+        13px;
+
 }
 
 
@@ -233,169 +411,261 @@ button:focus {
 ========================================= */
 
 .micro {
-    margin: 0 0 13px;
 
-    color: var(--muted);
+    margin:
+        0 0 13px;
 
-    font-size: 0.62rem;
-    font-weight: 500;
+    color:
+        var(--muted);
 
-    letter-spacing: 0.15em;
+    font-size:
+        0.62rem;
+
+    font-weight:
+        500;
+
+    letter-spacing:
+        0.15em;
+
 }
 
 
 .page-heading h1,
 .final-page h1 {
-    margin: 0;
 
-    font-size: 2rem;
-    line-height: 1.05;
+    margin:
+        0;
 
-    font-weight: 300;
+    font-size:
+        2rem;
 
-    letter-spacing: -0.03em;
+    line-height:
+        1.05;
+
+    font-weight:
+        300;
+
+    letter-spacing:
+        -0.03em;
+
 }
 
 
 .lead {
-    max-width: 310px;
 
-    margin: 14px 0 0;
+    max-width:
+        310px;
 
-    color: var(--muted);
+    margin:
+        14px 0 0;
 
-    font-size: 0.91rem;
-    line-height: 1.55;
+    color:
+        var(--muted);
+
+    font-size:
+        0.91rem;
+
+    line-height:
+        1.55;
+
 }
 
 
 .page-heading {
-    margin-bottom: 28px;
+
+    margin-bottom:
+        28px;
+
 }
 
 
 /* =========================================
-   METHODS LIST
+   MÉTODOS
 ========================================= */
 
 .lista-metodos {
+
     border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .tarjeta-metodo {
-    width: 100%;
 
-    min-height: 110px;
+    width:
+        100%;
 
-    padding: 0;
+    min-height:
+        110px;
 
-    border: 0;
+    padding:
+        0;
+
+    border:
+        0;
+
     border-bottom:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-    background: transparent;
+    background:
+        transparent;
 
-    display: grid;
+    display:
+        grid;
 
     grid-template-columns:
         84px
         minmax(0, 1fr)
         34px;
 
-    text-align: left;
+    text-align:
+        left;
 
-    cursor: pointer;
+    cursor:
+        pointer;
+
 }
 
 
 .tarjeta-metodo:last-child {
-    border-bottom: 0;
+
+    border-bottom:
+        0;
+
 }
 
 
 .metodo-grafico {
+
     border-right:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-    display: flex;
+    display:
+        flex;
 
-    justify-content: center;
-    align-items: center;
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
 }
 
 
 .metodo-grafico span {
-    font-size: 2.1rem;
-    font-weight: 200;
 
-    color: #b2aea8;
+    font-size:
+        2.1rem;
+
+    font-weight:
+        200;
+
+    color:
+        #b2aea8;
+
 }
 
 
 .metodo-info {
+
     padding:
         17px 14px;
 
-    display: flex;
+    display:
+        flex;
 
-    flex-direction: column;
+    flex-direction:
+        column;
 
-    justify-content: center;
+    justify-content:
+        center;
+
 }
 
 
 .metodo-meta {
-    margin-bottom: 4px;
 
-    color: var(--dim);
+    margin-bottom:
+        4px;
 
-    font-size: 0.56rem;
+    color:
+        var(--dim);
 
-    text-transform: uppercase;
+    font-size:
+        0.56rem;
 
-    letter-spacing: 0.13em;
+    text-transform:
+        uppercase;
+
+    letter-spacing:
+        0.13em;
+
 }
 
 
 .metodo-info strong {
-    font-size: 1rem;
-    font-weight: 400;
+
+    font-size:
+        1rem;
+
+    font-weight:
+        400;
+
 }
 
 
 .metodo-info p {
+
     margin:
         5px 0 8px;
 
-    max-width: 230px;
+    max-width:
+        230px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 0.7rem;
-    line-height: 1.45;
+    font-size:
+        0.7rem;
+
+    line-height:
+        1.45;
+
 }
 
 
 .metodo-info small {
-    color: var(--dim);
 
-    font-size: 0.61rem;
+    color:
+        var(--dim);
 
-    letter-spacing: 0.035em;
+    font-size:
+        0.61rem;
+
+    letter-spacing:
+        0.035em;
+
 }
 
 
 .metodo-flecha {
-    display: flex;
 
-    justify-content: center;
-    align-items: center;
+    display:
+        flex;
 
-    color: var(--muted);
+    align-items:
+        center;
 
-    font-size: 1rem;
+    justify-content:
+        center;
+
+    color:
+        var(--muted);
+
 }
 
 
@@ -404,20 +674,31 @@ button:focus {
 ========================================= */
 
 .back-link {
-    margin: 0 0 22px;
-    padding: 0;
 
-    border: 0;
+    margin:
+        0 0 22px;
 
-    background: transparent;
+    padding:
+        0;
 
-    color: var(--muted);
+    border:
+        0;
 
-    font-size: 0.61rem;
+    background:
+        transparent;
 
-    letter-spacing: 0.11em;
+    color:
+        var(--muted);
 
-    cursor: pointer;
+    font-size:
+        0.61rem;
+
+    letter-spacing:
+        0.11em;
+
+    cursor:
+        pointer;
+
 }
 
 
@@ -426,121 +707,205 @@ button:focus {
 ========================================= */
 
 .method-hero {
-    min-height: 156px;
 
-    display: grid;
+    min-height:
+        156px;
+
+    display:
+        grid;
 
     grid-template-columns:
         minmax(0, 1fr)
         84px;
 
-    gap: 12px;
+    gap:
+        12px;
 
-    padding-bottom: 22px;
+    padding-bottom:
+        22px;
 
     border-bottom:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .method-copy {
-    align-self: center;
+
+    align-self:
+        center;
+
 }
 
 
 .method-copy h1 {
-    margin: 0;
 
-    max-width: 265px;
+    margin:
+        0;
 
-    font-size: 1.85rem;
-    font-weight: 300;
+    max-width:
+        265px;
 
-    line-height: 1.05;
+    font-size:
+        1.85rem;
 
-    letter-spacing: -0.035em;
+    font-weight:
+        300;
+
+    line-height:
+        1.05;
+
+    letter-spacing:
+        -0.035em;
+
 }
 
 
 .method-description {
-    max-width: 260px;
+
+    max-width:
+        260px;
 
     margin:
         13px 0 0;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 0.82rem;
+    font-size:
+        0.82rem;
 
-    line-height: 1.55;
+    line-height:
+        1.55;
+
 }
 
 
 /* =========================================
-   METHOD LINE ART
+   METHOD DRAWING
 ========================================= */
 
 .method-illustration {
-    display: flex;
 
-    justify-content: center;
-    align-items: center;
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    align-items:
+        center;
+
 }
 
 
 .method-wire {
-    width: 58px;
-    height: 70px;
 
-    position: relative;
+    width:
+        58px;
+
+    height:
+        70px;
+
+    position:
+        relative;
+
 }
 
 
 .wire-body {
-    position: absolute;
 
-    left: 10px;
-    top: 13px;
+    position:
+        absolute;
 
-    width: 38px;
-    height: 47px;
+    left:
+        10px;
+
+    top:
+        13px;
+
+    width:
+        38px;
+
+    height:
+        47px;
 
     border:
         1px solid
-        rgba(232,229,223,0.55);
+        rgba(
+            232,
+            229,
+            223,
+            0.55
+        );
+
 }
 
 
 .wire-top {
-    position: absolute;
 
-    top: 6px;
-    left: 7px;
+    position:
+        absolute;
 
-    width: 44px;
-    height: 8px;
+    top:
+        6px;
+
+    left:
+        7px;
+
+    width:
+        44px;
+
+    height:
+        8px;
 
     border-top:
         1px solid
-        rgba(232,229,223,0.55);
+        rgba(
+            232,
+            229,
+            223,
+            0.55
+        );
 
     border-bottom:
         1px solid
-        rgba(232,229,223,0.55);
+        rgba(
+            232,
+            229,
+            223,
+            0.55
+        );
+
 }
 
 
 .wire-line {
-    position: absolute;
 
-    width: 1px;
-    height: 57px;
+    position:
+        absolute;
 
-    left: 29px;
-    top: 3px;
+    width:
+        1px;
+
+    height:
+        57px;
+
+    left:
+        29px;
+
+    top:
+        3px;
 
     background:
-        rgba(232,229,223,0.45);
+        rgba(
+            232,
+            229,
+            223,
+            0.45
+        );
+
 }
 
 
@@ -549,766 +914,1323 @@ button:focus {
 ========================================= */
 
 .stats {
-    display: grid;
+
+    display:
+        grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
     border-bottom:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .stat {
-    min-height: 82px;
 
-    display: flex;
+    min-height:
+        82px;
 
-    flex-direction: column;
+    display:
+        flex;
 
-    justify-content: center;
-    align-items: center;
+    flex-direction:
+        column;
 
-    gap: 7px;
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        7px;
 
     border-right:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .stat:last-child {
-    border-right: 0;
+
+    border-right:
+        0;
+
 }
 
 
 .stat strong {
-    font-size: 0.93rem;
-    font-weight: 300;
+
+    font-size:
+        0.93rem;
+
+    font-weight:
+        300;
+
 }
 
 
 .stat span {
-    color: var(--muted);
 
-    font-size: 0.52rem;
+    color:
+        var(--muted);
 
-    letter-spacing: 0.13em;
+    font-size:
+        0.52rem;
+
+    letter-spacing:
+        0.13em;
+
 }
 
 
 /* =========================================
-   TECHNICAL STRIP
+   TECH
 ========================================= */
 
 .technical-strip {
-    display: grid;
+
+    display:
+        grid;
 
     grid-template-columns:
         1fr 1fr;
 
     border-bottom:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .technical-strip > div {
-    min-height: 54px;
+
+    min-height:
+        54px;
 
     padding:
         13px 9px;
 
-    display: flex;
+    display:
+        flex;
 
-    flex-direction: column;
+    flex-direction:
+        column;
 
-    gap: 5px;
+    gap:
+        5px;
 
     border-right:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .technical-strip > div:last-child {
-    border-right: 0;
+
+    border-right:
+        0;
+
 }
 
 
 .technical-strip span {
-    color: var(--dim);
 
-    font-size: 0.5rem;
+    color:
+        var(--dim);
 
-    letter-spacing: 0.1em;
+    font-size:
+        0.5rem;
+
+    letter-spacing:
+        0.1em;
+
 }
 
 
 .technical-strip strong {
-    font-size: 0.75rem;
-    font-weight: 400;
+
+    font-size:
+        0.75rem;
+
+    font-weight:
+        400;
+
 }
 
 
 /* =========================================
-   METHOD TABS
+   TABS
 ========================================= */
 
 .method-tabs {
-    display: grid;
+
+    height:
+        54px;
+
+    margin-top:
+        4px;
+
+    display:
+        grid;
 
     grid-template-columns:
         1fr 1fr;
 
-    height: 54px;
-
-    margin-top: 4px;
-
     border-bottom:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .method-tabs span {
-    display: flex;
 
-    align-items: center;
-    justify-content: center;
+    display:
+        flex;
 
-    position: relative;
+    justify-content:
+        center;
 
-    color: var(--dim);
+    align-items:
+        center;
 
-    font-size: 0.59rem;
+    position:
+        relative;
 
-    letter-spacing: 0.14em;
+    color:
+        var(--dim);
+
+    font-size:
+        0.59rem;
+
+    letter-spacing:
+        0.14em;
+
 }
 
 
 .method-tabs span.active {
-    color: var(--text);
+
+    color:
+        var(--text);
+
 }
 
 
 .method-tabs span.active::after {
-    content: "";
 
-    position: absolute;
+    content:
+        "";
 
-    left: 12px;
-    right: 12px;
-    bottom: -1px;
+    position:
+        absolute;
 
-    height: 1px;
+    left:
+        12px;
 
-    background: var(--text);
+    right:
+        12px;
+
+    bottom:
+        -1px;
+
+    height:
+        1px;
+
+    background:
+        var(--text);
+
 }
 
 
 /* =========================================
-   COMPACT ADJUST
+   AJUSTES
 ========================================= */
 
 .compact-adjust {
+
     padding:
         20px 0 8px;
 
     border-bottom:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .micro-label {
-    color: var(--dim);
 
-    font-size: 0.53rem;
+    color:
+        var(--dim);
 
-    letter-spacing: 0.12em;
+    font-size:
+        0.53rem;
+
+    letter-spacing:
+        0.12em;
+
 }
 
 
 .cantidad {
-    height: 64px;
 
-    display: grid;
+    height:
+        64px;
+
+    display:
+        grid;
 
     grid-template-columns:
         42px
         1fr
         42px;
 
-    align-items: center;
+    align-items:
+        center;
 
-    margin-top: 7px;
+    margin-top:
+        7px;
+
 }
 
 
 .cantidad button {
-    width: 35px;
-    height: 35px;
+
+    width:
+        35px;
+
+    height:
+        35px;
 
     border:
-        1px solid var(--line-strong);
+        1px solid
+        var(--line-strong);
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
-    background: transparent;
+    background:
+        transparent;
 
-    color: var(--text);
+    color:
+        var(--text);
 
-    font-size: 1rem;
+    font-size:
+        1rem;
+
 }
 
 
 .cantidad strong {
-    text-align: center;
 
-    font-size: 1.65rem;
-    font-weight: 300;
+    text-align:
+        center;
 
-    letter-spacing: -0.05em;
+    font-size:
+        1.65rem;
+
+    font-weight:
+        300;
+
+    letter-spacing:
+        -0.05em;
+
 }
 
 
 .cantidad small {
-    margin-left: 3px;
 
-    color: var(--muted);
+    margin-left:
+        3px;
 
-    font-size: 0.68rem;
+    color:
+        var(--muted);
 
-    font-weight: 400;
+    font-size:
+        0.68rem;
+
 }
 
 
 .compact-ratio {
+
     padding:
         13px 0 11px;
 
     border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .opciones-intensidad {
-    display: grid;
+
+    display:
+        grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
-    margin-top: 8px;
+    margin-top:
+        8px;
+
 }
 
 
 .boton-ratio {
-    min-height: 48px;
 
-    border: 0;
+    min-height:
+        48px;
+
+    border:
+        0;
+
     border-right:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-    background: transparent;
+    background:
+        transparent;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    display: flex;
+    display:
+        flex;
 
-    flex-direction: column;
+    flex-direction:
+        column;
 
-    justify-content: center;
-    align-items: center;
+    align-items:
+        center;
 
-    gap: 2px;
+    justify-content:
+        center;
+
+    gap:
+        2px;
+
 }
 
 
 .boton-ratio:last-child {
-    border-right: 0;
+
+    border-right:
+        0;
+
 }
 
 
 .boton-ratio strong {
-    font-size: 0.66rem;
-    font-weight: 400;
+
+    font-size:
+        0.66rem;
+
+    font-weight:
+        400;
+
 }
 
 
 .boton-ratio span {
-    color: var(--dim);
 
-    font-size: 0.57rem;
+    color:
+        var(--dim);
+
+    font-size:
+        0.57rem;
+
 }
 
 
 .boton-ratio.activo {
-    color: var(--text);
+
+    color:
+        var(--text);
 
     background:
-        rgba(232,229,223,0.045);
-}
+        rgba(
+            232,
+            229,
+            223,
+            0.045
+        );
 
-
-.boton-ratio.activo span {
-    color: var(--muted);
 }
 
 
 /* =========================================
-   STEPS
+   PASOS
 ========================================= */
 
 .lista-pasos-preview {
+
     border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .paso-preview {
-    display: grid;
+
+    display:
+        grid;
 
     grid-template-columns:
         42px
         1fr;
 
-    gap: 10px;
+    gap:
+        10px;
 
     padding:
         14px 0;
 
     border-bottom:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .paso-numero {
-    width: 31px;
-    height: 31px;
+
+    width:
+        31px;
+
+    height:
+        31px;
 
     border:
-        1px solid var(--line-strong);
+        1px solid
+        var(--line-strong);
 
-    border-radius: 50%;
+    border-radius:
+        50%;
 
-    display: flex;
+    display:
+        flex;
 
-    align-items: center;
-    justify-content: center;
+    align-items:
+        center;
 
-    color: var(--muted);
+    justify-content:
+        center;
 
-    font-size: 0.62rem;
+    color:
+        var(--muted);
+
+    font-size:
+        0.62rem;
+
 }
 
 
 .paso-preview strong {
-    font-size: 0.78rem;
-    font-weight: 400;
+
+    font-size:
+        0.78rem;
+
+    font-weight:
+        400;
+
 }
 
 
 .paso-preview p {
-    max-width: 285px;
+
+    max-width:
+        285px;
 
     margin:
         4px 0 7px;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 0.67rem;
+    font-size:
+        0.67rem;
 
-    line-height: 1.45;
+    line-height:
+        1.45;
+
 }
 
 
 .paso-preview small {
-    color: var(--dim);
 
-    font-size: 0.58rem;
+    color:
+        var(--dim);
 
-    letter-spacing: 0.045em;
+    font-size:
+        0.58rem;
+
 }
 
 
 .sin-guia {
-    padding: 24px 0;
 
-    color: var(--dim);
+    padding:
+        24px 0;
 
-    font-size: 0.6rem;
+    color:
+        var(--dim);
 
-    letter-spacing: 0.11em;
+    font-size:
+        0.6rem;
+
+    letter-spacing:
+        0.11em;
+
 }
 
 
 /* =========================================
-   START GUIDE
+   BOTÓN EMPEZAR
 ========================================= */
 
 .guide-start {
-    width: 100%;
 
-    height: 54px;
+    width:
+        100%;
 
-    margin-top: 16px;
+    height:
+        54px;
+
+    margin-top:
+        16px;
 
     padding:
         0 16px;
 
     border:
-        1px solid var(--line-strong);
+        1px solid
+        var(--line-strong);
 
-    background: transparent;
+    background:
+        transparent;
 
-    color: var(--text);
+    color:
+        var(--text);
 
-    display: flex;
+    display:
+        flex;
 
-    justify-content: space-between;
-    align-items: center;
+    align-items:
+        center;
 
-    font-size: 0.61rem;
+    justify-content:
+        space-between;
 
-    letter-spacing: 0.15em;
+    font-size:
+        0.61rem;
+
+    letter-spacing:
+        0.15em;
+
 }
 
 
 /* =========================================
-   GUIDE HEADER
+   GUIDE
 ========================================= */
 
 .guide-page {
+
     min-height:
         calc(
-            100vh -
-            116px -
-            72px
+            100svh -
+            116px
         );
 
-    display: flex;
+    padding-bottom:
+        155px;
 
-    flex-direction: column;
+}
+
+
+body.modo-guia .app-header {
+
+    position:
+        relative;
+
 }
 
 
 .guide-header {
-    display: flex;
 
-    justify-content: space-between;
-    align-items: center;
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
 }
 
 
 .guide-header .back-link {
-    margin: 0;
+
+    margin:
+        0;
+
 }
 
 
 .guide-method {
-    color: var(--muted);
 
-    font-size: 0.56rem;
+    color:
+        var(--muted);
 
-    letter-spacing: 0.11em;
+    font-size:
+        0.54rem;
+
+    letter-spacing:
+        0.1em;
+
 }
 
 
 /* =========================================
-   GUIDE SUMMARY
+   SUMMARY
 ========================================= */
 
 .guide-summary {
-    display: grid;
+
+    display:
+        grid;
 
     grid-template-columns:
         2fr 1fr;
 
-    margin-top: 22px;
+    margin-top:
+        20px;
 
     border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
     border-bottom:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .guide-summary > div {
-    min-height: 66px;
 
-    display: flex;
+    min-height:
+        58px;
 
-    flex-direction: column;
+    display:
+        flex;
 
-    justify-content: center;
-    align-items: center;
+    flex-direction:
+        column;
 
-    gap: 5px;
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        5px;
 
     border-right:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .guide-summary > div:last-child {
-    border-right: 0;
+
+    border-right:
+        0;
+
 }
 
 
 .guide-summary strong {
-    font-size: 0.78rem;
-    font-weight: 300;
+
+    font-size:
+        0.77rem;
+
+    font-weight:
+        300;
+
 }
 
 
 .guide-summary span {
-    color: var(--dim);
 
-    font-size: 0.5rem;
+    color:
+        var(--dim);
 
-    letter-spacing: 0.12em;
+    font-size:
+        0.48rem;
+
+    letter-spacing:
+        0.12em;
+
 }
 
 
 /* =========================================
-   CIRCULAR TIMER
+   TIMER STAGE
 ========================================= */
 
 .timer-stage {
+
     padding:
-        34px 0 20px;
+        26px 0 18px;
+
 }
 
 
 .timer-circle {
-    width:
-        min(76vw, 300px);
 
-    aspect-ratio: 1;
+    width:
+        min(
+            70vw,
+            286px
+        );
+
+    aspect-ratio:
+        1;
 
     margin:
         0 auto;
 
-    position: relative;
+    padding:
+        0;
+
+    border:
+        0;
+
+    border-radius:
+        50%;
+
+    background:
+        transparent;
+
+    color:
+        var(--text);
+
+    position:
+        relative;
+
+    display:
+        block;
+
+    cursor:
+        pointer;
+
 }
 
 
+.timer-circle::after {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        12px;
+
+    border:
+        1px solid
+        rgba(
+            232,
+            229,
+            223,
+            0.035
+        );
+
+    border-radius:
+        50%;
+
+}
+
+
+.timer-circle:active {
+
+    transform:
+        scale(0.985);
+
+}
+
+
+/* =========================================
+   TIMER RING
+========================================= */
+
 .timer-ring {
-    width: 100%;
-    height: 100%;
+
+    width:
+        100%;
+
+    height:
+        100%;
 
     transform:
         rotate(-90deg);
+
 }
 
 
 .ring-track,
 .ring-progress {
-    fill: none;
 
-    stroke-width: 1;
+    fill:
+        none;
+
+    stroke-width:
+        1;
+
 }
 
 
 .ring-track {
+
     stroke:
-        rgba(232,229,223,0.16);
+        rgba(
+            232,
+            229,
+            223,
+            0.15
+        );
+
 }
 
 
 .ring-progress {
+
     stroke:
-        rgba(232,229,223,0.9);
+        rgba(
+            232,
+            229,
+            223,
+            0.92
+        );
 
-    stroke-linecap: round;
+    stroke-linecap:
+        round;
 
-    stroke-dasharray: 578;
-    stroke-dashoffset: 170;
+    stroke-dasharray:
+        578;
+
+    stroke-dashoffset:
+        578;
 
     transition:
         stroke-dashoffset
-        0.4s linear;
+        0.45s linear;
+
 }
 
 
+/* =========================================
+   TIMER CENTER
+========================================= */
+
 .timer-center {
-    position: absolute;
 
-    inset: 0;
+    position:
+        absolute;
 
-    display: flex;
+    inset:
+        0;
 
-    flex-direction: column;
+    display:
+        flex;
 
-    align-items: center;
-    justify-content: center;
+    justify-content:
+        center;
 
-    gap: 9px;
+    align-items:
+        center;
+
+}
+
+
+.timer-display {
+
+    display:
+        none;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        9px;
+
 }
 
 
 .timer-guiado {
+
     font-size:
-        clamp(3.4rem, 15vw, 4.7rem);
+        clamp(
+            3.3rem,
+            15vw,
+            4.65rem
+        );
 
-    font-weight: 200;
+    font-weight:
+        200;
 
-    line-height: 1;
+    line-height:
+        1;
 
-    letter-spacing: -0.06em;
+    letter-spacing:
+        -0.065em;
 
     font-variant-numeric:
         tabular-nums;
+
 }
 
 
-.timer-center > span {
-    color: var(--muted);
+.timer-display span {
 
-    font-size: 0.53rem;
+    color:
+        var(--muted);
 
-    letter-spacing: 0.17em;
+    font-size:
+        0.49rem;
+
+    letter-spacing:
+        0.15em;
+
 }
 
+
+/* =========================================
+   ACCIÓN EN EL CÍRCULO
+========================================= */
+
+.timer-action {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        12px;
+
+}
+
+
+.timer-action strong {
+
+    font-size:
+        0.72rem;
+
+    font-weight:
+        500;
+
+    letter-spacing:
+        0.17em;
+
+}
+
+
+.timer-action span {
+
+    color:
+        var(--muted);
+
+    font-size:
+        1.25rem;
+
+    font-weight:
+        200;
+
+}
+
+
+/* =========================================
+   STEP PROGRESS
+========================================= */
 
 .guide-step-meta {
-    display: flex;
 
-    justify-content: space-between;
+    display:
+        flex;
 
-    margin-top: 20px;
+    justify-content:
+        space-between;
 
-    color: var(--dim);
+    margin-top:
+        17px;
 
-    font-size: 0.54rem;
+    color:
+        var(--dim);
 
-    letter-spacing: 0.11em;
+    font-size:
+        0.52rem;
+
+    letter-spacing:
+        0.11em;
+
 }
 
 
 .barra-progreso {
-    height: 1px;
 
-    margin-top: 9px;
+    height:
+        1px;
 
-    background: var(--line);
+    margin-top:
+        9px;
+
+    background:
+        var(--line);
+
 }
 
 
 #barra-progreso-activa {
-    width: 0;
-    height: 100%;
 
-    background: var(--text);
+    width:
+        0;
+
+    height:
+        100%;
+
+    background:
+        var(--text);
 
     transition:
-        width 0.35s ease;
+        width
+        0.35s ease;
+
 }
 
 
 /* =========================================
-   CURRENT STEP
+   PANEL FIJO DEL PASO
 ========================================= */
 
 .current-step {
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        0;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        100%;
+
+    max-width:
+        var(--max-width);
+
+    min-height:
+        142px;
+
     padding:
-        24px 0;
+        15px
+        22px
+        max(
+            17px,
+            env(safe-area-inset-bottom)
+        );
 
     border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
+    background:
+        rgba(
+            8,
+            9,
+            9,
+            0.97
+        );
+
+    backdrop-filter:
+        blur(22px);
+
+    -webkit-backdrop-filter:
+        blur(22px);
+
+    z-index:
+        120;
+
+}
+
+
+.current-step-top {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    margin-bottom:
+        7px;
+
+}
+
+
+.current-step-top .micro {
+
+    margin:
+        0;
+
+}
+
+
+.step-type {
+
+    color:
+        var(--dim);
+
+    font-size:
+        0.48rem;
+
+    letter-spacing:
+        0.12em;
+
 }
 
 
 .current-step-row {
-    display: flex;
 
-    justify-content: space-between;
+    display:
+        flex;
 
-    align-items: flex-end;
+    align-items:
+        flex-end;
 
-    gap: 20px;
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
 }
 
 
 .current-step h1 {
-    margin: 0;
 
-    font-size: 1.65rem;
-    font-weight: 300;
+    margin:
+        0;
 
-    letter-spacing: -0.035em;
+    font-size:
+        1.32rem;
+
+    font-weight:
+        300;
+
+    line-height:
+        1;
+
+    letter-spacing:
+        -0.025em;
+
 }
 
 
 .objetivo-paso {
-    display: none;
 
-    flex-direction: column;
+    display:
+        none;
 
-    align-items: flex-end;
+    flex-direction:
+        column;
 
-    text-align: right;
+    align-items:
+        flex-end;
+
+    text-align:
+        right;
+
 }
 
 
 .objetivo-paso strong {
-    font-size: 1rem;
-    font-weight: 300;
+
+    font-size:
+        0.94rem;
+
+    font-weight:
+        300;
+
 }
 
 
 .objetivo-paso span {
-    margin-top: 3px;
 
-    color: var(--dim);
+    margin-top:
+        3px;
 
-    font-size: 0.56rem;
+    color:
+        var(--dim);
+
+    font-size:
+        0.51rem;
+
 }
 
 
 .paso-instruccion {
-    max-width: 330px;
+
+    max-width:
+        340px;
 
     margin:
-        12px 0 0;
+        9px 0 0;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 0.76rem;
+    font-size:
+        0.69rem;
 
-    line-height: 1.5;
-}
+    line-height:
+        1.42;
 
-
-/* =========================================
-   GUIDE BUTTONS
-========================================= */
-
-.guide-actions {
-    margin-top: auto;
-
-    display: flex;
-
-    justify-content: center;
-
-    gap: 28px;
-
-    padding-top: 16px;
-}
-
-
-.timer-control,
-.guide-next {
-    min-width: 116px;
-    height: 46px;
-
-    border:
-        1px solid var(--line-strong);
-
-    background: transparent;
-
-    color: var(--text);
-
-    font-size: 0.59rem;
-
-    letter-spacing: 0.12em;
 }
 
 
@@ -1317,52 +2239,75 @@ button:focus {
 ========================================= */
 
 .final-page {
+
     min-height:
         calc(
             100vh -
             116px -
-            72px
+            var(--bottom-nav-height)
         );
 
-    display: flex;
-    flex-direction: column;
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
 }
 
 
 .final-summary {
+
     margin:
         38px 0 auto;
 
     border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .final-summary > div {
+
     padding:
         15px 0;
 
-    display: flex;
+    display:
+        flex;
 
-    justify-content: space-between;
+    justify-content:
+        space-between;
 
     border-bottom:
-        1px solid var(--line);
+        1px solid
+        var(--line);
+
 }
 
 
 .final-summary span {
-    color: var(--muted);
 
-    font-size: 0.57rem;
+    color:
+        var(--muted);
 
-    letter-spacing: 0.1em;
+    font-size:
+        0.57rem;
+
+    letter-spacing:
+        0.1em;
+
 }
 
 
 .final-summary strong {
-    font-size: 0.78rem;
-    font-weight: 400;
+
+    font-size:
+        0.78rem;
+
+    font-weight:
+        400;
+
 }
 
 
@@ -1371,44 +2316,66 @@ button:focus {
 ========================================= */
 
 .journal-empty {
-    min-height: 300px;
 
-    margin-top: 34px;
+    min-height:
+        300px;
+
+    margin-top:
+        34px;
 
     border:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
-    display: flex;
+    display:
+        flex;
 
-    flex-direction: column;
+    flex-direction:
+        column;
 
-    justify-content: center;
-    align-items: center;
+    align-items:
+        center;
 
-    text-align: center;
+    justify-content:
+        center;
+
+    text-align:
+        center;
+
 }
 
 
 .journal-empty span {
-    color: var(--dim);
 
-    font-size: 0.58rem;
+    color:
+        var(--dim);
 
-    letter-spacing: 0.13em;
+    font-size:
+        0.58rem;
+
+    letter-spacing:
+        0.13em;
+
 }
 
 
 .journal-empty p {
-    max-width: 230px;
+
+    max-width:
+        230px;
 
     margin:
         12px 0 0;
 
-    color: var(--muted);
+    color:
+        var(--muted);
 
-    font-size: 0.73rem;
+    font-size:
+        0.73rem;
 
-    line-height: 1.45;
+    line-height:
+        1.45;
+
 }
 
 
@@ -1417,91 +2384,287 @@ button:focus {
 ========================================= */
 
 .bottom-nav {
-    width: 100%;
-    max-width: var(--max-width);
+
+    width:
+        100%;
+
+    max-width:
+        var(--max-width);
 
     height:
         calc(
-            66px +
+            var(--bottom-nav-height) +
             env(safe-area-inset-bottom)
         );
 
-    margin: 0 auto;
+    margin:
+        0 auto;
 
     padding:
-        4px 10px
+        4px
+        10px
         env(safe-area-inset-bottom);
 
-    position: fixed;
+    position:
+        fixed;
 
-    left: 50%;
-    transform: translateX(-50%);
+    left:
+        50%;
 
-    bottom: 0;
+    bottom:
+        0;
 
-    z-index: 90;
+    transform:
+        translateX(-50%);
 
-    display: grid;
+    z-index:
+        100;
+
+    display:
+        grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
     border-top:
-        1px solid var(--line);
+        1px solid
+        var(--line);
 
     background:
-        rgba(8,9,9,0.95);
+        rgba(
+            8,
+            9,
+            9,
+            0.97
+        );
 
     backdrop-filter:
         blur(18px);
+
 }
 
 
 .nav-item {
-    border: 0;
 
-    background: transparent;
+    border:
+        0;
 
-    color: var(--dim);
+    background:
+        transparent;
 
-    display: flex;
+    color:
+        var(--dim);
 
-    flex-direction: column;
+    display:
+        flex;
 
-    justify-content: center;
-    align-items: center;
+    flex-direction:
+        column;
 
-    gap: 4px;
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        4px;
+
 }
 
 
 .nav-symbol {
-    font-size: 0.9rem;
+
+    font-size:
+        0.9rem;
+
 }
 
 
 .nav-item > span:last-child {
-    font-size: 0.48rem;
 
-    letter-spacing: 0.1em;
+    font-size:
+        0.48rem;
+
+    letter-spacing:
+        0.1em;
+
 }
 
 
 .nav-item.activo {
-    color: var(--text);
+
+    color:
+        var(--text);
+
 }
 
 
 /* =========================================
-   TOUCH FEEDBACK
+   TOUCH
 ========================================= */
 
 .tarjeta-metodo:active,
 .guide-start:active,
-.timer-control:active,
-.guide-next:active,
 .boton-ratio:active {
-    opacity: 0.55;
+
+    opacity:
+        0.55;
+
+}
+
+
+/* =========================================
+   PANTALLAS BAJAS
+========================================= */
+
+@media (max-height: 760px) {
+
+    .app-header {
+
+        height:
+            96px;
+
+    }
+
+
+    body.modo-guia .app-header {
+
+        height:
+            82px;
+
+    }
+
+
+    body.modo-guia .app-header
+    .umbra-mark {
+
+        width:
+            25px;
+
+        height:
+            25px;
+
+    }
+
+
+    body.modo-guia .app-header
+    .umbra-logo {
+
+        gap:
+            5px;
+
+    }
+
+
+    .guide-page {
+
+        min-height:
+            calc(
+                100svh -
+                82px
+            );
+
+        padding-top:
+            16px;
+
+    }
+
+
+    .guide-summary {
+
+        margin-top:
+            14px;
+
+    }
+
+
+    .guide-summary > div {
+
+        min-height:
+            50px;
+
+    }
+
+
+    .timer-stage {
+
+        padding:
+            15px 0 12px;
+
+    }
+
+
+    .timer-circle {
+
+        width:
+            min(
+                56vw,
+                218px
+            );
+
+    }
+
+
+    .timer-guiado {
+
+        font-size:
+            3.25rem;
+
+    }
+
+
+    .current-step {
+
+        min-height:
+            130px;
+
+        padding-top:
+            12px;
+
+    }
+
+}
+
+
+/* =========================================
+   MUY PEQUEÑAS
+========================================= */
+
+@media (max-height: 670px) {
+
+    body.modo-guia .app-header {
+
+        display:
+            none;
+
+    }
+
+
+    .guide-page {
+
+        min-height:
+            100svh;
+
+        padding-top:
+            max(
+                18px,
+                env(safe-area-inset-top)
+            );
+
+    }
+
+
+    .timer-circle {
+
+        width:
+            min(
+                51vw,
+                190px
+            );
+
+    }
+
 }
 
 
@@ -1512,19 +2675,29 @@ button:focus {
 @media (min-width: 700px) {
 
     body {
-        background: #030404;
+
+        background:
+            #030404;
+
     }
 
-    #app-shell {
-        width: var(--max-width);
 
-        margin: 0 auto;
+    #app-shell {
+
+        width:
+            var(--max-width);
+
+        margin:
+            0 auto;
 
         border-left:
-            1px solid var(--line);
+            1px solid
+            var(--line);
 
         border-right:
-            1px solid var(--line);
+            1px solid
+            var(--line);
+
     }
 
 }
