@@ -295,12 +295,9 @@ function obtenerAguaBloom() {
     const bloom =
         gramosCafe * multiplicador;
 
-    const aguaTotal =
-        obtenerAguaTotal();
-
     return Math.min(
         Math.round(bloom),
-        aguaTotal
+        obtenerAguaTotal()
     );
 
 }
@@ -316,6 +313,15 @@ function obtenerAguaRestante() {
 }
 
 
+function obtenerObjetivoAcumulado(porcentaje) {
+
+    return Math.round(
+        obtenerAguaTotal() * porcentaje
+    );
+
+}
+
+
 function calcularAgua() {
 
     cantidadAgua.textContent =
@@ -325,17 +331,81 @@ function calcularAgua() {
 
 
 // ================================
+// AGUA UTILIZADA ANTES DE UN PASO
+// ================================
+
+function obtenerAguaAnterior(indicePaso) {
+
+    if (!metodoActual) {
+        return 0;
+    }
+
+    let aguaAnterior = 0;
+
+    for (
+        let i = 0;
+        i < indicePaso;
+        i++
+    ) {
+
+        const paso =
+            metodoActual.pasos[i];
+
+        if (paso.agua === "bloom") {
+
+            aguaAnterior =
+                obtenerAguaBloom();
+
+        }
+
+        if (paso.agua === "acumulado") {
+
+            aguaAnterior =
+                obtenerObjetivoAcumulado(
+                    paso.porcentaje
+                );
+
+        }
+
+        if (paso.agua === "restante") {
+
+            aguaAnterior =
+                obtenerAguaTotal();
+
+        }
+
+        if (paso.agua === "total") {
+
+            aguaAnterior =
+                obtenerAguaTotal();
+
+        }
+
+    }
+
+    return aguaAnterior;
+
+}
+
+
+// ================================
 // INSTRUCCIONES DINÁMICAS
 // ================================
 
-function obtenerInstruccionPaso(paso) {
+function obtenerInstruccionPaso(
+    paso,
+    indicePaso
+) {
 
     if (paso.agua === "bloom") {
 
         const aguaBloom =
             obtenerAguaBloom();
 
-        return `Agrega ${aguaBloom} ml de agua y humedece uniformemente todo el café.`;
+        return (
+            `Agrega ${aguaBloom} ml de agua, ` +
+            `humedece todo el café y espera.`
+        );
 
     }
 
@@ -345,7 +415,10 @@ function obtenerInstruccionPaso(paso) {
         const aguaRestante =
             obtenerAguaRestante();
 
-        return `Agrega lentamente los ${aguaRestante} ml de agua restantes.`;
+        return (
+            `Agrega lentamente los ` +
+            `${aguaRestante} ml de agua restantes.`
+        );
 
     }
 
@@ -355,7 +428,36 @@ function obtenerInstruccionPaso(paso) {
         const aguaTotal =
             obtenerAguaTotal();
 
-        return `Agrega ${aguaTotal} ml de agua.`;
+        return (
+            `Agrega ${aguaTotal} ml de agua.`
+        );
+
+    }
+
+
+    if (paso.agua === "acumulado") {
+
+        const objetivo =
+            obtenerObjetivoAcumulado(
+                paso.porcentaje
+            );
+
+        const aguaAnterior =
+            obtenerAguaAnterior(
+                indicePaso
+            );
+
+        const agregar =
+            Math.max(
+                objetivo - aguaAnterior,
+                0
+            );
+
+        return (
+            `Agrega ${agregar} ml lentamente ` +
+            `hasta alcanzar ${objetivo} ml ` +
+            `totales en la balanza.`
+        );
 
     }
 
@@ -386,7 +488,9 @@ async function solicitarWakeLock() {
 
         }
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.log(
             "Wake Lock no disponible:",
@@ -410,7 +514,9 @@ async function liberarWakeLock() {
 
         }
 
-    } catch (error) {
+    }
+
+    catch (error) {
 
         console.log(error);
 
@@ -482,7 +588,10 @@ function cargarPaso() {
         paso.nombre;
 
     pasoInstruccion.textContent =
-        obtenerInstruccionPaso(paso);
+        obtenerInstruccionPaso(
+            paso,
+            pasoActual
+        );
 
 
     if (paso.tipo === "timer") {
@@ -504,7 +613,9 @@ function cargarPaso() {
 
         actualizarDisplayTimer();
 
-    } else {
+    }
+
+    else {
 
         timerGuiado.style.display =
             "none";
@@ -551,7 +662,9 @@ function iniciarTimerPaso() {
 
             actualizarDisplayTimer();
 
-            if (segundosRestantes <= 0) {
+            if (
+                segundosRestantes <= 0
+            ) {
 
                 detenerTemporizador();
 
@@ -620,7 +733,7 @@ function actualizarDisplayTimer() {
 
 
 // ================================
-// PASO TERMINADO
+// PASO TEMPORIZADO TERMINADO
 // ================================
 
 function finalizarPasoTimer() {
@@ -667,7 +780,9 @@ function avanzarPaso() {
 
         cargarPaso();
 
-    } else {
+    }
+
+    else {
 
         finalizarPreparacion();
 
@@ -710,7 +825,9 @@ function salirPreparacion() {
 
     liberarWakeLock();
 
-    mostrarVista(vistaPreparacion);
+    mostrarVista(
+        vistaPreparacion
+    );
 
 }
 
