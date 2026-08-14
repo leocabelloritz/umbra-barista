@@ -1,991 +1,1006 @@
-:root {
-    --bg: #F3EDE8;
-    --surface: #E6D8D0;
-    --surface-soft: #FAF7F4;
-    --dark: #2F2927;
-    --muted: #786C67;
-    --line: rgba(47, 41, 39, 0.12);
-    --white: #FFFFFF;
+let metodoActual = null;
+
+let gramosCafe = 20;
+let ratioActual = 16;
+
+let pasoActual = 0;
+
+let temporizador = null;
+let temporizadorCorriendo = false;
+let segundosRestantes = 0;
+
+let wakeLock = null;
+
+
+// ================================
+// ELEMENTOS
+// ================================
+
+const vistaInicio =
+    document.getElementById("vista-inicio");
+
+const vistaPreparacion =
+    document.getElementById("vista-preparacion");
+
+const vistaGuiada =
+    document.getElementById("vista-guiada");
+
+const vistaFinal =
+    document.getElementById("vista-final");
+
+
+const listaMetodos =
+    document.getElementById("lista-metodos");
+
+const metodoNombre =
+    document.getElementById("metodo-nombre");
+
+const metodoCategoria =
+    document.getElementById("metodo-categoria");
+
+const metodoDescripcion =
+    document.getElementById("metodo-descripcion");
+
+const metodoTemperatura =
+    document.getElementById("metodo-temperatura");
+
+const metodoMolienda =
+    document.getElementById("metodo-molienda");
+
+const cantidadCafe =
+    document.getElementById("cantidad-cafe");
+
+const cantidadAgua =
+    document.getElementById("cantidad-agua");
+
+const opcionesIntensidad =
+    document.getElementById("opciones-intensidad");
+
+
+const pasoIndicador =
+    document.getElementById("paso-indicador");
+
+const metodoGuiado =
+    document.getElementById("metodo-guiado");
+
+const barraProgresoActiva =
+    document.getElementById("barra-progreso-activa");
+
+const pasoNombre =
+    document.getElementById("paso-nombre");
+
+const pasoInstruccion =
+    document.getElementById("paso-instruccion");
+
+const timerGuiado =
+    document.getElementById("timer-guiado");
+
+const btnControlTimer =
+    document.getElementById("btn-control-timer");
+
+const btnSiguientePaso =
+    document.getElementById("btn-siguiente-paso");
+
+
+const objetivoPaso =
+    document.getElementById("objetivo-paso");
+
+const objetivoPasoValor =
+    document.getElementById("objetivo-paso-valor");
+
+const objetivoPasoEtiqueta =
+    document.getElementById("objetivo-paso-etiqueta");
+
+
+const resumenMetodo =
+    document.getElementById("resumen-metodo");
+
+const resumenCafe =
+    document.getElementById("resumen-cafe");
+
+const resumenAgua =
+    document.getElementById("resumen-agua");
+
+
+// ================================
+// NAVEGACIÓN
+// ================================
+
+function mostrarVista(vista) {
+
+    document
+        .querySelectorAll(".vista")
+        .forEach(elemento => {
+            elemento.classList.remove("activa");
+        });
+
+    vista.classList.add("activa");
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
 }
 
 
-/* =========================
-   BASE
-========================= */
+// ================================
+// HOME
+// ================================
 
-* {
-    box-sizing: border-box;
-}
+function cargarMetodos() {
 
-html {
-    scroll-behavior: smooth;
-}
+    listaMetodos.innerHTML = "";
 
-body {
-    margin: 0;
+    Object.values(METODOS).forEach(metodo => {
 
-    font-family:
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
+        const boton =
+            document.createElement("button");
 
-    background: var(--bg);
+        boton.className =
+            "tarjeta-metodo";
 
-    color: var(--dark);
+        boton.innerHTML = `
+            <div>
+                <span class="metodo-tipo">
+                    ${metodo.subtitulo}
+                </span>
 
-    -webkit-font-smoothing:
-        antialiased;
-}
+                <strong>
+                    ${metodo.nombre}
+                </strong>
+            </div>
 
-button {
-    font: inherit;
-}
+            <span class="flecha">
+                →
+            </span>
+        `;
 
-#app {
-    width: 100%;
-    min-height: 100vh;
-}
-
-
-/* =========================
-   VISTAS
-========================= */
-
-.vista {
-    display: none;
-    min-height: 100vh;
-}
-
-.vista.activa {
-    display: block;
-}
-
-
-/* =========================
-   HERO
-========================= */
-
-.hero {
-    min-height: 55vh;
-
-    padding:
-        max(32px, env(safe-area-inset-top))
-        24px
-        48px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: flex-end;
-}
-
-.marca {
-    margin: 0 0 auto;
-
-    font-size: 0.85rem;
-
-    font-weight: 700;
-
-    letter-spacing: 0.35em;
-}
-
-.hero h1 {
-    margin: 0;
-
-    max-width: 340px;
-
-    font-size:
-        clamp(3rem, 14vw, 5rem);
-
-    line-height: 0.95;
-
-    letter-spacing: -0.06em;
-
-    font-weight: 500;
-}
-
-.hero-texto {
-    max-width: 300px;
-
-    margin: 24px 0 0;
-
-    color: var(--muted);
-
-    font-size: 1rem;
-
-    line-height: 1.6;
-}
-
-
-/* =========================
-   CONTENIDO
-========================= */
-
-.contenido {
-    background:
-        var(--surface-soft);
-
-    border-radius:
-        32px 32px 0 0;
-
-    padding:
-        36px 20px 48px;
-
-    min-height: 50vh;
-}
-
-.encabezado-seccion {
-    display: flex;
-
-    gap: 18px;
-
-    align-items: flex-start;
-
-    margin-bottom: 28px;
-}
-
-.numero-seccion {
-    font-size: 0.75rem;
-
-    font-weight: 700;
-
-    color: var(--muted);
-
-    padding-top: 3px;
-}
-
-.eyebrow {
-    margin: 0 0 8px;
-
-    font-size: 0.72rem;
-
-    font-weight: 700;
-
-    letter-spacing: 0.18em;
-
-    color: var(--muted);
-}
-
-.encabezado-seccion h2 {
-    margin: 0;
-
-    max-width: 280px;
-
-    font-size: 1.8rem;
-
-    line-height: 1.1;
-
-    font-weight: 500;
-
-    letter-spacing: -0.03em;
-}
-
-
-/* =========================
-   TARJETAS
-========================= */
-
-.lista-metodos {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 12px;
-}
-
-.tarjeta-metodo {
-    width: 100%;
-
-    min-height: 110px;
-
-    border:
-        1px solid var(--line);
-
-    border-radius: 22px;
-
-    background: transparent;
-
-    color: var(--dark);
-
-    padding: 20px;
-
-    display: flex;
-
-    justify-content:
-        space-between;
-
-    align-items: center;
-
-    text-align: left;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.15s ease,
-        background 0.15s ease;
-}
-
-.tarjeta-metodo:active {
-    transform: scale(0.98);
-
-    background:
-        var(--surface);
-}
-
-.tarjeta-metodo div {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 8px;
-}
-
-.metodo-tipo {
-    font-size: 0.7rem;
-
-    text-transform:
-        uppercase;
-
-    letter-spacing:
-        0.16em;
-
-    color:
-        var(--muted);
-}
-
-.tarjeta-metodo strong {
-    font-size: 1.45rem;
-
-    font-weight: 500;
-
-    letter-spacing:
-        -0.03em;
-}
-
-.flecha {
-    font-size: 1.6rem;
-
-    font-weight: 300;
-}
-
-
-/* =========================
-   BARRA SUPERIOR
-========================= */
-
-.barra-superior {
-    min-height: 90px;
-
-    padding:
-        max(18px, env(safe-area-inset-top))
-        20px
-        16px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content:
-        space-between;
-}
-
-.boton-icono {
-    width: 46px;
-
-    height: 46px;
-
-    border: none;
-
-    border-radius: 50%;
-
-    background:
-        var(--surface-soft);
-
-    color:
-        var(--dark);
-
-    font-size: 1.4rem;
-
-    cursor: pointer;
-}
-
-.marca-pequena {
-    font-size: 0.75rem;
-
-    font-weight: 700;
-
-    letter-spacing:
-        0.25em;
-}
-
-
-/* =========================
-   PANTALLA MÉTODO
-========================= */
-
-.preparacion {
-    padding:
-        24px 20px 48px;
-}
-
-.preparacion > h1 {
-    margin: 0;
-
-    font-size:
-        clamp(2.8rem, 12vw, 4.5rem);
-
-    font-weight: 500;
-
-    line-height: 0.95;
-
-    letter-spacing:
-        -0.06em;
-}
-
-.descripcion {
-    margin:
-        20px 0 32px;
-
-    max-width: 360px;
-
-    color:
-        var(--muted);
-
-    font-size: 1rem;
-
-    line-height: 1.6;
-}
-
-
-/* =========================
-   DATOS DEL MÉTODO
-========================= */
-
-.datos-metodo {
-    display: grid;
-
-    grid-template-columns:
-        1fr 1fr;
-
-    gap: 12px;
-
-    margin-bottom: 28px;
-}
-
-.dato {
-    min-height: 120px;
-
-    padding: 18px;
-
-    border-radius: 20px;
-
-    background:
-        var(--surface);
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content:
-        space-between;
-}
-
-.dato-etiqueta {
-    font-size: 0.68rem;
-
-    font-weight: 700;
-
-    letter-spacing:
-        0.15em;
-
-    color:
-        var(--muted);
-}
-
-.dato strong {
-    font-size: 1.35rem;
-
-    font-weight: 500;
-}
-
-
-/* =========================
-   CALCULADORA
-========================= */
-
-.calculadora {
-    background:
-        var(--surface-soft);
-
-    border-radius: 28px;
-
-    padding:
-        24px 18px;
-}
-
-.control-cafe {
-    margin-top: 24px;
-}
-
-.cantidad {
-    display: flex;
-
-    justify-content:
-        space-between;
-
-    align-items: center;
-
-    margin-top: 18px;
-}
-
-.cantidad button {
-    width: 52px;
-
-    height: 52px;
-
-    border-radius: 50%;
-
-    border:
-        1px solid var(--line);
-
-    background:
-        transparent;
-
-    color:
-        var(--dark);
-
-    font-size: 1.6rem;
-
-    cursor: pointer;
-}
-
-.cantidad button:active {
-    background:
-        var(--surface);
-}
-
-.cantidad strong {
-    font-size: 3.3rem;
-
-    font-weight: 500;
-
-    letter-spacing:
-        -0.05em;
-}
-
-.cantidad small {
-    font-size: 1.1rem;
-
-    color:
-        var(--muted);
-
-    font-weight: 500;
-}
-
-
-/* =========================
-   INTENSIDAD
-========================= */
-
-.selector-intensidad {
-    margin-top: 32px;
-}
-
-.opciones-intensidad {
-    display: flex;
-
-    gap: 8px;
-
-    margin-top: 12px;
-
-    overflow-x: auto;
-
-    scrollbar-width: none;
-}
-
-.opciones-intensidad::-webkit-scrollbar {
-    display: none;
-}
-
-.boton-ratio {
-    flex: 1;
-
-    min-width: max-content;
-
-    border:
-        1px solid var(--line);
-
-    border-radius: 999px;
-
-    padding:
-        12px 16px;
-
-    background:
-        transparent;
-
-    color:
-        var(--dark);
-
-    font-size:
-        0.85rem;
-
-    cursor: pointer;
-}
-
-.boton-ratio.activo {
-    background:
-        var(--dark);
-
-    border-color:
-        var(--dark);
-
-    color:
-        var(--white);
-}
-
-
-/* =========================
-   RESULTADO
-========================= */
-
-.resultado-receta {
-    margin-top: 32px;
-
-    padding: 22px 0;
-
-    border-top:
-        1px solid var(--line);
-
-    display: flex;
-
-    justify-content:
-        space-between;
-
-    align-items:
-        flex-end;
-}
-
-.resultado-receta > span {
-    font-size:
-        0.7rem;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        0.15em;
-
-    color:
-        var(--muted);
-}
-
-.resultado-receta strong {
-    font-size:
-        2.2rem;
-
-    font-weight:
-        500;
-
-    letter-spacing:
-        -0.04em;
-}
-
-
-/* =========================
-   BOTONES
-========================= */
-
-.boton-principal {
-    width: 100%;
-
-    border: none;
-
-    border-radius: 18px;
-
-    background:
-        var(--dark);
-
-    color:
-        var(--white);
-
-    padding: 20px;
-
-    margin-top: 12px;
-
-    font-size:
-        0.8rem;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        0.14em;
-
-    cursor: pointer;
-}
-
-.boton-principal:active {
-    transform:
-        scale(0.99);
-}
-
-.boton-secundario {
-    width: 100%;
-
-    border:
-        1px solid var(--dark);
-
-    border-radius:
-        18px;
-
-    background:
-        transparent;
-
-    color:
-        var(--dark);
-
-    padding:
-        20px;
-
-    margin-top:
-        12px;
-
-    font-size:
-        0.8rem;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        0.14em;
-
-    cursor:
-        pointer;
-}
-
-
-/* =========================
-   PREPARACIÓN GUIADA
-========================= */
-
-.guiada {
-    min-height:
-        calc(100vh - 90px);
-
-    padding:
-        18px 20px 32px;
-
-    display: flex;
-
-    flex-direction: column;
-}
-
-.progreso-superior {
-    display: flex;
-
-    justify-content:
-        space-between;
-
-    gap: 16px;
-
-    font-size:
-        0.67rem;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        0.12em;
-
-    color:
-        var(--muted);
-}
-
-.barra-progreso {
-    width: 100%;
-
-    height: 3px;
-
-    margin-top: 14px;
-
-    background:
-        var(--line);
-
-    overflow:
-        hidden;
-}
-
-#barra-progreso-activa {
-    height: 100%;
-
-    width: 0;
-
-    background:
-        var(--dark);
-
-    transition:
-        width 0.4s ease;
-}
-
-.contenido-paso {
-    flex: 1;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content:
-        center;
-
-    padding:
-        48px 0;
-}
-
-.contenido-paso h1 {
-    margin: 0;
-
-    font-size:
-        clamp(3.4rem, 16vw, 5.5rem);
-
-    line-height:
-        0.95;
-
-    letter-spacing:
-        -0.06em;
-
-    font-weight:
-        500;
-}
-
-.paso-instruccion {
-    max-width:
-        340px;
-
-    margin:
-        24px 0 0;
-
-    color:
-        var(--muted);
-
-    font-size:
-        1.1rem;
-
-    line-height:
-        1.6;
-}
-
-.timer-guiado {
-    margin-top:
-        42px;
-
-    font-size:
-        clamp(5rem, 24vw, 8rem);
-
-    font-weight:
-        400;
-
-    line-height:
-        1;
-
-    letter-spacing:
-        -0.08em;
-
-    font-variant-numeric:
-        tabular-nums;
-}
-
-.acciones-guiadas {
-    padding-bottom:
-        max(
-            10px,
-            env(safe-area-inset-bottom)
+        boton.addEventListener(
+            "click",
+            () => abrirMetodo(metodo.id)
         );
+
+        listaMetodos.appendChild(boton);
+
+    });
+
 }
 
 
-/* =========================
-   FINAL
-========================= */
+// ================================
+// MÉTODO
+// ================================
 
-.final-preparacion {
-    min-height:
-        calc(100vh - 90px);
+function abrirMetodo(idMetodo) {
 
-    padding:
-        32px 20px 48px;
+    metodoActual =
+        METODOS[idMetodo];
 
-    display:
-        flex;
+    gramosCafe =
+        metodoActual.cafeDefault;
 
-    flex-direction:
-        column;
-}
+    ratioActual =
+        metodoActual.ratioDefault;
 
-.final-preparacion h1 {
-    margin: 0;
+    metodoNombre.textContent =
+        metodoActual.nombre;
 
-    max-width:
-        350px;
+    metodoCategoria.textContent =
+        metodoActual.subtitulo.toUpperCase();
 
-    font-size:
-        clamp(3.6rem, 16vw, 5.5rem);
+    metodoDescripcion.textContent =
+        metodoActual.descripcion;
 
-    line-height:
-        0.95;
+    metodoTemperatura.textContent =
+        metodoActual.temperatura;
 
-    letter-spacing:
-        -0.06em;
+    metodoMolienda.textContent =
+        metodoActual.molienda;
 
-    font-weight:
-        500;
-}
+    cantidadCafe.textContent =
+        gramosCafe;
 
-.descripcion-final {
-    margin:
-        24px 0 44px;
+    cargarRatios();
 
-    max-width:
-        320px;
+    calcularAgua();
 
-    color:
-        var(--muted);
+    mostrarVista(vistaPreparacion);
 
-    line-height:
-        1.6;
-}
-
-.resumen-final {
-    display:
-        flex;
-
-    flex-direction:
-        column;
-
-    border-top:
-        1px solid var(--line);
-
-    margin-bottom:
-        auto;
-}
-
-.resumen-final div {
-    display:
-        flex;
-
-    justify-content:
-        space-between;
-
-    align-items:
-        center;
-
-    padding:
-        18px 0;
-
-    border-bottom:
-        1px solid var(--line);
-}
-
-.resumen-final span {
-    font-size:
-        0.7rem;
-
-    font-weight:
-        700;
-
-    letter-spacing:
-        0.14em;
-
-    color:
-        var(--muted);
-}
-
-.resumen-final strong {
-    font-size:
-        1.1rem;
-
-    font-weight:
-        500;
 }
 
 
-/* =========================
-   PANTALLAS GRANDES
-========================= */
+// ================================
+// RATIOS
+// ================================
 
-@media (min-width: 700px) {
+function cargarRatios() {
 
-    #app {
-        max-width: 520px;
+    opcionesIntensidad.innerHTML = "";
 
-        margin:
-            0 auto;
+    metodoActual.ratios.forEach(opcion => {
+
+        const boton =
+            document.createElement("button");
+
+        boton.className =
+            "boton-ratio";
+
+        boton.textContent =
+            opcion.nombre;
+
+        if (
+            opcion.ratio ===
+            metodoActual.ratioDefault
+        ) {
+            boton.classList.add("activo");
+        }
+
+        boton.addEventListener(
+            "click",
+            () => {
+
+                ratioActual =
+                    opcion.ratio;
+
+                document
+                    .querySelectorAll(".boton-ratio")
+                    .forEach(btn => {
+                        btn.classList.remove("activo");
+                    });
+
+                boton.classList.add("activo");
+
+                calcularAgua();
+            }
+        );
+
+        opcionesIntensidad.appendChild(
+            boton
+        );
+
+    });
+
+}
+
+
+// ================================
+// CAFÉ / AGUA
+// ================================
+
+function cambiarCafe(cantidad) {
+
+    gramosCafe += cantidad;
+
+    if (gramosCafe < 5) {
+        gramosCafe = 5;
     }
 
-    body {
-        background:
-            #D8CDC7;
+    if (gramosCafe > 100) {
+        gramosCafe = 100;
     }
 
-    .vista {
-        background:
-            var(--bg);
+    cantidadCafe.textContent =
+        gramosCafe;
 
-        box-shadow:
-            0 0 60px
-            rgba(0, 0, 0, 0.08);
+    calcularAgua();
+
+}
+
+
+function obtenerAguaTotal() {
+
+    return Math.round(
+        gramosCafe * ratioActual
+    );
+
+}
+
+
+function obtenerAguaBloom() {
+
+    const multiplicador =
+        metodoActual?.parametros?.bloomMultiplicador ?? 3;
+
+    return Math.min(
+        Math.round(
+            gramosCafe * multiplicador
+        ),
+        obtenerAguaTotal()
+    );
+
+}
+
+
+function obtenerObjetivoAcumulado(porcentaje) {
+
+    return Math.round(
+        obtenerAguaTotal() * porcentaje
+    );
+
+}
+
+
+function calcularAgua() {
+
+    cantidadAgua.textContent =
+        obtenerAguaTotal();
+
+}
+
+
+// ================================
+// AGUA USADA ANTES DEL PASO
+// ================================
+
+function obtenerAguaAnterior(indicePaso) {
+
+    let aguaAnterior = 0;
+
+    for (
+        let i = 0;
+        i < indicePaso;
+        i++
+    ) {
+
+        const paso =
+            metodoActual.pasos[i];
+
+
+        if (paso.agua === "bloom") {
+
+            aguaAnterior =
+                obtenerAguaBloom();
+
+        }
+
+
+        if (paso.agua === "acumulado") {
+
+            aguaAnterior =
+                obtenerObjetivoAcumulado(
+                    paso.porcentaje
+                );
+
+        }
+
+
+        if (
+            paso.agua === "restante" ||
+            paso.agua === "total"
+        ) {
+
+            aguaAnterior =
+                obtenerAguaTotal();
+
+        }
+
+    }
+
+    return aguaAnterior;
+
+}
+
+
+// ================================
+// DATOS DEL PASO
+// ================================
+
+function obtenerDatosAguaPaso(
+    paso,
+    indicePaso
+) {
+
+    if (paso.agua === "bloom") {
+
+        const cantidad =
+            obtenerAguaBloom();
+
+        return {
+            valor: cantidad,
+            objetivo: cantidad,
+            etiqueta: "Agua",
+            instruccion:
+                `Agrega ${cantidad} ml de agua, humedece todo el café y espera.`
+        };
+
+    }
+
+
+    if (paso.agua === "restante") {
+
+        const anterior =
+            obtenerAguaAnterior(
+                indicePaso
+            );
+
+        const cantidad =
+            Math.max(
+                obtenerAguaTotal() - anterior,
+                0
+            );
+
+        return {
+            valor: cantidad,
+            objetivo: obtenerAguaTotal(),
+            etiqueta: "Agregar",
+            instruccion:
+                `Agrega lentamente los ${cantidad} ml restantes.`
+        };
+
+    }
+
+
+    if (paso.agua === "acumulado") {
+
+        const objetivo =
+            obtenerObjetivoAcumulado(
+                paso.porcentaje
+            );
+
+        const anterior =
+            obtenerAguaAnterior(
+                indicePaso
+            );
+
+        const cantidad =
+            Math.max(
+                objetivo - anterior,
+                0
+            );
+
+        return {
+            valor: objetivo,
+            objetivo: objetivo,
+            etiqueta: "Objetivo en balanza",
+            instruccion:
+                `Agrega ${cantidad} ml lentamente hasta llegar a ${objetivo} ml.`
+        };
+
+    }
+
+
+    if (paso.agua === "total") {
+
+        const total =
+            obtenerAguaTotal();
+
+        return {
+            valor: total,
+            objetivo: total,
+            etiqueta: "Agua total",
+            instruccion:
+                `Agrega ${total} ml de agua.`
+        };
+
+    }
+
+
+    return null;
+
+}
+
+
+// ================================
+// OBJETIVO VISUAL
+// ================================
+
+function actualizarObjetivoPaso(
+    paso,
+    indicePaso
+) {
+
+    const datos =
+        obtenerDatosAguaPaso(
+            paso,
+            indicePaso
+        );
+
+
+    if (!datos) {
+
+        objetivoPaso.style.display =
+            "none";
+
+        pasoInstruccion.textContent =
+            paso.instruccion || "";
+
+        return;
+
+    }
+
+
+    objetivoPaso.style.display =
+        "flex";
+
+
+    objetivoPasoValor.textContent =
+        `${datos.valor} ml`;
+
+
+    objetivoPasoEtiqueta.textContent =
+        datos.etiqueta;
+
+
+    pasoInstruccion.textContent =
+        datos.instruccion;
+
+}
+
+
+// ================================
+// WAKE LOCK
+// ================================
+
+async function solicitarWakeLock() {
+
+    try {
+
+        if (
+            "wakeLock" in navigator &&
+            !wakeLock
+        ) {
+
+            wakeLock =
+                await navigator.wakeLock.request(
+                    "screen"
+                );
+
+        }
+
+    } catch (error) {
+
+        console.log(
+            "Wake Lock no disponible:",
+            error
+        );
+
     }
 
 }
-/* =========================
-   OBJETIVO PRINCIPAL DEL PASO
-========================= */
 
-.objetivo-paso {
-    display: none;
 
-    flex-direction: column;
+async function liberarWakeLock() {
 
-    align-items: flex-start;
+    try {
 
-    margin-top: 30px;
+        if (wakeLock) {
 
-    padding:
-        22px 0 24px;
+            await wakeLock.release();
 
-    border-top:
-        1px solid var(--line);
+            wakeLock = null;
 
-    border-bottom:
-        1px solid var(--line);
+        }
+
+    } catch (error) {
+
+        console.log(error);
+
+    }
+
 }
 
 
-.objetivo-paso strong {
-    font-size:
-        clamp(3.4rem, 15vw, 5.8rem);
+// ================================
+// PREPARACIÓN GUIADA
+// ================================
 
-    font-weight: 500;
+function iniciarPreparacion() {
 
-    line-height: 0.95;
+    if (!metodoActual) {
+        return;
+    }
 
-    letter-spacing:
-        -0.07em;
 
-    font-variant-numeric:
-        tabular-nums;
+    if (
+        !metodoActual.pasos ||
+        metodoActual.pasos.length === 0
+    ) {
+
+        alert(
+            "La preparación guiada de este método estará disponible próximamente."
+        );
+
+        return;
+
+    }
+
+
+    pasoActual = 0;
+
+
+    metodoGuiado.textContent =
+        metodoActual.nombre.toUpperCase();
+
+
+    solicitarWakeLock();
+
+
+    cargarPaso();
+
+
+    mostrarVista(vistaGuiada);
+
 }
 
 
-.objetivo-paso span {
-    margin-top: 12px;
+// ================================
+// CARGAR PASO
+// ================================
 
-    font-size: 0.68rem;
+function cargarPaso() {
 
-    font-weight: 700;
+    detenerTemporizador();
 
-    letter-spacing: 0.16em;
 
-    color: var(--muted);
+    const pasos =
+        metodoActual.pasos;
+
+
+    const paso =
+        pasos[pasoActual];
+
+
+    pasoIndicador.textContent =
+        `PASO ${pasoActual + 1} DE ${pasos.length}`;
+
+
+    const porcentaje =
+        ((pasoActual + 1) / pasos.length) * 100;
+
+
+    barraProgresoActiva.style.width =
+        `${porcentaje}%`;
+
+
+    pasoNombre.textContent =
+        paso.nombre;
+
+
+    actualizarObjetivoPaso(
+        paso,
+        pasoActual
+    );
+
+
+    if (paso.tipo === "timer") {
+
+        segundosRestantes =
+            paso.tiempo;
+
+        timerGuiado.style.display =
+            "block";
+
+        btnControlTimer.style.display =
+            "block";
+
+        btnSiguientePaso.style.display =
+            "none";
+
+        btnControlTimer.textContent =
+            "INICIAR PASO";
+
+        actualizarDisplayTimer();
+
+    } else {
+
+        timerGuiado.style.display =
+            "none";
+
+        btnControlTimer.style.display =
+            "none";
+
+        btnSiguientePaso.style.display =
+            "block";
+
+        btnSiguientePaso.textContent =
+            pasoActual === pasos.length - 1
+                ? "TERMINAR PREPARACIÓN"
+                : "CONTINUAR";
+
+    }
+
 }
+
+
+// ================================
+// TIMER
+// ================================
+
+function iniciarTimerPaso() {
+
+    if (temporizadorCorriendo) {
+
+        pausarTemporizador();
+
+        return;
+
+    }
+
+
+    temporizadorCorriendo =
+        true;
+
+
+    btnControlTimer.textContent =
+        "PAUSAR";
+
+
+    temporizador =
+        setInterval(() => {
+
+            segundosRestantes--;
+
+
+            actualizarDisplayTimer();
+
+
+            if (
+                segundosRestantes <= 0
+            ) {
+
+                detenerTemporizador();
+
+                finalizarPasoTimer();
+
+            }
+
+        }, 1000);
+
+}
+
+
+function pausarTemporizador() {
+
+    if (temporizador) {
+
+        clearInterval(
+            temporizador
+        );
+
+        temporizador = null;
+
+    }
+
+
+    temporizadorCorriendo =
+        false;
+
+
+    btnControlTimer.textContent =
+        "REANUDAR";
+
+}
+
+
+function detenerTemporizador() {
+
+    if (temporizador) {
+
+        clearInterval(
+            temporizador
+        );
+
+        temporizador = null;
+
+    }
+
+
+    temporizadorCorriendo =
+        false;
+
+}
+
+
+function actualizarDisplayTimer() {
+
+    const minutos =
+        Math.floor(
+            segundosRestantes / 60
+        );
+
+
+    const segundos =
+        segundosRestantes % 60;
+
+
+    timerGuiado.textContent =
+        `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`;
+
+}
+
+
+function finalizarPasoTimer() {
+
+    if ("vibrate" in navigator) {
+
+        navigator.vibrate([
+            300,
+            150,
+            300
+        ]);
+
+    }
+
+
+    timerGuiado.textContent =
+        "00:00";
+
+
+    btnControlTimer.style.display =
+        "none";
+
+
+    btnSiguientePaso.style.display =
+        "block";
+
+
+    btnSiguientePaso.textContent =
+        pasoActual === metodoActual.pasos.length - 1
+            ? "TERMINAR PREPARACIÓN"
+            : "CONTINUAR";
+
+}
+
+
+// ================================
+// AVANZAR
+// ================================
+
+function avanzarPaso() {
+
+    if (
+        pasoActual <
+        metodoActual.pasos.length - 1
+    ) {
+
+        pasoActual++;
+
+        cargarPaso();
+
+    } else {
+
+        finalizarPreparacion();
+
+    }
+
+}
+
+
+// ================================
+// FINAL
+// ================================
+
+function finalizarPreparacion() {
+
+    detenerTemporizador();
+
+    liberarWakeLock();
+
+
+    resumenMetodo.textContent =
+        metodoActual.nombre;
+
+
+    resumenCafe.textContent =
+        `${gramosCafe} g`;
+
+
+    resumenAgua.textContent =
+        `${obtenerAguaTotal()} ml`;
+
+
+    mostrarVista(vistaFinal);
+
+}
+
+
+// ================================
+// SALIR
+// ================================
+
+function salirPreparacion() {
+
+    detenerTemporizador();
+
+    liberarWakeLock();
+
+    mostrarVista(
+        vistaPreparacion
+    );
+
+}
+
+
+// ================================
+// EVENTOS
+// ================================
+
+document
+    .getElementById("btn-volver")
+    .addEventListener(
+        "click",
+        () => mostrarVista(vistaInicio)
+    );
+
+
+document
+    .getElementById("btn-menos")
+    .addEventListener(
+        "click",
+        () => cambiarCafe(-1)
+    );
+
+
+document
+    .getElementById("btn-mas")
+    .addEventListener(
+        "click",
+        () => cambiarCafe(1)
+    );
+
+
+document
+    .getElementById("btn-preparar")
+    .addEventListener(
+        "click",
+        iniciarPreparacion
+    );
+
+
+btnControlTimer.addEventListener(
+    "click",
+    iniciarTimerPaso
+);
+
+
+btnSiguientePaso.addEventListener(
+    "click",
+    avanzarPaso
+);
+
+
+document
+    .getElementById("btn-salir-guiada")
+    .addEventListener(
+        "click",
+        salirPreparacion
+    );
+
+
+document
+    .getElementById("btn-volver-inicio")
+    .addEventListener(
+        "click",
+        () => {
+
+            metodoActual = null;
+
+            mostrarVista(vistaInicio);
+
+        }
+    );
+
+
+document.addEventListener(
+    "visibilitychange",
+    async () => {
+
+        if (
+            document.visibilityState === "visible" &&
+            vistaGuiada.classList.contains("activa")
+        ) {
+
+            await solicitarWakeLock();
+
+        }
+
+    }
+);
+
+
+// ================================
+// INICIO
+// ================================
+
+cargarMetodos();
