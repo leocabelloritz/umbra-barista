@@ -81,7 +81,7 @@ const METODOS = {
         subtitulo: "Filtrado",
 
         descripcion:
-            "Una taza limpia y definida que resalta los matices del café.",
+            "Una taza limpia, aromática y definida que resalta los matices del café.",
 
         temperatura: "90–93 °C",
         molienda: "Media",
@@ -116,15 +116,36 @@ const METODOS = {
             {
                 nombre: "Bloom",
                 tipo: "timer",
-                tiempo: 30,
+                tiempo: 45,
                 agua: "bloom"
             },
 
             {
-                nombre: "Vertido",
-                tipo: "timer",
-                tiempo: 150,
-                agua: "restante"
+                nombre: "Primer vertido",
+                tipo: "accion",
+                agua: "acumulado",
+                porcentaje: 0.50
+            },
+
+            {
+                nombre: "Segundo vertido",
+                tipo: "accion",
+                agua: "acumulado",
+                porcentaje: 0.75
+            },
+
+            {
+                nombre: "Vertido final",
+                tipo: "accion",
+                agua: "acumulado",
+                porcentaje: 1
+            },
+
+            {
+                nombre: "Drenado",
+                tipo: "accion",
+                instruccion:
+                    "Deja que el agua termine de atravesar el café. Retira el V60 cuando el goteo sea muy lento."
             }
 
         ]
