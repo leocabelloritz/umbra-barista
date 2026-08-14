@@ -82,6 +82,16 @@ const btnSiguientePaso =
     document.getElementById("btn-siguiente-paso");
 
 
+const objetivoPaso =
+    document.getElementById("objetivo-paso");
+
+const objetivoPasoValor =
+    document.getElementById("objetivo-paso-valor");
+
+const objetivoPasoEtiqueta =
+    document.getElementById("objetivo-paso-etiqueta");
+
+
 const resumenMetodo =
     document.getElementById("resumen-metodo");
 
@@ -192,7 +202,6 @@ function abrirMetodo(idMetodo) {
         gramosCafe;
 
     cargarRatios();
-
     calcularAgua();
 
     mostrarVista(vistaPreparacion);
@@ -331,7 +340,7 @@ function calcularAgua() {
 
 
 // ================================
-// AGUA UTILIZADA ANTES DE UN PASO
+// AGUA ANTERIOR
 // ================================
 
 function obtenerAguaAnterior(indicePaso) {
@@ -352,33 +361,25 @@ function obtenerAguaAnterior(indicePaso) {
             metodoActual.pasos[i];
 
         if (paso.agua === "bloom") {
-
             aguaAnterior =
                 obtenerAguaBloom();
-
         }
 
         if (paso.agua === "acumulado") {
-
             aguaAnterior =
                 obtenerObjetivoAcumulado(
                     paso.porcentaje
                 );
-
         }
 
         if (paso.agua === "restante") {
-
             aguaAnterior =
                 obtenerAguaTotal();
-
         }
 
         if (paso.agua === "total") {
-
             aguaAnterior =
                 obtenerAguaTotal();
-
         }
 
     }
@@ -389,7 +390,7 @@ function obtenerAguaAnterior(indicePaso) {
 
 
 // ================================
-// INSTRUCCIONES DINÁMICAS
+// INSTRUCCIONES
 // ================================
 
 function obtenerInstruccionPaso(
@@ -399,37 +400,18 @@ function obtenerInstruccionPaso(
 
     if (paso.agua === "bloom") {
 
-        const aguaBloom =
-            obtenerAguaBloom();
-
-        return (
-            `Agrega ${aguaBloom} ml de agua, ` +
-            `humedece todo el café y espera.`
-        );
+        return "Humedece todo el café de forma uniforme.";
 
     }
 
 
     if (paso.agua === "restante") {
 
-        const aguaRestante =
+        const restante =
             obtenerAguaRestante();
 
         return (
-            `Agrega lentamente los ` +
-            `${aguaRestante} ml de agua restantes.`
-        );
-
-    }
-
-
-    if (paso.agua === "total") {
-
-        const aguaTotal =
-            obtenerAguaTotal();
-
-        return (
-            `Agrega ${aguaTotal} ml de agua.`
+            `Agrega lentamente los ${restante} ml restantes.`
         );
 
     }
@@ -442,27 +424,108 @@ function obtenerInstruccionPaso(
                 paso.porcentaje
             );
 
-        const aguaAnterior =
+        const anterior =
             obtenerAguaAnterior(
                 indicePaso
             );
 
         const agregar =
             Math.max(
-                objetivo - aguaAnterior,
+                objetivo - anterior,
                 0
             );
 
         return (
-            `Agrega ${agregar} ml lentamente ` +
-            `hasta alcanzar ${objetivo} ml ` +
-            `totales en la balanza.`
+            `Agrega aproximadamente ${agregar} ml lentamente.`
         );
 
     }
 
 
+    if (paso.agua === "total") {
+
+        return "Agrega toda el agua lentamente.";
+
+    }
+
+
     return paso.instruccion || "";
+
+}
+
+
+// ================================
+// OBJETIVO VISUAL
+// ================================
+
+function actualizarObjetivoPaso(
+    paso,
+    indicePaso
+) {
+
+    objetivoPaso.style.display =
+        "flex";
+
+
+    if (paso.agua === "bloom") {
+
+        objetivoPasoValor.textContent =
+            `${obtenerAguaBloom()} ml`;
+
+        objetivoPasoEtiqueta.textContent =
+            "AGUA";
+
+        return;
+
+    }
+
+
+    if (paso.agua === "restante") {
+
+        objetivoPasoValor.textContent =
+            `${obtenerAguaRestante()} ml`;
+
+        objetivoPasoEtiqueta.textContent =
+            "AGREGAR";
+
+        return;
+
+    }
+
+
+    if (paso.agua === "total") {
+
+        objetivoPasoValor.textContent =
+            `${obtenerAguaTotal()} ml`;
+
+        objetivoPasoEtiqueta.textContent =
+            "TOTAL";
+
+        return;
+
+    }
+
+
+    if (paso.agua === "acumulado") {
+
+        const objetivo =
+            obtenerObjetivoAcumulado(
+                paso.porcentaje
+            );
+
+        objetivoPasoValor.textContent =
+            `${objetivo} ml`;
+
+        objetivoPasoEtiqueta.textContent =
+            "OBJETIVO EN BALANZA";
+
+        return;
+
+    }
+
+
+    objetivoPaso.style.display =
+        "none";
 
 }
 
@@ -488,9 +551,7 @@ async function solicitarWakeLock() {
 
         }
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.log(
             "Wake Lock no disponible:",
@@ -514,9 +575,7 @@ async function liberarWakeLock() {
 
         }
 
-    }
-
-    catch (error) {
+    } catch (error) {
 
         console.log(error);
 
@@ -593,6 +652,11 @@ function cargarPaso() {
             pasoActual
         );
 
+    actualizarObjetivoPaso(
+        paso,
+        pasoActual
+    );
+
 
     if (paso.tipo === "timer") {
 
@@ -613,9 +677,7 @@ function cargarPaso() {
 
         actualizarDisplayTimer();
 
-    }
-
-    else {
+    } else {
 
         timerGuiado.style.display =
             "none";
@@ -637,7 +699,7 @@ function cargarPaso() {
 
 
 // ================================
-// TEMPORIZADOR
+// TIMER
 // ================================
 
 function iniciarTimerPaso() {
@@ -712,10 +774,6 @@ function detenerTemporizador() {
 }
 
 
-// ================================
-// DISPLAY TIMER
-// ================================
-
 function actualizarDisplayTimer() {
 
     const minutos =
@@ -731,10 +789,6 @@ function actualizarDisplayTimer() {
 
 }
 
-
-// ================================
-// PASO TEMPORIZADO TERMINADO
-// ================================
 
 function finalizarPasoTimer() {
 
@@ -780,9 +834,7 @@ function avanzarPaso() {
 
         cargarPaso();
 
-    }
-
-    else {
+    } else {
 
         finalizarPreparacion();
 
@@ -901,10 +953,6 @@ document
         }
     );
 
-
-// ================================
-// VISIBILIDAD / WAKE LOCK
-// ================================
 
 document.addEventListener(
     "visibilitychange",
