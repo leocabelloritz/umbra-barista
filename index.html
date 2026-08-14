@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -25,13 +27,27 @@
 
     <title>UMBRA / Barista</title>
 
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="manifest"
+        href="manifest.json"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css?v=7"
+    >
+
 </head>
+
 
 <body>
 
 <div id="app-shell">
+
+
+    <!-- =====================================
+         HEADER
+    ====================================== -->
 
     <header class="app-header">
 
@@ -41,9 +57,12 @@
                 <span></span>
             </div>
 
-            <strong>UMBRA</strong>
+            <strong>
+                UMBRA
+            </strong>
 
         </div>
+
 
         <button
             id="btn-menu"
@@ -61,7 +80,10 @@
 
     <main id="app">
 
-        <!-- MÉTODOS -->
+
+        <!-- =====================================
+             MÉTODOS
+        ====================================== -->
 
         <section
             id="vista-metodos"
@@ -73,7 +95,7 @@
                 <header class="page-heading">
 
                     <p class="micro">
-                        JOURNAL / 01
+                        RITUAL / 01
                     </p>
 
                     <h1>
@@ -97,7 +119,9 @@
         </section>
 
 
-        <!-- DETALLE -->
+        <!-- =====================================
+             DETALLE
+        ====================================== -->
 
         <section
             id="vista-detalle"
@@ -139,21 +163,26 @@
 
 
                     <div
-                        id="detalle-ilustracion"
                         class="method-illustration"
                         aria-hidden="true"
                     >
 
                         <div class="method-wire">
+
                             <span class="wire-top"></span>
+
                             <span class="wire-body"></span>
+
                             <span class="wire-line"></span>
+
                         </div>
 
                     </div>
 
                 </section>
 
+
+                <!-- STATS -->
 
                 <section class="stats">
 
@@ -198,6 +227,8 @@
                 </section>
 
 
+                <!-- DATOS -->
+
                 <section class="technical-strip">
 
                     <div>
@@ -211,6 +242,7 @@
                         </strong>
 
                     </div>
+
 
                     <div>
 
@@ -227,6 +259,8 @@
                 </section>
 
 
+                <!-- TABS -->
+
                 <div class="method-tabs">
 
                     <span class="active">
@@ -240,6 +274,8 @@
                 </div>
 
 
+                <!-- AJUSTES -->
+
                 <section class="compact-adjust">
 
                     <div class="compact-coffee">
@@ -248,28 +284,33 @@
                             CAFÉ /
                         </span>
 
+
                         <div class="cantidad">
 
                             <button
                                 id="btn-menos"
                                 type="button"
-                                aria-label="Disminuir café"
                             >
                                 −
                             </button>
 
+
                             <strong>
+
                                 <span id="cantidad-cafe">
                                     20
                                 </span>
 
-                                <small>g</small>
+                                <small>
+                                    g
+                                </small>
+
                             </strong>
+
 
                             <button
                                 id="btn-mas"
                                 type="button"
-                                aria-label="Aumentar café"
                             >
                                 +
                             </button>
@@ -295,6 +336,8 @@
                 </section>
 
 
+                <!-- PASOS -->
+
                 <section class="steps-section">
 
                     <div
@@ -310,6 +353,7 @@
                     class="guide-start"
                     type="button"
                 >
+
                     <span>
                         EMPEZAR GUÍA
                     </span>
@@ -317,6 +361,7 @@
                     <span>
                         →
                     </span>
+
                 </button>
 
             </div>
@@ -324,7 +369,9 @@
         </section>
 
 
-        <!-- GUÍA -->
+        <!-- =====================================
+             GUÍA / MODO INMERSIVO
+        ====================================== -->
 
         <section
             id="vista-guia"
@@ -333,6 +380,9 @@
 
             <div class="page guide-page">
 
+
+                <!-- CABECERA -->
+
                 <header class="guide-header">
 
                     <button
@@ -340,8 +390,9 @@
                         class="back-link"
                         type="button"
                     >
-                        ‹ TEMPORIZADOR
+                        ‹ SALIR
                     </button>
+
 
                     <span
                         id="guia-metodo"
@@ -353,9 +404,12 @@
                 </header>
 
 
+                <!-- RESUMEN -->
+
                 <section class="guide-summary">
 
                     <div>
+
                         <strong id="guide-summary-main">
                             20 g / 320 ml
                         </strong>
@@ -363,9 +417,12 @@
                         <span>
                             CAFÉ / AGUA
                         </span>
+
                     </div>
 
+
                     <div>
+
                         <strong id="guide-summary-ratio">
                             1:16
                         </strong>
@@ -373,26 +430,37 @@
                         <span>
                             RATIO
                         </span>
+
                     </div>
 
                 </section>
 
 
+                <!-- TIMER -->
+
                 <section class="timer-stage">
 
-                    <div class="timer-circle">
+
+                    <button
+                        id="timer-circle-control"
+                        class="timer-circle"
+                        type="button"
+                        aria-label="Control del temporizador"
+                    >
 
                         <svg
                             class="timer-ring"
                             viewBox="0 0 200 200"
                             aria-hidden="true"
                         >
+
                             <circle
                                 class="ring-track"
                                 cx="100"
                                 cy="100"
                                 r="92"
                             ></circle>
+
 
                             <circle
                                 id="timer-ring-progress"
@@ -401,26 +469,57 @@
                                 cy="100"
                                 r="92"
                             ></circle>
+
                         </svg>
 
 
                         <div class="timer-center">
 
+
+                            <!-- TIEMPO -->
+
                             <div
-                                id="timer-guiado"
-                                class="timer-guiado"
+                                id="timer-display"
+                                class="timer-display"
                             >
-                                00:45
+
+                                <strong
+                                    id="timer-guiado"
+                                    class="timer-guiado"
+                                >
+                                    00:45
+                                </strong>
+
+                                <span id="timer-status">
+                                    TIEMPO
+                                </span>
+
                             </div>
 
-                            <span>
-                                TIEMPO
-                            </span>
+
+                            <!-- ACCIÓN CENTRAL -->
+
+                            <div
+                                id="timer-action"
+                                class="timer-action"
+                            >
+
+                                <strong id="timer-action-label">
+                                    INICIAR
+                                </strong>
+
+                                <span>
+                                    →
+                                </span>
+
+                            </div>
 
                         </div>
 
-                    </div>
+                    </button>
 
+
+                    <!-- PROGRESO DE PASOS -->
 
                     <div class="guide-step-meta">
 
@@ -446,19 +545,32 @@
                 </section>
 
 
-                <!-- PANEL FIJO INFERIOR -->
+                <!-- PANEL FIJO DEL PASO -->
 
                 <section class="current-step">
 
-                    <p class="micro">
-                        AHORA /
-                    </p>
+                    <div class="current-step-top">
+
+                        <p class="micro">
+                            AHORA /
+                        </p>
+
+                        <span
+                            id="paso-tipo"
+                            class="step-type"
+                        >
+                            TEMPORIZADO
+                        </span>
+
+                    </div>
+
 
                     <div class="current-step-row">
 
                         <h1 id="paso-nombre">
                             Bloom
                         </h1>
+
 
                         <div
                             id="objetivo-paso"
@@ -489,34 +601,14 @@
 
                 </section>
 
-
-                <div class="guide-actions">
-
-                    <button
-                        id="btn-control-timer"
-                        class="timer-control"
-                        type="button"
-                    >
-                        INICIAR /
-                    </button>
-
-
-                    <button
-                        id="btn-siguiente-paso"
-                        class="guide-next"
-                        type="button"
-                    >
-                        CONTINUAR /
-                    </button>
-
-                </div>
-
             </div>
 
         </section>
 
 
-        <!-- FINAL -->
+        <!-- =====================================
+             FINAL
+        ====================================== -->
 
         <section
             id="vista-final"
@@ -542,23 +634,54 @@
                 <section class="final-summary">
 
                     <div>
-                        <span>MÉTODO /</span>
-                        <strong id="resumen-metodo">—</strong>
+
+                        <span>
+                            MÉTODO /
+                        </span>
+
+                        <strong id="resumen-metodo">
+                            —
+                        </strong>
+
                     </div>
 
-                    <div>
-                        <span>CAFÉ /</span>
-                        <strong id="resumen-cafe">—</strong>
-                    </div>
 
                     <div>
-                        <span>AGUA /</span>
-                        <strong id="resumen-agua">—</strong>
+
+                        <span>
+                            CAFÉ /
+                        </span>
+
+                        <strong id="resumen-cafe">
+                            —
+                        </strong>
+
                     </div>
 
+
                     <div>
-                        <span>RATIO /</span>
-                        <strong id="resumen-ratio">—</strong>
+
+                        <span>
+                            AGUA /
+                        </span>
+
+                        <strong id="resumen-agua">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            RATIO /
+                        </span>
+
+                        <strong id="resumen-ratio">
+                            —
+                        </strong>
+
                     </div>
 
                 </section>
@@ -569,6 +692,7 @@
                     class="guide-start"
                     type="button"
                 >
+
                     <span>
                         VOLVER A MÉTODOS
                     </span>
@@ -576,6 +700,7 @@
                     <span>
                         →
                     </span>
+
                 </button>
 
             </div>
@@ -583,7 +708,9 @@
         </section>
 
 
-        <!-- JOURNAL -->
+        <!-- =====================================
+             JOURNAL
+        ====================================== -->
 
         <section
             id="vista-journal"
@@ -628,6 +755,10 @@
     </main>
 
 
+    <!-- =====================================
+         NAVEGACIÓN
+    ====================================== -->
+
     <nav class="bottom-nav">
 
         <button
@@ -635,6 +766,7 @@
             class="nav-item activo"
             type="button"
         >
+
             <span class="nav-symbol">
                 ▽
             </span>
@@ -642,6 +774,7 @@
             <span>
                 MÉTODOS
             </span>
+
         </button>
 
 
@@ -650,6 +783,7 @@
             class="nav-item"
             type="button"
         >
+
             <span class="nav-symbol">
                 ◷
             </span>
@@ -657,6 +791,7 @@
             <span>
                 TEMPORIZADOR
             </span>
+
         </button>
 
 
@@ -665,6 +800,7 @@
             class="nav-item"
             type="button"
         >
+
             <span class="nav-symbol">
                 □
             </span>
@@ -672,6 +808,7 @@
             <span>
                 JOURNAL
             </span>
+
         </button>
 
     </nav>
@@ -679,8 +816,9 @@
 </div>
 
 
-<script src="data.js"></script>
-<script src="app.js"></script>
+<script src="data.js?v=7"></script>
+<script src="app.js?v=7"></script>
 
 </body>
+
 </html>
