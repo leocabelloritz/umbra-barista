@@ -6,6 +6,7 @@ let ratioActual = 16;
 let pasoActual = 0;
 
 let temporizador = null;
+
 let temporizadorCorriendo = false;
 
 let segundosRestantes = 0;
@@ -14,9 +15,9 @@ let segundosInicialesPaso = 0;
 let wakeLock = null;
 
 
-// =========================================
+// =====================================================
 // VISTAS
-// =========================================
+// =====================================================
 
 const vistaMetodos =
     document.getElementById("vista-metodos");
@@ -34,9 +35,9 @@ const vistaJournal =
     document.getElementById("vista-journal");
 
 
-// =========================================
+// =====================================================
 // DETALLE
-// =========================================
+// =====================================================
 
 const listaMetodos =
     document.getElementById("lista-metodos");
@@ -75,9 +76,9 @@ const listaPasosPreview =
     document.getElementById("lista-pasos-preview");
 
 
-// =========================================
+// =====================================================
 // GUÍA
-// =========================================
+// =====================================================
 
 const guiaMetodo =
     document.getElementById("guia-metodo");
@@ -100,6 +101,9 @@ const barraProgresoActiva =
 const pasoNombre =
     document.getElementById("paso-nombre");
 
+const pasoTipo =
+    document.getElementById("paso-tipo");
+
 const pasoInstruccion =
     document.getElementById("paso-instruccion");
 
@@ -112,22 +116,32 @@ const objetivoPasoValor =
 const objetivoPasoEtiqueta =
     document.getElementById("objetivo-paso-etiqueta");
 
+
+const timerCircleControl =
+    document.getElementById("timer-circle-control");
+
 const timerGuiado =
     document.getElementById("timer-guiado");
+
+const timerStatus =
+    document.getElementById("timer-status");
+
+const timerDisplay =
+    document.getElementById("timer-display");
+
+const timerAction =
+    document.getElementById("timer-action");
+
+const timerActionLabel =
+    document.getElementById("timer-action-label");
 
 const timerRingProgress =
     document.getElementById("timer-ring-progress");
 
-const btnControlTimer =
-    document.getElementById("btn-control-timer");
 
-const btnSiguientePaso =
-    document.getElementById("btn-siguiente-paso");
-
-
-// =========================================
+// =====================================================
 // FINAL
-// =========================================
+// =====================================================
 
 const resumenMetodo =
     document.getElementById("resumen-metodo");
@@ -142,9 +156,9 @@ const resumenRatio =
     document.getElementById("resumen-ratio");
 
 
-// =========================================
+// =====================================================
 // NAV
-// =========================================
+// =====================================================
 
 const navMetodos =
     document.getElementById("nav-metodos");
@@ -156,23 +170,56 @@ const navJournal =
     document.getElementById("nav-journal");
 
 
-// =========================================
+// =====================================================
+// MODO INMERSIVO
+// =====================================================
+
+function activarModoGuia() {
+
+    document.body.classList.add(
+        "modo-guia"
+    );
+
+}
+
+
+function desactivarModoGuia() {
+
+    document.body.classList.remove(
+        "modo-guia"
+    );
+
+}
+
+
+// =====================================================
 // NAVEGACIÓN
-// =========================================
+// =====================================================
 
 function mostrarVista(vista) {
 
     document
         .querySelectorAll(".vista")
         .forEach(elemento => {
-            elemento.classList.remove("activa");
+
+            elemento.classList.remove(
+                "activa"
+            );
+
         });
 
-    vista.classList.add("activa");
+
+    vista.classList.add(
+        "activa"
+    );
+
 
     window.scrollTo({
+
         top: 0,
+
         behavior: "smooth"
+
     });
 
 }
@@ -183,114 +230,166 @@ function actualizarNav(nombre) {
     document
         .querySelectorAll(".nav-item")
         .forEach(item => {
-            item.classList.remove("activo");
+
+            item.classList.remove(
+                "activo"
+            );
+
         });
 
 
     if (nombre === "metodos") {
-        navMetodos.classList.add("activo");
+
+        navMetodos.classList.add(
+            "activo"
+        );
+
     }
+
 
     if (nombre === "guia") {
-        navGuia.classList.add("activo");
+
+        navGuia.classList.add(
+            "activo"
+        );
+
     }
 
+
     if (nombre === "journal") {
-        navJournal.classList.add("activo");
+
+        navJournal.classList.add(
+            "activo"
+        );
+
     }
 
 }
 
 
-// =========================================
+// =====================================================
 // MÉTODOS
-// =========================================
+// =====================================================
 
 function cargarMetodos() {
 
-    listaMetodos.innerHTML = "";
+    listaMetodos.innerHTML =
+        "";
 
 
-    Object.values(METODOS).forEach(metodo => {
+    Object
+        .values(METODOS)
+        .forEach(metodo => {
 
-        const agua =
-            Math.round(
-                metodo.cafeDefault *
-                metodo.ratioDefault
+
+            const agua =
+                Math.round(
+
+                    metodo.cafeDefault *
+                    metodo.ratioDefault
+
+                );
+
+
+            const boton =
+                document.createElement(
+                    "button"
+                );
+
+
+            boton.className =
+                "tarjeta-metodo";
+
+
+            boton.innerHTML = `
+
+                <div class="metodo-grafico">
+
+                    <span>
+
+                        ${
+                            metodo.id === "v60"
+                                ? "▽"
+                                : metodo.id === "francesa"
+                                ? "▥"
+                                : metodo.id === "aeropress"
+                                ? "┃"
+                                : "◉"
+                        }
+
+                    </span>
+
+                </div>
+
+
+                <div class="metodo-info">
+
+                    <span class="metodo-meta">
+
+                        ${metodo.subtitulo} /
+
+                    </span>
+
+
+                    <strong>
+
+                        ${metodo.nombre}
+
+                    </strong>
+
+
+                    <p>
+
+                        ${metodo.descripcion}
+
+                    </p>
+
+
+                    <small>
+
+                        1:${metodo.ratioDefault}
+                        /
+                        ${metodo.cafeDefault} g
+                        /
+                        ${agua} ml
+
+                    </small>
+
+                </div>
+
+
+                <span class="metodo-flecha">
+
+                    →
+
+                </span>
+
+            `;
+
+
+            boton.addEventListener(
+
+                "click",
+
+                () => abrirMetodo(
+                    metodo.id
+                )
+
             );
 
 
-        const boton =
-            document.createElement("button");
+            listaMetodos.appendChild(
+                boton
+            );
 
-
-        boton.className =
-            "tarjeta-metodo";
-
-
-        boton.innerHTML = `
-
-            <div class="metodo-grafico">
-                <span>
-                    ${
-                        metodo.id === "v60"
-                            ? "▽"
-                            : metodo.id === "francesa"
-                            ? "▥"
-                            : metodo.id === "aeropress"
-                            ? "┃"
-                            : "◉"
-                    }
-                </span>
-            </div>
-
-            <div class="metodo-info">
-
-                <span class="metodo-meta">
-                    ${metodo.subtitulo} /
-                </span>
-
-                <strong>
-                    ${metodo.nombre}
-                </strong>
-
-                <p>
-                    ${metodo.descripcion}
-                </p>
-
-                <small>
-                    1:${metodo.ratioDefault}
-                    /
-                    ${metodo.cafeDefault} g
-                    /
-                    ${agua} ml
-                </small>
-
-            </div>
-
-            <span class="metodo-flecha">
-                →
-            </span>
-
-        `;
-
-
-        boton.addEventListener(
-            "click",
-            () => abrirMetodo(metodo.id)
-        );
-
-
-        listaMetodos.appendChild(boton);
-
-    });
+        });
 
 }
 
 
-// =========================================
+// =====================================================
 // ABRIR MÉTODO
-// =========================================
+// =====================================================
 
 function abrirMetodo(idMetodo) {
 
@@ -313,21 +412,31 @@ function abrirMetodo(idMetodo) {
     cargarPreviewPasos();
 
 
-    mostrarVista(vistaDetalle);
+    desactivarModoGuia();
 
-    actualizarNav("metodos");
+
+    mostrarVista(
+        vistaDetalle
+    );
+
+
+    actualizarNav(
+        "metodos"
+    );
 
 }
 
 
-// =========================================
+// =====================================================
 // DETALLE
-// =========================================
+// =====================================================
 
 function actualizarDetalle() {
 
     if (!metodoActual) {
+
         return;
+
     }
 
 
@@ -369,96 +478,124 @@ function actualizarDetalle() {
 }
 
 
-// =========================================
+// =====================================================
 // RATIOS
-// =========================================
+// =====================================================
 
 function cargarRatios() {
 
-    opcionesIntensidad.innerHTML = "";
+    opcionesIntensidad.innerHTML =
+        "";
 
 
-    metodoActual.ratios.forEach(opcion => {
-
-        const boton =
-            document.createElement("button");
+    metodoActual.ratios.forEach(
+        opcion => {
 
 
-        boton.className =
-            "boton-ratio";
+            const boton =
+                document.createElement(
+                    "button"
+                );
 
 
-        boton.innerHTML = `
-
-            <strong>
-                ${opcion.nombre}
-            </strong>
-
-            <span>
-                1:${opcion.ratio}
-            </span>
-
-        `;
+            boton.className =
+                "boton-ratio";
 
 
-        if (
-            opcion.ratio === ratioActual
-        ) {
+            boton.innerHTML = `
 
-            boton.classList.add("activo");
+                <strong>
+                    ${opcion.nombre}
+                </strong>
 
-        }
+                <span>
+                    1:${opcion.ratio}
+                </span>
 
-
-        boton.addEventListener(
-            "click",
-            () => {
-
-                ratioActual =
-                    opcion.ratio;
+            `;
 
 
-                document
-                    .querySelectorAll(".boton-ratio")
-                    .forEach(btn => {
-                        btn.classList.remove("activo");
-                    });
+            if (
+                opcion.ratio ===
+                ratioActual
+            ) {
 
-
-                boton.classList.add("activo");
-
-
-                actualizarDetalle();
-
-                cargarPreviewPasos();
+                boton.classList.add(
+                    "activo"
+                );
 
             }
-        );
 
 
-        opcionesIntensidad.appendChild(boton);
+            boton.addEventListener(
 
-    });
+                "click",
+
+                () => {
+
+
+                    ratioActual =
+                        opcion.ratio;
+
+
+                    document
+                        .querySelectorAll(
+                            ".boton-ratio"
+                        )
+                        .forEach(btn => {
+
+                            btn.classList.remove(
+                                "activo"
+                            );
+
+                        });
+
+
+                    boton.classList.add(
+                        "activo"
+                    );
+
+
+                    actualizarDetalle();
+
+                    cargarPreviewPasos();
+
+                }
+
+            );
+
+
+            opcionesIntensidad.appendChild(
+                boton
+            );
+
+        }
+    );
 
 }
 
 
-// =========================================
-// CAFÉ
-// =========================================
+// =====================================================
+// CANTIDAD DE CAFÉ
+// =====================================================
 
 function cambiarCafe(cantidad) {
 
-    gramosCafe += cantidad;
+    gramosCafe +=
+        cantidad;
 
 
     if (gramosCafe < 5) {
+
         gramosCafe = 5;
+
     }
 
 
     if (gramosCafe > 100) {
+
         gramosCafe = 100;
+
     }
 
 
@@ -469,15 +606,17 @@ function cambiarCafe(cantidad) {
 }
 
 
-// =========================================
+// =====================================================
 // CÁLCULOS
-// =========================================
+// =====================================================
 
 function obtenerAguaTotal() {
 
     return Math.round(
+
         gramosCafe *
         ratioActual
+
     );
 
 }
@@ -493,29 +632,41 @@ function obtenerAguaBloom() {
 
 
     return Math.min(
+
         Math.round(
+
             gramosCafe *
             multiplicador
+
         ),
+
         obtenerAguaTotal()
+
     );
 
 }
 
 
-function obtenerObjetivoAcumulado(porcentaje) {
+function obtenerObjetivoAcumulado(
+    porcentaje
+) {
 
     return Math.round(
+
         obtenerAguaTotal() *
         porcentaje
+
     );
 
 }
 
 
-function obtenerAguaAnterior(indicePaso) {
+function obtenerAguaAnterior(
+    indicePaso
+) {
 
-    let aguaAnterior = 0;
+    let aguaAnterior =
+        0;
 
 
     for (
@@ -528,7 +679,10 @@ function obtenerAguaAnterior(indicePaso) {
             metodoActual.pasos[i];
 
 
-        if (paso.agua === "bloom") {
+        if (
+            paso.agua ===
+            "bloom"
+        ) {
 
             aguaAnterior =
                 obtenerAguaBloom();
@@ -536,7 +690,10 @@ function obtenerAguaAnterior(indicePaso) {
         }
 
 
-        if (paso.agua === "acumulado") {
+        if (
+            paso.agua ===
+            "acumulado"
+        ) {
 
             aguaAnterior =
                 obtenerObjetivoAcumulado(
@@ -547,8 +704,10 @@ function obtenerAguaAnterior(indicePaso) {
 
 
         if (
-            paso.agua === "restante" ||
-            paso.agua === "total"
+            paso.agua ===
+            "restante" ||
+            paso.agua ===
+            "total"
         ) {
 
             aguaAnterior =
@@ -564,16 +723,20 @@ function obtenerAguaAnterior(indicePaso) {
 }
 
 
-// =========================================
-// DATOS DE PASO
-// =========================================
+// =====================================================
+// DATOS DEL PASO
+// =====================================================
 
 function obtenerDatosPaso(
     paso,
     indice
 ) {
 
-    if (paso.agua === "bloom") {
+
+    if (
+        paso.agua ===
+        "bloom"
+    ) {
 
         const cantidad =
             obtenerAguaBloom();
@@ -595,17 +758,25 @@ function obtenerDatosPaso(
     }
 
 
-    if (paso.agua === "restante") {
+    if (
+        paso.agua ===
+        "restante"
+    ) {
 
         const anterior =
-            obtenerAguaAnterior(indice);
+            obtenerAguaAnterior(
+                indice
+            );
 
 
         const cantidad =
             Math.max(
+
                 obtenerAguaTotal() -
                 anterior,
+
                 0
+
             );
 
 
@@ -625,7 +796,10 @@ function obtenerDatosPaso(
     }
 
 
-    if (paso.agua === "acumulado") {
+    if (
+        paso.agua ===
+        "acumulado"
+    ) {
 
         const objetivo =
             obtenerObjetivoAcumulado(
@@ -634,14 +808,19 @@ function obtenerDatosPaso(
 
 
         const anterior =
-            obtenerAguaAnterior(indice);
+            obtenerAguaAnterior(
+                indice
+            );
 
 
         const cantidad =
             Math.max(
+
                 objetivo -
                 anterior,
+
                 0
+
             );
 
 
@@ -661,7 +840,10 @@ function obtenerDatosPaso(
     }
 
 
-    if (paso.agua === "total") {
+    if (
+        paso.agua ===
+        "total"
+    ) {
 
         const total =
             obtenerAguaTotal();
@@ -699,13 +881,14 @@ function obtenerDatosPaso(
 }
 
 
-// =========================================
-// PREVIEW
-// =========================================
+// =====================================================
+// PREVIEW DE PASOS
+// =====================================================
 
 function cargarPreviewPasos() {
 
-    listaPasosPreview.innerHTML = "";
+    listaPasosPreview.innerHTML =
+        "";
 
 
     if (
@@ -731,6 +914,7 @@ function cargarPreviewPasos() {
     metodoActual.pasos.forEach(
         (paso, indice) => {
 
+
             const datos =
                 obtenerDatosPaso(
                     paso,
@@ -739,7 +923,9 @@ function cargarPreviewPasos() {
 
 
             const item =
-                document.createElement("div");
+                document.createElement(
+                    "div"
+                );
 
 
             item.className =
@@ -747,15 +933,22 @@ function cargarPreviewPasos() {
 
 
             const numero =
-                String(indice + 1)
-                    .padStart(2, "0");
+                String(
+                    indice + 1
+                ).padStart(
+                    2,
+                    "0"
+                );
 
 
             let meta =
                 "";
 
 
-            if (paso.tipo === "timer") {
+            if (
+                paso.tipo ===
+                "timer"
+            ) {
 
                 meta =
                     formatearTiempo(
@@ -765,7 +958,9 @@ function cargarPreviewPasos() {
             }
 
 
-            if (datos.valor) {
+            if (
+                datos.valor
+            ) {
 
                 meta +=
                     meta
@@ -778,21 +973,32 @@ function cargarPreviewPasos() {
             item.innerHTML = `
 
                 <span class="paso-numero">
+
                     ${numero}
+
                 </span>
+
 
                 <div>
 
                     <strong>
+
                         ${paso.nombre}
+
                     </strong>
 
+
                     <p>
+
                         ${datos.instruccion}
+
                     </p>
 
+
                     <small>
+
                         ${meta}
+
                     </small>
 
                 </div>
@@ -800,7 +1006,9 @@ function cargarPreviewPasos() {
             `;
 
 
-            listaPasosPreview.appendChild(item);
+            listaPasosPreview.appendChild(
+                item
+            );
 
         }
     );
@@ -808,14 +1016,18 @@ function cargarPreviewPasos() {
 }
 
 
-// =========================================
+// =====================================================
 // INICIAR GUÍA
-// =========================================
+// =====================================================
 
 function iniciarGuia() {
 
-    if (!metodoActual) {
+    if (
+        !metodoActual
+    ) {
+
         return;
+
     }
 
 
@@ -833,7 +1045,8 @@ function iniciarGuia() {
     }
 
 
-    pasoActual = 0;
+    pasoActual =
+        0;
 
 
     guiaMetodo.textContent =
@@ -848,22 +1061,30 @@ function iniciarGuia() {
         `1:${ratioActual}`;
 
 
+    activarModoGuia();
+
+
     solicitarWakeLock();
 
 
     cargarPaso();
 
 
-    mostrarVista(vistaGuia);
+    mostrarVista(
+        vistaGuia
+    );
 
-    actualizarNav("guia");
+
+    actualizarNav(
+        "guia"
+    );
 
 }
 
 
-// =========================================
+// =====================================================
 // CARGAR PASO
-// =========================================
+// =====================================================
 
 function cargarPaso() {
 
@@ -879,13 +1100,21 @@ function cargarPaso() {
 
 
     const numero =
-        String(pasoActual + 1)
-            .padStart(2, "0");
+        String(
+            pasoActual + 1
+        ).padStart(
+            2,
+            "0"
+        );
 
 
     const total =
-        String(pasos.length)
-            .padStart(2, "0");
+        String(
+            pasos.length
+        ).padStart(
+            2,
+            "0"
+        );
 
 
     pasoIndicador.textContent =
@@ -894,11 +1123,13 @@ function cargarPaso() {
 
     const porcentaje =
         Math.round(
+
             (
                 (pasoActual + 1) /
                 pasos.length
             ) *
             100
+
         );
 
 
@@ -914,6 +1145,12 @@ function cargarPaso() {
         paso.nombre;
 
 
+    pasoTipo.textContent =
+        paso.tipo === "timer"
+            ? "TEMPORIZADO"
+            : "ACCIÓN";
+
+
     const datos =
         obtenerDatosPaso(
             paso,
@@ -925,7 +1162,9 @@ function cargarPaso() {
         datos.instruccion;
 
 
-    if (datos.valor) {
+    if (
+        datos.valor
+    ) {
 
         objetivoPaso.style.display =
             "flex";
@@ -948,75 +1187,157 @@ function cargarPaso() {
     }
 
 
-    if (paso.tipo === "timer") {
+    if (
+        paso.tipo ===
+        "timer"
+    ) {
 
-        segundosRestantes =
-            paso.tiempo;
-
-        segundosInicialesPaso =
-            paso.tiempo;
-
-
-        timerGuiado.style.display =
-            "block";
-
-
-        btnControlTimer.style.display =
-            "block";
-
-
-        btnSiguientePaso.style.display =
-            "none";
-
-
-        btnControlTimer.textContent =
-            "INICIAR /";
-
-
-        actualizarDisplayTimer();
-
-        actualizarCirculoTimer();
+        prepararPasoTemporizado(
+            paso
+        );
 
     }
 
     else {
 
-        segundosInicialesPaso = 0;
-
-        timerGuiado.style.display =
-            "none";
-
-
-        btnControlTimer.style.display =
-            "none";
-
-
-        btnSiguientePaso.style.display =
-            "block";
-
-
-        btnSiguientePaso.textContent =
-            pasoActual === pasos.length - 1
-                ? "TERMINAR /"
-                : "CONTINUAR /";
-
-
-        resetearCirculoTimer();
+        prepararPasoAccion();
 
     }
 
 }
 
 
-// =========================================
+// =====================================================
+// PASO TEMPORIZADO
+// =====================================================
+
+function prepararPasoTemporizado(
+    paso
+) {
+
+    segundosRestantes =
+        paso.tiempo;
+
+
+    segundosInicialesPaso =
+        paso.tiempo;
+
+
+    actualizarDisplayTimer();
+
+
+    resetearCirculoTimer();
+
+
+    mostrarAccionCentral(
+        "INICIAR"
+    );
+
+}
+
+
+// =====================================================
+// PASO SIN TIMER
+// =====================================================
+
+function prepararPasoAccion() {
+
+    segundosRestantes =
+        0;
+
+
+    segundosInicialesPaso =
+        0;
+
+
+    resetearCirculoTimer();
+
+
+    const ultimoPaso =
+
+        pasoActual ===
+        metodoActual.pasos.length - 1;
+
+
+    mostrarAccionCentral(
+
+        ultimoPaso
+            ? "TERMINAR"
+            : "CONTINUAR"
+
+    );
+
+}
+
+
+// =====================================================
+// CONTROL CENTRAL
+// =====================================================
+
+function manejarControlCircular() {
+
+    const paso =
+        metodoActual.pasos[
+            pasoActual
+        ];
+
+
+    // PASO SIN TIMER
+
+    if (
+        paso.tipo !==
+        "timer"
+    ) {
+
+        avanzarPaso();
+
+        return;
+
+    }
+
+
+    // TIMER TERMINADO
+
+    if (
+        segundosRestantes <= 0
+    ) {
+
+        avanzarPaso();
+
+        return;
+
+    }
+
+
+    // TIMER CORRIENDO → PAUSA
+
+    if (
+        temporizadorCorriendo
+    ) {
+
+        pausarTemporizador();
+
+        return;
+
+    }
+
+
+    // TIMER DETENIDO → INICIAR / REANUDAR
+
+    iniciarTimerPaso();
+
+}
+
+
+// =====================================================
 // TIMER
-// =========================================
+// =====================================================
 
 function iniciarTimerPaso() {
 
-    if (temporizadorCorriendo) {
-
-        pausarTemporizador();
+    if (
+        segundosRestantes <= 0
+    ) {
 
         return;
 
@@ -1027,64 +1348,88 @@ function iniciarTimerPaso() {
         true;
 
 
-    btnControlTimer.textContent =
-        "PAUSAR /";
+    mostrarTiempo();
+
+
+    timerStatus.textContent =
+        "TOCA PARA PAUSAR";
 
 
     temporizador =
-        setInterval(() => {
+        setInterval(
 
-            segundosRestantes--;
-
-
-            actualizarDisplayTimer();
-
-            actualizarCirculoTimer();
+            () => {
 
 
-            if (
-                segundosRestantes <= 0
-            ) {
+                segundosRestantes--;
 
-                detenerTemporizador();
 
-                finalizarPasoTimer();
+                if (
+                    segundosRestantes < 0
+                ) {
 
-            }
+                    segundosRestantes = 0;
 
-        }, 1000);
+                }
+
+
+                actualizarDisplayTimer();
+
+                actualizarCirculoTimer();
+
+
+                if (
+                    segundosRestantes <= 0
+                ) {
+
+                    detenerTemporizador();
+
+                    finalizarPasoTimer();
+
+                }
+
+            },
+
+            1000
+
+        );
 
 }
 
+
+// =====================================================
+// PAUSAR
+// =====================================================
 
 function pausarTemporizador() {
 
-    if (temporizador) {
-
-        clearInterval(temporizador);
-
-        temporizador = null;
-
-    }
+    detenerTemporizador();
 
 
-    temporizadorCorriendo =
-        false;
-
-
-    btnControlTimer.textContent =
-        "REANUDAR /";
+    mostrarAccionCentral(
+        "REANUDAR"
+    );
 
 }
 
+
+// =====================================================
+// DETENER
+// =====================================================
 
 function detenerTemporizador() {
 
-    if (temporizador) {
+    if (
+        temporizador
+    ) {
 
-        clearInterval(temporizador);
+        clearInterval(
+            temporizador
+        );
 
-        temporizador = null;
+
+        temporizador =
+            null;
 
     }
 
@@ -1095,14 +1440,139 @@ function detenerTemporizador() {
 }
 
 
-// =========================================
-// CÍRCULO TIMER
-// =========================================
+// =====================================================
+// TIMER FINALIZADO
+// =====================================================
+
+function finalizarPasoTimer() {
+
+    segundosRestantes =
+        0;
+
+
+    actualizarDisplayTimer();
+
+    completarCirculoTimer();
+
+
+    if (
+        "vibrate" in navigator
+    ) {
+
+        navigator.vibrate(
+            [
+                300,
+                150,
+                300
+            ]
+        );
+
+    }
+
+
+    const ultimoPaso =
+
+        pasoActual ===
+        metodoActual.pasos.length - 1;
+
+
+    mostrarAccionCentral(
+
+        ultimoPaso
+            ? "TERMINAR"
+            : "CONTINUAR"
+
+    );
+
+}
+
+
+// =====================================================
+// UI DEL CÍRCULO
+// =====================================================
+
+function mostrarTiempo() {
+
+    timerDisplay.style.display =
+        "flex";
+
+
+    timerAction.style.display =
+        "none";
+
+}
+
+
+function mostrarAccionCentral(
+    texto
+) {
+
+    timerDisplay.style.display =
+        "none";
+
+
+    timerAction.style.display =
+        "flex";
+
+
+    timerActionLabel.textContent =
+        texto;
+
+}
+
+
+// =====================================================
+// DISPLAY DE TIEMPO
+// =====================================================
+
+function actualizarDisplayTimer() {
+
+    timerGuiado.textContent =
+        formatearTiempo(
+            segundosRestantes
+        );
+
+}
+
+
+function formatearTiempo(
+    totalSegundos
+) {
+
+    const minutos =
+        Math.floor(
+            totalSegundos /
+            60
+        );
+
+
+    const segundos =
+        totalSegundos %
+        60;
+
+
+    return (
+
+        `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`
+
+    );
+
+}
+
+
+// =====================================================
+// PROGRESO DEL CÍRCULO
+// =====================================================
 
 function actualizarCirculoTimer() {
 
-    if (!timerRingProgress) {
+    if (
+        !timerRingProgress ||
+        segundosInicialesPaso <= 0
+    ) {
+
         return;
+
     }
 
 
@@ -1110,20 +1580,10 @@ function actualizarCirculoTimer() {
         578;
 
 
-    if (
-        segundosInicialesPaso <= 0
-    ) {
-
-        timerRingProgress.style.strokeDashoffset =
-            longitud;
-
-        return;
-
-    }
-
-
     const progreso =
+
         1 -
+
         (
             segundosRestantes /
             segundosInicialesPaso
@@ -1131,7 +1591,9 @@ function actualizarCirculoTimer() {
 
 
     const offset =
+
         longitud -
+
         (
             longitud *
             progreso
@@ -1146,97 +1608,28 @@ function actualizarCirculoTimer() {
 
 function resetearCirculoTimer() {
 
-    if (!timerRingProgress) {
-        return;
-    }
-
-
     timerRingProgress.style.strokeDashoffset =
         578;
 
 }
 
 
-// =========================================
-// DISPLAY
-// =========================================
+function completarCirculoTimer() {
 
-function actualizarDisplayTimer() {
-
-    timerGuiado.textContent =
-        formatearTiempo(
-            segundosRestantes
-        );
+    timerRingProgress.style.strokeDashoffset =
+        0;
 
 }
 
 
-function formatearTiempo(totalSegundos) {
-
-    const minutos =
-        Math.floor(
-            totalSegundos / 60
-        );
-
-
-    const segundos =
-        totalSegundos % 60;
-
-
-    return (
-        `${String(minutos).padStart(2, "0")}:${String(segundos).padStart(2, "0")}`
-    );
-
-}
-
-
-// =========================================
-// TIMER TERMINADO
-// =========================================
-
-function finalizarPasoTimer() {
-
-    if ("vibrate" in navigator) {
-
-        navigator.vibrate([
-            300,
-            150,
-            300
-        ]);
-
-    }
-
-
-    timerGuiado.textContent =
-        "00:00";
-
-
-    actualizarCirculoTimer();
-
-
-    btnControlTimer.style.display =
-        "none";
-
-
-    btnSiguientePaso.style.display =
-        "block";
-
-
-    btnSiguientePaso.textContent =
-        pasoActual ===
-        metodoActual.pasos.length - 1
-
-            ? "TERMINAR /"
-            : "CONTINUAR /";
-
-}
-
-
-// =========================================
-// SIGUIENTE
-// =========================================
+// =====================================================
+// SIGUIENTE PASO
+// =====================================================
 
 function avanzarPaso() {
+
+    detenerTemporizador();
+
 
     if (
         pasoActual <
@@ -1244,6 +1637,7 @@ function avanzarPaso() {
     ) {
 
         pasoActual++;
+
 
         cargarPaso();
 
@@ -1258,15 +1652,19 @@ function avanzarPaso() {
 }
 
 
-// =========================================
+// =====================================================
 // FINAL
-// =========================================
+// =====================================================
 
 function finalizarPreparacion() {
 
     detenerTemporizador();
 
+
     liberarWakeLock();
+
+
+    desactivarModoGuia();
 
 
     resumenMetodo.textContent =
@@ -1285,16 +1683,21 @@ function finalizarPreparacion() {
         `1:${ratioActual}`;
 
 
-    mostrarVista(vistaFinal);
+    mostrarVista(
+        vistaFinal
+    );
 
-    actualizarNav("guia");
+
+    actualizarNav(
+        "guia"
+    );
 
 }
 
 
-// =========================================
+// =====================================================
 // WAKE LOCK
-// =========================================
+// =====================================================
 
 async function solicitarWakeLock() {
 
@@ -1308,7 +1711,9 @@ async function solicitarWakeLock() {
             wakeLock =
                 await navigator
                     .wakeLock
-                    .request("screen");
+                    .request(
+                        "screen"
+                    );
 
         }
 
@@ -1330,11 +1735,15 @@ async function liberarWakeLock() {
 
     try {
 
-        if (wakeLock) {
+        if (
+            wakeLock
+        ) {
 
             await wakeLock.release();
 
-            wakeLock = null;
+
+            wakeLock =
+                null;
 
         }
 
@@ -1342,170 +1751,285 @@ async function liberarWakeLock() {
 
     catch (error) {
 
-        console.log(error);
+        console.log(
+            error
+        );
 
     }
 
 }
 
 
-// =========================================
+// =====================================================
 // EVENTOS
-// =========================================
+// =====================================================
 
 document
-    .getElementById("btn-volver-metodos")
+    .getElementById(
+        "btn-volver-metodos"
+    )
     .addEventListener(
+
         "click",
+
         () => {
 
-            mostrarVista(vistaMetodos);
 
-            actualizarNav("metodos");
+            desactivarModoGuia();
+
+
+            mostrarVista(
+                vistaMetodos
+            );
+
+
+            actualizarNav(
+                "metodos"
+            );
 
         }
+
     );
 
 
 document
-    .getElementById("btn-menos")
+    .getElementById(
+        "btn-menos"
+    )
     .addEventListener(
+
         "click",
-        () => cambiarCafe(-1)
+
+        () => cambiarCafe(
+            -1
+        )
+
     );
 
 
 document
-    .getElementById("btn-mas")
+    .getElementById(
+        "btn-mas"
+    )
     .addEventListener(
+
         "click",
-        () => cambiarCafe(1)
+
+        () => cambiarCafe(
+            1
+        )
+
     );
 
 
 document
-    .getElementById("btn-iniciar-guia")
+    .getElementById(
+        "btn-iniciar-guia"
+    )
     .addEventListener(
+
         "click",
+
         iniciarGuia
+
     );
 
 
 document
-    .getElementById("btn-salir-guia")
+    .getElementById(
+        "btn-salir-guia"
+    )
     .addEventListener(
+
         "click",
+
         () => {
+
 
             detenerTemporizador();
 
+
             liberarWakeLock();
 
-            mostrarVista(vistaDetalle);
 
-            actualizarNav("metodos");
+            desactivarModoGuia();
+
+
+            mostrarVista(
+                vistaDetalle
+            );
+
+
+            actualizarNav(
+                "metodos"
+            );
 
         }
+
     );
 
 
-btnControlTimer.addEventListener(
-    "click",
-    iniciarTimerPaso
-);
+timerCircleControl
+    .addEventListener(
 
+        "click",
 
-btnSiguientePaso.addEventListener(
-    "click",
-    avanzarPaso
-);
+        manejarControlCircular
+
+    );
 
 
 document
-    .getElementById("btn-volver-inicio")
+    .getElementById(
+        "btn-volver-inicio"
+    )
     .addEventListener(
+
         "click",
+
         () => {
 
-            mostrarVista(vistaMetodos);
 
-            actualizarNav("metodos");
+            desactivarModoGuia();
+
+
+            mostrarVista(
+                vistaMetodos
+            );
+
+
+            actualizarNav(
+                "metodos"
+            );
 
         }
+
     );
 
 
-// =========================================
-// NAV
-// =========================================
+// =====================================================
+// NAV INFERIOR
+// =====================================================
 
 navMetodos.addEventListener(
+
     "click",
+
     () => {
+
 
         detenerTemporizador();
 
         liberarWakeLock();
 
-        mostrarVista(vistaMetodos);
+        desactivarModoGuia();
 
-        actualizarNav("metodos");
+
+        mostrarVista(
+            vistaMetodos
+        );
+
+
+        actualizarNav(
+            "metodos"
+        );
 
     }
+
 );
 
 
 navGuia.addEventListener(
+
     "click",
+
     () => {
 
-        if (metodoActual) {
 
-            mostrarVista(vistaDetalle);
+        desactivarModoGuia();
 
-            actualizarNav("guia");
+
+        if (
+            metodoActual
+        ) {
+
+            mostrarVista(
+                vistaDetalle
+            );
+
+
+            actualizarNav(
+                "guia"
+            );
 
         }
 
         else {
 
-            mostrarVista(vistaMetodos);
+            mostrarVista(
+                vistaMetodos
+            );
 
-            actualizarNav("metodos");
+
+            actualizarNav(
+                "metodos"
+            );
 
         }
 
     }
+
 );
 
 
 navJournal.addEventListener(
+
     "click",
+
     () => {
+
 
         detenerTemporizador();
 
         liberarWakeLock();
 
-        mostrarVista(vistaJournal);
+        desactivarModoGuia();
 
-        actualizarNav("journal");
+
+        mostrarVista(
+            vistaJournal
+        );
+
+
+        actualizarNav(
+            "journal"
+        );
 
     }
+
 );
 
 
-// =========================================
+// =====================================================
 // VISIBILIDAD
-// =========================================
+// =====================================================
 
 document.addEventListener(
+
     "visibilitychange",
+
     async () => {
 
+
         if (
-            document.visibilityState === "visible" &&
-            vistaGuia.classList.contains("activa")
+            document.visibilityState ===
+                "visible" &&
+
+            vistaGuia
+                .classList
+                .contains(
+                    "activa"
+                )
         ) {
 
             await solicitarWakeLock();
@@ -1513,13 +2037,16 @@ document.addEventListener(
         }
 
     }
+
 );
 
 
-// =========================================
+// =====================================================
 // INICIO
-// =========================================
+// =====================================================
 
 cargarMetodos();
 
-actualizarNav("metodos");
+actualizarNav(
+    "metodos"
+);
