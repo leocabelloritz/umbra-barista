@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-
     <meta charset="UTF-8">
 
     <meta
@@ -12,7 +10,7 @@
 
     <meta
         name="theme-color"
-        content="#0D0E0F"
+        content="#080909"
     >
 
     <meta
@@ -27,43 +25,33 @@
 
     <title>UMBRA / Barista</title>
 
-    <link
-        rel="manifest"
-        href="manifest.json"
-    >
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
 </head>
-
 
 <body>
 
 <div id="app-shell">
 
-    <!-- =========================
+    <!-- =========================================
          HEADER GLOBAL
-    ========================== -->
+    ========================================== -->
 
     <header class="app-header">
 
-        <div class="marca-global">
+        <div class="umbra-logo">
 
-            <div class="marca-simbolo"></div>
-
-            <div>
-                <strong>UMBRA</strong>
-                <span>/ BARISTA</span>
+            <div class="umbra-mark">
+                <span></span>
             </div>
+
+            <strong>UMBRA</strong>
 
         </div>
 
         <button
             id="btn-menu"
-            class="btn-header"
+            class="header-menu"
             type="button"
             aria-label="Menú"
         >
@@ -75,40 +63,35 @@
     </header>
 
 
-    <!-- =========================
-         CONTENIDO
-    ========================== -->
-
     <main id="app">
 
 
-        <!-- =========================
+        <!-- =========================================
              MÉTODOS
-        ========================== -->
+        ========================================== -->
 
         <section
             id="vista-metodos"
             class="vista activa"
         >
 
-            <div class="pagina">
+            <div class="page">
 
-                <div class="intro">
+                <header class="page-heading">
 
-                    <p class="kicker">
-                        01 / RITUAL
+                    <p class="micro">
+                        JOURNAL / 01
                     </p>
 
                     <h1>
                         Métodos
                     </h1>
 
-                    <p class="intro-texto">
-                        Elige cómo preparar tu café.
-                        Nosotros te guiamos en el resto.
+                    <p class="lead">
+                        Elige tu método y comienza tu ritual.
                     </p>
 
-                </div>
+                </header>
 
 
                 <div
@@ -121,48 +104,69 @@
         </section>
 
 
-        <!-- =========================
-             DETALLE
-        ========================== -->
+        <!-- =========================================
+             DETALLE DEL MÉTODO
+        ========================================== -->
 
         <section
             id="vista-detalle"
             class="vista"
         >
 
-            <div class="pagina">
+            <div class="page">
 
                 <button
                     id="btn-volver-metodos"
-                    class="volver"
+                    class="back-link"
                     type="button"
                 >
-                    ← / MÉTODOS
+                    ‹ MÉTODOS
                 </button>
 
 
-                <div class="detalle-cabecera">
+                <section class="method-hero">
 
-                    <p
-                        id="detalle-tipo"
-                        class="kicker"
+                    <div class="method-copy">
+
+                        <p
+                            id="detalle-tipo"
+                            class="micro"
+                        >
+                            INMERSIÓN / MÉTODO
+                        </p>
+
+                        <h1 id="detalle-nombre">
+                            Prensa Francesa
+                        </h1>
+
+                        <p
+                            id="detalle-descripcion"
+                            class="method-description"
+                        ></p>
+
+                    </div>
+
+
+                    <div
+                        id="detalle-ilustracion"
+                        class="method-illustration"
+                        aria-hidden="true"
                     >
-                        FILTRADO / MÉTODO
-                    </p>
 
-                    <h1 id="detalle-nombre">
-                        V60
-                    </h1>
+                        <div class="method-wire">
+                            <span class="wire-top"></span>
+                            <span class="wire-body"></span>
+                            <span class="wire-line"></span>
+                        </div>
 
-                    <p
-                        id="detalle-descripcion"
-                        class="intro-texto"
-                    ></p>
+                    </div>
 
-                </div>
+                </section>
 
 
-                <!-- STATS -->
+                <!-- =========================================
+                     STATS
+                ========================================== -->
 
                 <section class="stats">
 
@@ -207,9 +211,11 @@
                 </section>
 
 
-                <!-- DATOS TÉCNICOS -->
+                <!-- =========================================
+                     DATOS TÉCNICOS
+                ========================================== -->
 
-                <section class="ficha-tecnica">
+                <section class="technical-strip">
 
                     <div>
 
@@ -222,7 +228,6 @@
                         </strong>
 
                     </div>
-
 
                     <div>
 
@@ -239,26 +244,32 @@
                 </section>
 
 
-                <!-- RECETA -->
+                <!-- =========================================
+                     TABS VISUALES
+                ========================================== -->
 
-                <section class="configuracion">
+                <div class="method-tabs">
 
-                    <div class="seccion-titulo">
+                    <span class="active">
+                        PASOS
+                    </span>
 
-                        <span>
-                            02 /
-                        </span>
+                    <span>
+                        AJUSTAR
+                    </span>
 
-                        <h2>
-                            Receta
-                        </h2>
-
-                    </div>
+                </div>
 
 
-                    <div class="control-cafe">
+                <!-- =========================================
+                     AJUSTES COMPACTOS
+                ========================================== -->
 
-                        <span class="label-control">
+                <section class="compact-adjust">
+
+                    <div class="compact-coffee">
+
+                        <span class="micro-label">
                             CAFÉ /
                         </span>
 
@@ -267,6 +278,7 @@
                             <button
                                 id="btn-menos"
                                 type="button"
+                                aria-label="Disminuir café"
                             >
                                 −
                             </button>
@@ -276,14 +288,13 @@
                                     20
                                 </span>
 
-                                <small>
-                                    g
-                                </small>
+                                <small>g</small>
                             </strong>
 
                             <button
                                 id="btn-mas"
                                 type="button"
+                                aria-label="Aumentar café"
                             >
                                 +
                             </button>
@@ -293,9 +304,9 @@
                     </div>
 
 
-                    <div class="control-ratio">
+                    <div class="compact-ratio">
 
-                        <span class="label-control">
+                        <span class="micro-label">
                             INTENSIDAD /
                         </span>
 
@@ -309,22 +320,11 @@
                 </section>
 
 
-                <!-- PASOS -->
+                <!-- =========================================
+                     PASOS
+                ========================================== -->
 
-                <section class="pasos-preview">
-
-                    <div class="seccion-titulo">
-
-                        <span>
-                            03 /
-                        </span>
-
-                        <h2>
-                            Pasos
-                        </h2>
-
-                    </div>
-
+                <section class="steps-section">
 
                     <div
                         id="lista-pasos-preview"
@@ -336,11 +336,16 @@
 
                 <button
                     id="btn-iniciar-guia"
-                    class="btn-principal"
+                    class="guide-start"
                     type="button"
                 >
-                    EMPEZAR GUÍA /
-                    <span>→</span>
+                    <span>
+                        EMPEZAR GUÍA
+                    </span>
+
+                    <span>
+                        →
+                    </span>
                 </button>
 
             </div>
@@ -348,38 +353,107 @@
         </section>
 
 
-        <!-- =========================
-             GUÍA
-        ========================== -->
+        <!-- =========================================
+             GUÍA / TEMPORIZADOR
+        ========================================== -->
 
         <section
             id="vista-guia"
             class="vista"
         >
 
-            <div class="pagina guia">
+            <div class="page guide-page">
 
-                <div class="guia-top">
+                <header class="guide-header">
 
                     <button
                         id="btn-salir-guia"
-                        class="volver"
+                        class="back-link"
                         type="button"
                     >
-                        × / SALIR
+                        ‹ TEMPORIZADOR
                     </button>
 
-
-                    <span id="guia-metodo">
+                    <span
+                        id="guia-metodo"
+                        class="guide-method"
+                    >
                         V60 / FILTRADO
                     </span>
 
-                </div>
+                </header>
 
 
-                <div class="guia-progreso">
+                <section class="guide-summary">
 
-                    <div class="guia-progreso-meta">
+                    <div>
+                        <strong id="guide-summary-main">
+                            CAFÉ / AGUA
+                        </strong>
+
+                        <span>
+                            RECETA
+                        </span>
+                    </div>
+
+                    <div>
+                        <strong id="guide-summary-ratio">
+                            1:16
+                        </strong>
+
+                        <span>
+                            RATIO
+                        </span>
+                    </div>
+
+                </section>
+
+
+                <section class="timer-stage">
+
+                    <div class="timer-circle">
+
+                        <svg
+                            class="timer-ring"
+                            viewBox="0 0 200 200"
+                            aria-hidden="true"
+                        >
+                            <circle
+                                class="ring-track"
+                                cx="100"
+                                cy="100"
+                                r="92"
+                            ></circle>
+
+                            <circle
+                                id="timer-ring-progress"
+                                class="ring-progress"
+                                cx="100"
+                                cy="100"
+                                r="92"
+                            ></circle>
+                        </svg>
+
+
+                        <div class="timer-center">
+
+                            <div
+                                id="timer-guiado"
+                                class="timer-guiado"
+                            >
+                                00:45
+                            </div>
+
+                            <span>
+                                TIEMPO
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="guide-step-meta">
 
                         <span id="paso-indicador">
                             PASO 01 / 05
@@ -400,32 +474,39 @@
 
                     </div>
 
-                </div>
+                </section>
 
 
-                <section class="paso-activo">
+                <section class="current-step">
 
-                    <p class="kicker">
+                    <p class="micro">
                         AHORA /
                     </p>
 
-                    <h1 id="paso-nombre">
-                        Bloom
-                    </h1>
+                    <div class="current-step-row">
 
+                        <h1 id="paso-nombre">
+                            Bloom
+                        </h1>
 
-                    <div
-                        id="objetivo-paso"
-                        class="objetivo-paso"
-                    >
+                        <div
+                            id="objetivo-paso"
+                            class="objetivo-paso"
+                        >
 
-                        <strong id="objetivo-paso-valor">
-                            60 ml
-                        </strong>
+                            <strong
+                                id="objetivo-paso-valor"
+                            >
+                                60 ml
+                            </strong>
 
-                        <span id="objetivo-paso-etiqueta">
-                            Agua para este paso
-                        </span>
+                            <span
+                                id="objetivo-paso-etiqueta"
+                            >
+                                Agua
+                            </span>
+
+                        </div>
 
                     </div>
 
@@ -435,22 +516,14 @@
                         class="paso-instruccion"
                     ></p>
 
-
-                    <div
-                        id="timer-guiado"
-                        class="timer-guiado"
-                    >
-                        00:45
-                    </div>
-
                 </section>
 
 
-                <div class="acciones-guia">
+                <div class="guide-actions">
 
                     <button
                         id="btn-control-timer"
-                        class="btn-principal"
+                        class="timer-control"
                         type="button"
                     >
                         INICIAR /
@@ -459,7 +532,7 @@
 
                     <button
                         id="btn-siguiente-paso"
-                        class="btn-secundario"
+                        class="guide-next"
                         type="button"
                     >
                         CONTINUAR /
@@ -472,18 +545,18 @@
         </section>
 
 
-        <!-- =========================
+        <!-- =========================================
              FINAL
-        ========================== -->
+        ========================================== -->
 
         <section
             id="vista-final"
             class="vista"
         >
 
-            <div class="pagina final">
+            <div class="page final-page">
 
-                <p class="kicker">
+                <p class="micro">
                     RITUAL / COMPLETADO
                 </p>
 
@@ -491,63 +564,32 @@
                     Café listo.
                 </h1>
 
-                <p class="intro-texto">
+                <p class="lead">
                     Prueba la taza antes de cambiar nada.
-                    Fíjate en cuerpo, aroma y balance.
+                    Observa cuerpo / aroma / balance.
                 </p>
 
 
-                <section class="resumen-final">
+                <section class="final-summary">
 
                     <div>
-
-                        <span>
-                            MÉTODO /
-                        </span>
-
-                        <strong id="resumen-metodo">
-                            —
-                        </strong>
-
+                        <span>MÉTODO /</span>
+                        <strong id="resumen-metodo">—</strong>
                     </div>
 
-
                     <div>
-
-                        <span>
-                            CAFÉ /
-                        </span>
-
-                        <strong id="resumen-cafe">
-                            —
-                        </strong>
-
+                        <span>CAFÉ /</span>
+                        <strong id="resumen-cafe">—</strong>
                     </div>
 
-
                     <div>
-
-                        <span>
-                            AGUA /
-                        </span>
-
-                        <strong id="resumen-agua">
-                            —
-                        </strong>
-
+                        <span>AGUA /</span>
+                        <strong id="resumen-agua">—</strong>
                     </div>
 
-
                     <div>
-
-                        <span>
-                            RATIO /
-                        </span>
-
-                        <strong id="resumen-ratio">
-                            —
-                        </strong>
-
+                        <span>RATIO /</span>
+                        <strong id="resumen-ratio">—</strong>
                     </div>
 
                 </section>
@@ -555,10 +597,16 @@
 
                 <button
                     id="btn-volver-inicio"
-                    class="btn-principal"
+                    class="guide-start"
                     type="button"
                 >
-                    VOLVER A MÉTODOS /
+                    <span>
+                        VOLVER A MÉTODOS
+                    </span>
+
+                    <span>
+                        →
+                    </span>
                 </button>
 
             </div>
@@ -566,35 +614,43 @@
         </section>
 
 
-        <!-- =========================
-             JOURNAL PLACEHOLDER
-        ========================== -->
+        <!-- =========================================
+             JOURNAL
+        ========================================== -->
 
         <section
             id="vista-journal"
             class="vista"
         >
 
-            <div class="pagina">
+            <div class="page">
 
-                <p class="kicker">
-                    02 / JOURNAL
-                </p>
+                <header class="page-heading">
 
-                <h1 class="titulo-placeholder">
-                    Bitácora
-                </h1>
+                    <p class="micro">
+                        JOURNAL / 02
+                    </p>
 
-                <p class="intro-texto">
-                    Aquí podrás guardar preparaciones,
-                    cambios de receta y cafés favoritos.
-                </p>
+                    <h1>
+                        Bitácora
+                    </h1>
 
-                <div class="placeholder">
+                    <p class="lead">
+                        Registro de cafés / recetas / ajustes.
+                    </p>
+
+                </header>
+
+
+                <div class="journal-empty">
 
                     <span>
-                        JOURNAL / PRÓXIMAMENTE
+                        SIN REGISTROS /
                     </span>
+
+                    <p>
+                        Próximamente podrás guardar tus preparaciones.
+                    </p>
 
                 </div>
 
@@ -602,13 +658,12 @@
 
         </section>
 
-
     </main>
 
 
-    <!-- =========================
+    <!-- =========================================
          NAVEGACIÓN INFERIOR
-    ========================== -->
+    ========================================== -->
 
     <nav class="bottom-nav">
 
@@ -617,15 +672,13 @@
             class="nav-item activo"
             type="button"
         >
-
-            <span class="nav-icon">
-                ◇
+            <span class="nav-symbol">
+                ▽
             </span>
 
             <span>
                 MÉTODOS
             </span>
-
         </button>
 
 
@@ -634,15 +687,13 @@
             class="nav-item"
             type="button"
         >
-
-            <span class="nav-icon">
+            <span class="nav-symbol">
                 ◷
             </span>
 
             <span>
-                GUÍA
+                TEMPORIZADOR
             </span>
-
         </button>
 
 
@@ -651,15 +702,13 @@
             class="nav-item"
             type="button"
         >
-
-            <span class="nav-icon">
+            <span class="nav-symbol">
                 □
             </span>
 
             <span>
                 JOURNAL
             </span>
-
         </button>
 
     </nav>
@@ -671,5 +720,4 @@
 <script src="app.js"></script>
 
 </body>
-
 </html>
