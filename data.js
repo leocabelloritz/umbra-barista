@@ -49,7 +49,6 @@ const METODOS = {
             {
                 nombre: "Vertido",
                 tipo: "accion",
-                tiempo: 0,
                 agua: "restante"
             },
 
@@ -64,7 +63,6 @@ const METODOS = {
             {
                 nombre: "Prensado",
                 tipo: "accion",
-                tiempo: 0,
                 instruccion:
                     "Baja el émbolo lentamente y de forma constante."
             }
