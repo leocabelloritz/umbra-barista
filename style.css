@@ -35,8 +35,10 @@
 ========================================= */
 
 * {
+
     box-sizing:
         border-box;
+
 }
 
 
@@ -55,6 +57,12 @@ body {
 
     margin:
         0;
+
+    min-height:
+        100vh;
+
+    min-height:
+        100svh;
 
     background:
         radial-gradient(
@@ -89,6 +97,21 @@ button {
     color:
         inherit;
 
+    background:
+        transparent;
+
+    border:
+        0;
+
+    padding:
+        0;
+
+    -webkit-appearance:
+        none;
+
+    appearance:
+        none;
+
     -webkit-tap-highlight-color:
         transparent;
 
@@ -114,6 +137,9 @@ button:focus {
 
     min-height:
         100vh;
+
+    min-height:
+        100svh;
 
     background:
         var(--bg);
@@ -171,6 +197,28 @@ button:focus {
    MODO GUÍA
 ========================================= */
 
+body.modo-guia {
+
+    overflow-x:
+        hidden;
+
+    background:
+        var(--bg);
+
+}
+
+
+body.modo-guia #app-shell {
+
+    min-height:
+        100svh;
+
+    background:
+        var(--bg);
+
+}
+
+
 body.modo-guia #app {
 
     padding-bottom:
@@ -180,6 +228,30 @@ body.modo-guia #app {
 
 
 body.modo-guia .bottom-nav {
+
+    display:
+        none;
+
+}
+
+
+body.modo-guia #vista-guia {
+
+    background:
+        var(--bg);
+
+}
+
+
+body.modo-guia .guide-page {
+
+    background:
+        var(--bg);
+
+}
+
+
+#app-shell:has(#vista-guia.activa) .bottom-nav {
 
     display:
         none;
@@ -240,6 +312,9 @@ body.modo-guia .bottom-nav {
         );
 
     backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
         blur(18px);
 
 }
@@ -347,15 +422,6 @@ body.modo-guia .bottom-nav {
 
     height:
         28px;
-
-    border:
-        0;
-
-    padding:
-        0;
-
-    background:
-        transparent;
 
     display:
         flex;
@@ -500,18 +566,9 @@ body.modo-guia .bottom-nav {
     min-height:
         110px;
 
-    padding:
-        0;
-
-    border:
-        0;
-
     border-bottom:
         1px solid
         var(--line);
-
-    background:
-        transparent;
 
     display:
         grid;
@@ -677,15 +734,6 @@ body.modo-guia .bottom-nav {
 
     margin:
         0 0 22px;
-
-    padding:
-        0;
-
-    border:
-        0;
-
-    background:
-        transparent;
 
     color:
         var(--muted);
@@ -1216,9 +1264,6 @@ body.modo-guia .bottom-nav {
     border-radius:
         50%;
 
-    background:
-        transparent;
-
     color:
         var(--text);
 
@@ -1290,15 +1335,9 @@ body.modo-guia .bottom-nav {
     min-height:
         48px;
 
-    border:
-        0;
-
     border-right:
         1px solid
         var(--line);
-
-    background:
-        transparent;
 
     color:
         var(--muted);
@@ -1516,9 +1555,6 @@ body.modo-guia .bottom-nav {
         1px solid
         var(--line-strong);
 
-    background:
-        transparent;
-
     color:
         var(--text);
 
@@ -1553,7 +1589,7 @@ body.modo-guia .bottom-nav {
         );
 
     padding-bottom:
-        155px;
+        168px;
 
 }
 
@@ -1704,12 +1740,18 @@ body.modo-guia .app-header {
 
     width:
         min(
-            70vw,
-            286px
+            62vw,
+            250px
+        );
+
+    height:
+        min(
+            62vw,
+            250px
         );
 
     aspect-ratio:
-        1;
+        1 / 1;
 
     margin:
         0 auto;
@@ -1724,7 +1766,10 @@ body.modo-guia .app-header {
         50%;
 
     background:
-        transparent;
+        transparent !important;
+
+    background-color:
+        transparent !important;
 
     color:
         var(--text);
@@ -1735,8 +1780,20 @@ body.modo-guia .app-header {
     display:
         block;
 
+    overflow:
+        hidden;
+
     cursor:
         pointer;
+
+    -webkit-appearance:
+        none;
+
+    appearance:
+        none;
+
+    box-shadow:
+        none;
 
 }
 
@@ -1764,6 +1821,9 @@ body.modo-guia .app-header {
     border-radius:
         50%;
 
+    pointer-events:
+        none;
+
 }
 
 
@@ -1781,11 +1841,23 @@ body.modo-guia .app-header {
 
 .timer-ring {
 
+    position:
+        absolute;
+
+    inset:
+        0;
+
     width:
         100%;
 
     height:
         100%;
+
+    display:
+        block;
+
+    pointer-events:
+        none;
 
     transform:
         rotate(-90deg);
@@ -1856,6 +1928,9 @@ body.modo-guia .app-header {
     inset:
         0;
 
+    z-index:
+        2;
+
     display:
         flex;
 
@@ -1864,6 +1939,9 @@ body.modo-guia .app-header {
 
     align-items:
         center;
+
+    pointer-events:
+        none;
 
 }
 
@@ -1927,7 +2005,7 @@ body.modo-guia .app-header {
 
 
 /* =========================================
-   ACCIÓN EN EL CÍRCULO
+   ACCIÓN CÍRCULO
 ========================================= */
 
 .timer-action {
@@ -2038,7 +2116,7 @@ body.modo-guia .app-header {
 
 
 /* =========================================
-   PANEL FIJO DEL PASO
+   PANEL PASO
 ========================================= */
 
 .current-step {
@@ -2441,16 +2519,13 @@ body.modo-guia .app-header {
     backdrop-filter:
         blur(18px);
 
+    -webkit-backdrop-filter:
+        blur(18px);
+
 }
 
 
 .nav-item {
-
-    border:
-        0;
-
-    background:
-        transparent;
 
     color:
         var(--dim);
@@ -2548,8 +2623,7 @@ body.modo-guia .app-header {
     }
 
 
-    body.modo-guia .app-header
-    .umbra-logo {
+    body.modo-guia .umbra-logo {
 
         gap:
             5px;
@@ -2599,8 +2673,14 @@ body.modo-guia .app-header {
 
         width:
             min(
-                56vw,
-                218px
+                53vw,
+                210px
+            );
+
+        height:
+            min(
+                53vw,
+                210px
             );
 
     }
@@ -2659,8 +2739,14 @@ body.modo-guia .app-header {
 
         width:
             min(
-                51vw,
-                190px
+                48vw,
+                185px
+            );
+
+        height:
+            min(
+                48vw,
+                185px
             );
 
     }
