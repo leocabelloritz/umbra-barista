@@ -116,7 +116,6 @@ const objetivoPasoValor =
 const objetivoPasoEtiqueta =
     document.getElementById("objetivo-paso-etiqueta");
 
-
 const timerCircleControl =
     document.getElementById("timer-circle-control");
 
@@ -214,11 +213,24 @@ function mostrarVista(vista) {
     );
 
 
+    const esVistaGuia =
+        vista === vistaGuia;
+
+
+    document.body.classList.toggle(
+        "modo-guia",
+        esVistaGuia
+    );
+
+
     window.scrollTo({
 
         top: 0,
 
-        behavior: "smooth"
+        behavior:
+            esVistaGuia
+                ? "auto"
+                : "smooth"
 
     });
 
@@ -299,6 +311,10 @@ function cargarMetodos() {
 
             boton.className =
                 "tarjeta-metodo";
+
+
+            boton.type =
+                "button";
 
 
             boton.innerHTML = `
@@ -412,9 +428,6 @@ function abrirMetodo(idMetodo) {
     cargarPreviewPasos();
 
 
-    desactivarModoGuia();
-
-
     mostrarVista(
         vistaDetalle
     );
@@ -496,6 +509,10 @@ function cargarRatios() {
                 document.createElement(
                     "button"
                 );
+
+
+            boton.type =
+                "button";
 
 
             boton.className =
@@ -731,7 +748,6 @@ function obtenerDatosPaso(
     paso,
     indice
 ) {
-
 
     if (
         paso.agua ===
@@ -1045,6 +1061,9 @@ function iniciarGuia() {
     }
 
 
+    detenerTemporizador();
+
+
     pasoActual =
         0;
 
@@ -1061,15 +1080,6 @@ function iniciarGuia() {
         `1:${ratioActual}`;
 
 
-    activarModoGuia();
-
-
-    solicitarWakeLock();
-
-
-    cargarPaso();
-
-
     mostrarVista(
         vistaGuia
     );
@@ -1078,6 +1088,12 @@ function iniciarGuia() {
     actualizarNav(
         "guia"
     );
+
+
+    cargarPaso();
+
+
+    solicitarWakeLock();
 
 }
 
@@ -1097,6 +1113,15 @@ function cargarPaso() {
 
     const paso =
         pasos[pasoActual];
+
+
+    if (!paso) {
+
+        finalizarPreparacion();
+
+        return;
+
+    }
 
 
     const numero =
@@ -1215,12 +1240,19 @@ function prepararPasoTemporizado(
     paso
 ) {
 
+    detenerTemporizador();
+
+
     segundosRestantes =
-        paso.tiempo;
+        Number(paso.tiempo) || 0;
 
 
     segundosInicialesPaso =
-        paso.tiempo;
+        segundosRestantes;
+
+
+    timerStatus.textContent =
+        "TIEMPO";
 
 
     actualizarDisplayTimer();
@@ -1242,12 +1274,19 @@ function prepararPasoTemporizado(
 
 function prepararPasoAccion() {
 
+    detenerTemporizador();
+
+
     segundosRestantes =
         0;
 
 
     segundosInicialesPaso =
         0;
+
+
+    timerStatus.textContent =
+        "ACCIÓN";
 
 
     resetearCirculoTimer();
@@ -1276,10 +1315,27 @@ function prepararPasoAccion() {
 
 function manejarControlCircular() {
 
+    if (
+        !metodoActual ||
+        !metodoActual.pasos
+    ) {
+
+        return;
+
+    }
+
+
     const paso =
         metodoActual.pasos[
             pasoActual
         ];
+
+
+    if (!paso) {
+
+        return;
+
+    }
 
 
     // PASO SIN TIMER
@@ -1336,7 +1392,8 @@ function manejarControlCircular() {
 function iniciarTimerPaso() {
 
     if (
-        segundosRestantes <= 0
+        segundosRestantes <= 0 ||
+        temporizadorCorriendo
     ) {
 
         return;
@@ -1355,6 +1412,11 @@ function iniciarTimerPaso() {
         "TOCA PARA PAUSAR";
 
 
+    actualizarDisplayTimer();
+
+    actualizarCirculoTimer();
+
+
     temporizador =
         setInterval(
 
@@ -1368,7 +1430,8 @@ function iniciarTimerPaso() {
                     segundosRestantes < 0
                 ) {
 
-                    segundosRestantes = 0;
+                    segundosRestantes =
+                        0;
 
                 }
 
@@ -1381,8 +1444,6 @@ function iniciarTimerPaso() {
                 if (
                     segundosRestantes <= 0
                 ) {
-
-                    detenerTemporizador();
 
                     finalizarPasoTimer();
 
@@ -1404,6 +1465,10 @@ function iniciarTimerPaso() {
 function pausarTemporizador() {
 
     detenerTemporizador();
+
+
+    timerStatus.textContent =
+        "PAUSADO";
 
 
     mostrarAccionCentral(
@@ -1445,6 +1510,9 @@ function detenerTemporizador() {
 // =====================================================
 
 function finalizarPasoTimer() {
+
+    detenerTemporizador();
+
 
     segundosRestantes =
         0;
@@ -1493,12 +1561,18 @@ function finalizarPasoTimer() {
 
 function mostrarTiempo() {
 
+    timerAction.style.display =
+        "none";
+
+
     timerDisplay.style.display =
         "flex";
 
 
-    timerAction.style.display =
-        "none";
+    timerCircleControl.setAttribute(
+        "aria-label",
+        "Pausar temporizador"
+    );
 
 }
 
@@ -1517,6 +1591,12 @@ function mostrarAccionCentral(
 
     timerActionLabel.textContent =
         texto;
+
+
+    timerCircleControl.setAttribute(
+        "aria-label",
+        texto
+    );
 
 }
 
@@ -1539,15 +1619,24 @@ function formatearTiempo(
     totalSegundos
 ) {
 
+    const total =
+        Math.max(
+            0,
+            Math.round(
+                Number(totalSegundos) || 0
+            )
+        );
+
+
     const minutos =
         Math.floor(
-            totalSegundos /
+            total /
             60
         );
 
 
     const segundos =
-        totalSegundos %
+        total %
         60;
 
 
@@ -1590,13 +1679,23 @@ function actualizarCirculoTimer() {
         );
 
 
+    const progresoSeguro =
+        Math.min(
+            Math.max(
+                progreso,
+                0
+            ),
+            1
+        );
+
+
     const offset =
 
         longitud -
 
         (
             longitud *
-            progreso
+            progresoSeguro
         );
 
 
@@ -1608,6 +1707,13 @@ function actualizarCirculoTimer() {
 
 function resetearCirculoTimer() {
 
+    if (!timerRingProgress) {
+
+        return;
+
+    }
+
+
     timerRingProgress.style.strokeDashoffset =
         578;
 
@@ -1615,6 +1721,13 @@ function resetearCirculoTimer() {
 
 
 function completarCirculoTimer() {
+
+    if (!timerRingProgress) {
+
+        return;
+
+    }
+
 
     timerRingProgress.style.strokeDashoffset =
         0;
@@ -1662,9 +1775,6 @@ function finalizarPreparacion() {
 
 
     liberarWakeLock();
-
-
-    desactivarModoGuia();
 
 
     resumenMetodo.textContent =
@@ -1775,7 +1885,9 @@ document
         () => {
 
 
-            desactivarModoGuia();
+            detenerTemporizador();
+
+            liberarWakeLock();
 
 
             mostrarVista(
@@ -1852,9 +1964,6 @@ document
             liberarWakeLock();
 
 
-            desactivarModoGuia();
-
-
             mostrarVista(
                 vistaDetalle
             );
@@ -1890,7 +1999,9 @@ document
         () => {
 
 
-            desactivarModoGuia();
+            detenerTemporizador();
+
+            liberarWakeLock();
 
 
             mostrarVista(
@@ -1922,8 +2033,6 @@ navMetodos.addEventListener(
 
         liberarWakeLock();
 
-        desactivarModoGuia();
-
 
         mostrarVista(
             vistaMetodos
@@ -1946,7 +2055,9 @@ navGuia.addEventListener(
     () => {
 
 
-        desactivarModoGuia();
+        detenerTemporizador();
+
+        liberarWakeLock();
 
 
         if (
@@ -1992,8 +2103,6 @@ navJournal.addEventListener(
         detenerTemporizador();
 
         liberarWakeLock();
-
-        desactivarModoGuia();
 
 
         mostrarVista(
@@ -2046,6 +2155,12 @@ document.addEventListener(
 // =====================================================
 
 cargarMetodos();
+
+
+mostrarVista(
+    vistaMetodos
+);
+
 
 actualizarNav(
     "metodos"
